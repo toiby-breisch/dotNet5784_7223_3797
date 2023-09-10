@@ -7,6 +7,7 @@ namespace project0
         static void Main(string[] args)
         {
             Console.WriteLine("hiii");
+            Console.WriteLine("helloo");
         }
     }
 }
