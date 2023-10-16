@@ -19,3 +19,10 @@ namespace project0
         }
     }
 }
+//Console.WriteLine("Enter your name: ");
+//Console.ReadLine();
+
+
+//Console.WriteLine("{0},welcome to my first consile application");
+//Console.ReadKey();
+//Console.WriteLine("Press any key to continue...");
