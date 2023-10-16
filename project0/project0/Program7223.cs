@@ -13,7 +13,7 @@ namespace project0
         static partial void Welcome3797();
         private static void Welcome7223()
         {
-            Console.WriteLine("Enter your name: ");
+            Console.WriteLine("Enter your last name: ");
             string name = Console.ReadLine();
             Console.WriteLine("{0},welcome to my first console aplication", name);
         }
