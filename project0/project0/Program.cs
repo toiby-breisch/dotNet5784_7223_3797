@@ -1,13 +1,18 @@
 ﻿using System;
 
-namespace project0
+namespace Project0
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("hiii");
-            Console.WriteLine("helloo");
+            Console.WriteLine("Enter your name: ");
+            Console.ReadLine();
+
+
+            Console.WriteLine("{0},welcome to my first consile application");
+            Console.ReadKey();
+            Console.WriteLine("Press any key to continue...");
         }
     }
 }
