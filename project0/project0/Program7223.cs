@@ -3,10 +3,11 @@ using System.Xml.Linq;
 
 namespace project0
 {
+
     partial class Program
     {
          static void Main(string[] args)
-            hjjh
+           
         {
             Welcome7223();
             Welcome3797();
