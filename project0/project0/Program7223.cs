@@ -20,7 +20,7 @@ namespace project0
             Console.WriteLine("Enter your  name: ");
             string name = Console.ReadLine();
             Console.WriteLine("{0},welcome to my first consile application", name);
-
+            //יים
         }
     }
 }
