@@ -1,5 +1,4 @@
-﻿
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// Dependency Entity represents an Dependency with all its props
 /// </summary>
