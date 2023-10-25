@@ -12,6 +12,7 @@ internal static class DataSource
         private static int nextTaskId = startTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
         private static int nextDependencyId = startTaskId;
+
         internal static int NextDependencyId { get => nextTaskId++; }
     }
 }
