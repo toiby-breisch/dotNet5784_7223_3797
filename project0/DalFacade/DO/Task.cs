@@ -1,9 +1,9 @@
-﻿
+﻿\;
 namespace DO;
 /// <summary>
 /// Task Entity represents an Task with all its props
 /// </summary>
-/// <param name="Id">ID number of the assignment</param>
+/// <. name="Id">ID number of the assignment</param>
 /// <param name="Description">Description of the assignment</param>
 /// <param name="Alias">Nickname of the assignment</param>
 /// <param name="Milestone">Milestone (Boolean) - of the assignment</param>
