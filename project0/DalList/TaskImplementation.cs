@@ -6,9 +6,11 @@ using System.Collections.Generic;
 public class TaskImplementation : ITask
 {
     public int Create(Task item)
-
     {
-        throw new NotImplementedException();
+        int Id = DataSource.Config;
+        Task task = item;
+        Task.Id = Id;
+        Tasks.Add(task);
     }
 
     public void Delete(int id)
@@ -18,16 +20,25 @@ public class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        throw new NotImplementedException();
+        Task result= DataSource.Tasks.Find(Task => Task.Id = id)
+            if (result)
+                return result;
+            return null;
     }
 
     public List<Task> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<T>(DataSource.Tasks);
     }
 
     public void Update(Task item)
     {
-        throw new NotImplementedException();
+
+        if (Read(item.Id) is not null)
+        {
+            DataSource.Tasks.Remove(Read(item.Id);
+            DataSource.Tasks.Add(item);
+        }
+        throw new Exception($"Task with ID={item.Id} does 
     }
 }

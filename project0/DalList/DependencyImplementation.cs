@@ -7,7 +7,11 @@ public class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
-        throw new NotImplementedException();
+        int Id = DataSource.Config;
+        Dependency dependency = item;
+        dependency.Id = Id; 
+        Dependencies.Add(dependency);
+
     }
 
     public void Delete(int id)
@@ -17,16 +21,25 @@ public class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+        Dependency result = DataSource.Dependencies.Find(Dependency => Dependency.Id = id)
+            if (result)
+            return result;
+        return null;
     }
 
     public List<Dependency> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<T>(DataSource.Desependenci);
+
     }
 
     public void Update(Dependency item)
     {
-        throw new NotImplementedException();
+        if (Read(item.Id) is not null)
+        {
+            DataSource.Dependencies.Remove(Read(item.Id);
+            DataSource.Dependencies.Add(item);
+        }
+        throw new Exception($"Dependency with ID={item.Id} does 
     }
 }

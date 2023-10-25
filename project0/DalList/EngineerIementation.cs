@@ -20,8 +20,9 @@ public class EngineerIementation : Iengineer
 
     public Engineer? Read(int id)
     {
-        if (DataSource.Engineers.Find(Engineer => Engineer.Id = id))
-            return Engineer;
+        Engineer result= DataSource.Engineers.Find(Engineer => Engineer.Id = id)
+        if (result)
+            return result;
         return null;
     }
 
@@ -38,7 +39,7 @@ public class EngineerIementation : Iengineer
             DataSource.Engineers.Remove(Read(item.Id);
              DataSource.Engineers.Add(item);
         }
-        throw new Exception($"Student with ID={item.Id} does not exists");
+        throw new Exception($"Engineer with ID={item.Id} does not exists");
 
     }
    
