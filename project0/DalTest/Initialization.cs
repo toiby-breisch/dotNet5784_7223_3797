@@ -47,7 +47,8 @@ public static class Initialization
         "Nahama Levi",
         "Hindi Nachumi",
         "Leaha Segal",
-        "Chaya "
+        "Chaya Toyal",
+        "Debbi Pety"
 
 
     };
@@ -57,20 +58,31 @@ public static class Initialization
             int _id;
             do
                _id = s_rand.Next(MIN_ID, MAX_ID);
-            while (s_dalAEmployee!.Read(_id) != null);
+            while (s_dalEngineer!.Read(_id) != null);
             _tEmail = _name;
             _tEmail.input.Trim().Replace(" ", "");
             _email = string(_tEmail + "@gmail.com");
              EngineerExperience _level = s_rand.Next(1, 3);
             int _cost = s_rand.Next(MIN_C, MAX_C);
             Engineer newEngineer=new(_id,_name,_level,_email,_cost);
-            s_crEmployee!.Create(newEngineer);
+            s_dalEmployee!.Create(newEngineer);
         }
     }
 
 
-   
-   //do(IEngineer,)
-   //             {
-
+    private static void createTask()
+    {   string[] Aliases =["a","b","c","d","e"]
+        string[] descriptions =["very easy","easy"," medium","hard","very hard"] 
+     for( int i =0;i<100;i++){
+            int indexA= s_rand.Next(0, 4);
+            int  indexD = s_rand.Next(0,4);
+            string _description = descriptions[indexD];
+            string _Alias = Aliases[indexA];
+            bool _Milestone = s_rand.Next(0,1);
+            DateTime _CreatedAt=
         }
+    }
+    //do(IEngineer,)
+    //             {
+
+}
