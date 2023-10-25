@@ -79,10 +79,18 @@ public static class Initialization
             string _description = descriptions[indexD];
             string _Alias = Aliases[indexA];
             bool _Milestone = s_rand.Next(0,1);
-            DateTime _CreatedAt=
-        }
+            DateTime _CreatedAt =
+                Datetime            {
+               private Random gen = new Random();
+                 DateTime start = new DateTime(1995, 1, 1)
+                 int range = (DateTime.Today - start).Days;
+                 return start.AddDays(gen.Next(range));
+            }
+            
     }
+}
+    
+}
     //do(IEngineer,)
     //             {
 
-}
