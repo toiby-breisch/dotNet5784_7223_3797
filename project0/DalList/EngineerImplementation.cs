@@ -1,7 +1,7 @@
-﻿//namespace Dal;
-//using DalApi;
-//using DO;
-ussss
+﻿namespace Dal;
+using DalApi;
+using DO;
+
 public class EngineerImplementation:IEngineer
 {
 }
