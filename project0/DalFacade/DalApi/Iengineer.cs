@@ -1,6 +1,6 @@
 ﻿namespace DalApi;
 using DO;
-public interface Iengineer
+public interface IEngineer
 { 
 int Create(Engineer item); //Creates new entity object in DAL
 Engineer? Read(int id); //Reads entity object by its ID 

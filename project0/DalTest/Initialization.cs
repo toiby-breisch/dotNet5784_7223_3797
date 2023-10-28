@@ -31,7 +31,7 @@ public static class Initialization
 
         string[] engineerNames =
         {
-             "Dani Levi",
+        "Dani Levi",
         "Eli Amar",
         "Yair Cohen",
         "Ariela Levin",
@@ -145,12 +145,14 @@ public static class Initialization
     
 
 }
-public Do(IEngineer? dalEngineer,ITask? dalTask, IDependency? dalDependency)
+ static public void  Do(IEngineer? dalEngineer,ITask? dalTask, IDependency? dalDependency)
 {
-    s_dalEngineer =dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+    s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
     s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
     s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+    createEmployee();
+    createTask();
+    reateDependency();
 }
-//do(IEngineer,)
-//             {
+
 
