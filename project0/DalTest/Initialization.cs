@@ -24,10 +24,10 @@ public static class Initialization
 
     private static void createEmployee()
     {
-        const MIN_ID = 200000000;
-        const MAX_ID = 400000000;
-        const MIN_C = 27;
-        const MAX_C = 300
+        const int MIN_ID = 200000000;
+        const int MAX_ID = 400000000;
+        const int MIN_C = 27;
+        const int MAX_C = 300;
 
         string[] engineerNames =
         {
@@ -70,7 +70,7 @@ public static class Initialization
         "Roizy Safrin",
         "Eti Deblinger",
         "Racheli Bekerman",
-        "Miri Kaner"
+        "Miri Kaner",
         "Suly Eler",
 
 
@@ -83,9 +83,9 @@ public static class Initialization
             do
                 _id = s_rand.Next(MIN_ID, MAX_ID);
             while (s_dalEngineer!.Read(_id) != null);
-            _tEmail = _name;
-            _tEmail.input.Trim().Replace(" ", "");
-            _email = string(_tEmail + "@gmail.com");
+            string _tEmail = _name;
+            string _tEmail.input.Trim().Replace(" ", "");
+            string _email = string(_tEmail + "@gmail.com");
             EngineerExperience _level = s_rand.Next(1, 3);
             int _cost = s_rand.Next(MIN_C, MAX_C);
             Engineer newEngineer = new(_id, _name, _level, _email, _cost);
@@ -102,7 +102,7 @@ public static class Initialization
 
     private static void createTask()
     {
-        string[] Aliases = ["a", "b", "c", "d", "e"]
+        string[] Aliases = { "a", "b", "c", "d", "e" };
            
          for (int i = 0; i < 100; i++)
          {
@@ -131,7 +131,7 @@ public static class Initialization
     }
     private static void createDependency()
     {
-        for(int i = 0; i < 100; 1++)
+        for(int i = 0; i < 100; i++)
         {
             int indexDT = s_rand.Next(0, 100);
             int indexDOT = s_rand.Next(0, 100);
