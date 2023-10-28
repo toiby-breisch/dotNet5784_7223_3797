@@ -16,7 +16,7 @@ public static class Initialization
         VERY_HARD
     }
 
-    private static IEngineer? s_Engineer; //stage 1
+    private static IEngineer? s_dalEmployee; //stage 1
     private static ITask? s_dalTask; //stage 1
     private static IDependency? s_dalDependency; //stage 1
 
@@ -91,7 +91,7 @@ public static class Initialization
         string[] Aliases = ["a", "b", "c", "d", "e"]
            
          for (int i = 0; i < 100; i++)
-        {
+         {
             int indexA = s_rand.Next(0, 4);
             int indexD = s_rand.Next(0, 4);
             string _description = String(TaskLevel)indexD;
@@ -102,9 +102,40 @@ public static class Initialization
             DateTime ForecasDate = _Start.AddDays((((TaskLevel)indexD + 1) * 365).Days);
             DateTime Deadline= ForecasDate.AddDays((365/2).Days);
             DateTime Complete= RandomDate(ForecasDate, Deadline);
-        }
-    }
+            int indexEI = s_rand.Next(0, 40);
+            int _Engineerid = Engineers[indexEI].Id;
+            EngineerExperience _level = s_rand.Next(1, 3);
+            int indexR = s_rand.Next(0, 4);
+            int indexDe = s_rand.Next(0, 4);
+            string _Remarks = Remarks[indexR];
+            string _Deliverables = Deliverables[indexDe];
+            Task newTask = new(_Description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline,
+            _Complete, _Deliverables, _Remarks, _Engineerid, _level);
+            s_dalTask!.Create(newTask);
 
+         }
+    }
+    private static void createDependency()
+    {
+        for(int i = 0; i < 100; 1++)
+        {
+            int indexDT = s_rand.Next(0, 100);
+            int indexDOT = s_rand.Next(0, 100);
+            int _DependentTask = Dependencies[indexDT];
+            int _DependsOnTask = Dependencies[indexDOT];
+            Engineer newDependent = new(_DependentTask,_DependsOnTask);
+            s_dalDependency!.Create(newDependent);
+        }
+       
+    }
+    
+
+}
+public Do(IEngineer? dalEngineer,ITask? dalTask, IDependency? dalDependency)
+{
+    s_dalEngineer =dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+    s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+    s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
 }
 //do(IEngineer,)
 //             {
