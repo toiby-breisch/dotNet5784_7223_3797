@@ -1,5 +1,4 @@
-﻿\;
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// Task Entity represents an Task with all its props
 /// </summary>
@@ -17,18 +16,18 @@ namespace DO;
 /// <param name="Engineerid">The engineer ID assigned to the task</param>
 /// <param name="CopmlexityLevel">Difficulty level of the assignment</param>
 public record Task
-{
-    int Id;
-    string Description;
-    String Alias;
-    bool Milestone;
-    DateTime CreatedAt;
-    DateTime Start;
-    DateTime ForecasDate;
-    DateTime Deadline;
-    DateTime Complete;
-    string Deliverables;
-    string Remarks;
-    int Engineerid;
-    EngineerExperience CopmlexityLevel;
-}
+(
+    int Id,
+    string Description,
+    string Alias,
+    bool Milestone,
+    DateTime CreatedAt,
+    DateTime Start,
+    DateTime ForecasDate,
+    DateTime Deadline,
+    DateTime Complete,
+    string Deliverables,
+    string Remarks,
+    int Engineerid,
+    EngineerExperience CopmlexityLevel
+);

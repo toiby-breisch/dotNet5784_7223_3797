@@ -7,10 +7,10 @@ public class TaskImplementation : ITask
 {
     public int Create(Task item)
     {
-        int Id = DataSource.Config;
-        Task task = item;
-        Task.Id = Id;
-        Tasks.Add(task);
+        int newId = DataSource.Config.NextTaskId;
+        Task copy = item with { Id = newId }; 
+        DataSource.Tasks.Add(copy);
+        return newId;
     }
 
     public void Delete(int id)
@@ -20,25 +20,26 @@ public class TaskImplementation : ITask
 
     public Task? Read(int id)
     {
-        Task result= DataSource.Tasks.Find(Task => Task.Id = id)
-            if (result)
-                return result;
-            return null;
+        Task ?result = DataSource.Tasks.Find(task => task.Id == id);
+         if (result is not null)
+           return result;
+        return null;
     }
 
     public List<Task> ReadAll()
     {
-        return new List<T>(DataSource.Tasks);
+        return new List<Task>(DataSource.Tasks);
     }
 
     public void Update(Task item)
     {
-
-        if (Read(item.Id) is not null)
+        Task? taskToUpdate=Read(item.Id);    
+        if (taskToUpdate is not null)
         {
-            DataSource.Tasks.Remove(Read(item.Id);
+            DataSource.Tasks.Remove(taskToUpdate);
             DataSource.Tasks.Add(item);
         }
-        throw new Exception($"Task with ID={item.Id} does 
+        else 
+            throw new Exception($"Task with ID={item.Id} does ");
     }
 }

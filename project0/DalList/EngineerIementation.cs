@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class EngineerIementation : Iengineer
+public class EngineerIementation : IEngineer
 {
     public int Create(Engineer item)//add a new engineer
     {
@@ -20,8 +20,8 @@ public class EngineerIementation : Iengineer
 
     public Engineer? Read(int id)
     {
-        Engineer result= DataSource.Engineers.Find(Engineer => Engineer.Id = id)
-        if (result)
+        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        if (result is not null)
             return result;
         return null;
     }
@@ -33,14 +33,15 @@ public class EngineerIementation : Iengineer
 
     public void Update(Engineer item)
     {
-
-        if (Read(item.Id) is not null)
+        Engineer? engineerToUpdate = Read(item.Id);
+        if (engineerToUpdate is not null)
         {
-            DataSource.Engineers.Remove(Read(item.Id);
-             DataSource.Engineers.Add(item);
+            DataSource.Engineers.Remove(engineerToUpdate);
+            Engineer copy = new(item.Id, item.Name, item.Email, item.Level, item.Cost);
+            DataSource.Engineers.Add(copy);
         }
-        throw new Exception($"Engineer with ID={item.Id} does not exists");
-
+        else throw new Exception($"Engineer with ID={item.Id} does not exists");
+    }
     }
    
 

@@ -7,11 +7,10 @@ public class DependencyImplementation : IDependency
 {
     public int Create(Dependency item)
     {
-        int Id = DataSource.Config;
-        Dependency dependency = item;
-        dependency.Id = Id; 
-        Dependencies.Add(dependency);
-
+        int newId = DataSource.Config.NextDependencyId;
+        Dependency copy = item with { Id = newId };
+        DataSource.Dependencies.Add(copy);
+        return newId;
     }
 
     public void Delete(int id)
@@ -21,25 +20,27 @@ public class DependencyImplementation : IDependency
 
     public Dependency? Read(int id)
     {
-        Dependency result = DataSource.Dependencies.Find(Dependency => Dependency.Id = id)
-            if (result)
+        Dependency?result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+            if (result is not null)
             return result;
         return null;
     }
 
     public List<Dependency> ReadAll()
     {
-        return new List<T>(DataSource.Desependenci);
+        return new List<Dependency>(DataSource.Dependencies);
 
     }
 
     public void Update(Dependency item)
     {
-        if (Read(item.Id) is not null)
+        Dependency? dependencyToUpdate = Read(item.Id);
+        if (dependencyToUpdate is not null)
         {
-            DataSource.Dependencies.Remove(Read(item.Id);
-            DataSource.Dependencies.Add(item);
+            DataSource.Dependencies.Remove(dependencyToUpdate);
+            Dependency dependency = new(item.Id, item.DependentTask, item.DependsOnTask);
+            DataSource.Dependencies.Add(dependency);
         }
-        throw new Exception($"Dependency with ID={item.Id} does 
+        else throw new Exception($"Dependency with ID={item.Id} does") ;
     }
 }

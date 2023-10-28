@@ -3,4 +3,5 @@ enum EngineerExperience
 {
     Expert,
     Junior,
+    Tyro
 }

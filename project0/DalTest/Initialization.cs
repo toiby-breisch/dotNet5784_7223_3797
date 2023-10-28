@@ -1,4 +1,4 @@
-﻿namespace DalTest {
+﻿namespace DalTest;
     using DalApi;
     using DO;
     using System;
@@ -16,7 +16,7 @@
             VERY_HARD
         }
 
-        private static IEngineer? s_dalEmployee; //stage 1
+        private static IEngineer? s_dalEngineer; //stage 1
         private static ITask? s_dalTask; //stage 1
         private static IDependency? s_dalDependency; //stage 1
 
@@ -71,7 +71,7 @@
         "Eti Deblinger",
         "Racheli Bekerman",
         "Miri Kaner",
-        "Suly Eler",
+        "Suly Eler"
 
 
 
@@ -84,12 +84,12 @@
                     _id = s_rand.Next(MIN_ID, MAX_ID);
                 while (s_dalEngineer!.Read(_id) != null);
                 string _tEmail = _name;
-                string _tEmail.input.Trim().Replace(" ", "");
-                string _email = string(_tEmail + "@gmail.com");
-                EngineerExperience _level = s_rand.Next(1, 3);
+                _tEmail.input.Tr.Replace(" ", "");
+                string _email = _tEmail + "@gmail.com";
+                EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
                 int _cost = s_rand.Next(MIN_C, MAX_C);
-                Engineer newEngineer = new(_id, _name, _level, _email, _cost);
-                s_dalEmployee!.Create(newEngineer);
+                Engineer newEngineer = new(_id,_name,_email,_level,_cost);
+                s_dalEngineer!.Create(newEngineer);
             }
         }
 
@@ -103,22 +103,24 @@
         private static void createTask()
         {
             string[] Aliases = { "a", "b", "c", "d", "e" };
+            string[] Remarks = { "a", "b", "c", "d", "e" };
+        string[] Deliverables = { "r", "a", "c", "e", "l" };
 
-            for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
             {
                 int indexA = s_rand.Next(0, 4);
                 int indexD = s_rand.Next(0, 4);
-                string _description = String(TaskLevel)indexD;
+                string _description = ((TaskLevel)indexD).ToString();
                 string _Alias = Aliases[indexA];
-                bool _Milestone = s_rand.Next(0, 1);
+                bool _Milestone = s_rand.Next(0, 1)==0 ? true:false;
                 DateTime _CreatedAt = RandomDate(new DateTime(2020, 1, 1), DateTime.Today);
                 DateTime _Start = RandomDate(_CreatedAt, DateTime.Today);
                 DateTime ForecasDate = _Start.AddDays((((TaskLevel)indexD + 1) * 365).Days);
                 DateTime Deadline = ForecasDate.AddDays((365 / 2).Days);
                 DateTime Complete = RandomDate(ForecasDate, Deadline);
                 int indexEI = s_rand.Next(0, 40);
-                int _Engineerid = Engineers[indexEI].Id;
-                EngineerExperience _level = s_rand.Next(1, 3);
+               // int _EngineerId = DataList.DataSource.Engineers[indexEI].Id;
+                EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
                 int indexR = s_rand.Next(0, 4);
                 int indexDe = s_rand.Next(0, 4);
                 string _Remarks = Remarks[indexR];
@@ -135,24 +137,24 @@
             {
                 int indexDT = s_rand.Next(0, 100);
                 int indexDOT = s_rand.Next(0, 100);
-                int _DependentTask = Dependencies[indexDT];
-                int _DependsOnTask = Dependencies[indexDOT];
-                Engineer newDependent = new(_DependentTask, _DependsOnTask);
-                s_dalDependency!.Create(newDependent);
+                //int _DependentTask = Dependencies[indexDT];
+                //int _DependsOnTask = Dependencies[indexDOT];
+                //Engineer newDependent = new(_DependentTask, _DependsOnTask);
+                //s_dalDependency!.Create(newDependent);
             }
 
         }
 
-
-    }
-    static public void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency)
+    public static void Do(IEngineer? dalEngineer, ITask? dalTask, IDependency? dalDependency)
     {
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        createEmployee();
-        createTask();
-        createDependency();
+        //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        //createEmployee();
+        //createTask();
+        //createDependency();
     }
+
 
 }
+
