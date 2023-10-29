@@ -3,9 +3,12 @@ using Dal;
 namespace DalTest;
 using DalApi;
 using System;
+using System.Reflection.Emit;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
+
 internal class program
 {
     private static ITask? s_dalTask = new TaskImplementation();
@@ -140,7 +143,7 @@ internal class program
                 readEngineer();
                 break;
             case 3:
-                readAEngineer();
+                readAllEngineer();
                 break;
             case 4:
                 updateEngineer();
@@ -152,90 +155,187 @@ internal class program
         }
         
     }
-    static public void updateTask()
+    static public void updateEngineer()
     {
         try
-        {
-            int id;
-            int.TryParse(Console.ReadLine(), out id);
-            Console.WriteLine(s_dalTask!.Read(id));
-            DateTime CreatedAt;
-            Console.WriteLine("enter Description,Alias,Deadline,Deliverables,Remarks,Engineerid,CopmlexityLevel");
-            string? Description = Console.ReadLine();
-            string? Alias = Console.ReadLine();
-            CreatedAt = DateTime.Now;
-            DateTime Deadline;
-            DateTime.TryParse(Console.ReadLine()!, out Deadline);
-            string? Deliverables = Console.ReadLine();
-            string? Remarks = Console.ReadLine();
-            int Engineerid;
-            int.TryParse(Console.ReadLine(), out Engineerid);
-            EngineerExperience CopmlexityLevel;
-            EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
-            DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
-            s_dalTask!.Update(newTask);
-        }
-        catch (Exception EX)
-        {
-            Console.WriteLine(EX.ToString());
-        }
 
+        {
+            int _id;
+            int.TryParse(Console.ReadLine(), out _id);
+            Console.WriteLine(s_dalEngineer!.Read(_id));
+            Console.WriteLine("enter ,Name,Email,Level,Cost");
+          
+            string? _Name = Console.ReadLine()!;
+            string? _Email = Console.ReadLine()!;
+            EngineerExperience _CopmlexityLevel;
+            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
+            double _Cost;
+            double.TryParse(Console.ReadLine()!, out _Cost);
+            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
+            s_dalEngineer!.Update(newEngineer);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+        }
+  
     }
 
 
     static public void creatEngineer()
     {
-        DateTime CreatedAt;
-        Console.WriteLine("enter Description,Alias,Deadline,Deliverables,Remarks,Engineerid,CopmlexityLevel");
-        string? Description = Console.ReadLine();
-        string? Alias = Console.ReadLine();
-        CreatedAt = DateTime.Now;
-        DateTime Deadline;
-        DateTime.TryParse(Console.ReadLine()!, out Deadline);
-        string? Deliverables = Console.ReadLine();
-        string? Remarks = Console.ReadLine();
-        int Engineerid;
-        int.TryParse(Console.ReadLine(), out Engineerid);
-        EngineerExperience CopmlexityLevel;
-        EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
-        DO.Task newTask = new(0, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
-        s_dalTask!.Create(newTask);
-        Console.WriteLine(newTask.Id);
+        try
+
+        {
+            Console.WriteLine("enter Id,Name,Email,Level,Cost");
+            int _id;
+            int.TryParse(Console.ReadLine()!, out _id);
+            string? _Name = Console.ReadLine()!;
+            string? _Email = Console.ReadLine()!;
+            EngineerExperience _CopmlexityLevel;
+            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
+            double _Cost ;
+            double.TryParse(Console.ReadLine()!, out _Cost);
+            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
+            s_dalEngineer!.Create(newEngineer);
+
+        }
+        catch (Exception e)
+        {
+             Console.WriteLine(e.ToString());
+        }
+        
+       
     }
 
     static public void readEngineer()
     {
         int _id;
-        Console.WriteLine("Enter task's ID");
+        Console.WriteLine("Enter engineer's ID");
         int.TryParse(Console.ReadLine()!, out _id);
-        Console.WriteLine(s_dalTask!.Read(_id));
+        Console.WriteLine(s_dalEngineer!.Read(_id));
     }
     static public void readAllEngineer()
     {
-        s_dalTask!.ReadAll().ForEach(
-         task => Console.WriteLine(task)
+        s_dalEngineer!.ReadAll().ForEach(
+         engineer => Console.WriteLine(engineer)
      );
 
     }
 
     static public void deleteEngineer()
     {
+   
         try
         {
             int _id;
             Console.WriteLine("Enter engineer's ID to delete");
             int.TryParse(Console.ReadLine()!, out _id);
-            s_dalTask!.Delete(_id);
+            s_dalEngineer!.Delete(_id);
         }
         catch (Exception EX)
         {
             Console.WriteLine(EX.ToString());
         }
     }
+
     static public void dependency_Menu()
     {
+        Console.WriteLine("exit,creat,read,read all,Update,delete");
+        Console.WriteLine("Enter your choise");
+        var secondNumChoise = Console.ReadLine();
+        switch (int.Parse(secondNumChoise!))
+        {
+            case 0:
+                Main_Menu(0);
+                break;
+            case 1:
+                creatDependency();
+                break;
+            case 2:
+                readDependency();
+                break;
+            case 3:
+                readAllDependency();
+                break;
+            case 4:
+                updateDependency();
+                break;
+            case 5:
+                deleteDependency();
+                break;
+
+        }
 
     }
+    static public void updateDependency()
+    {
+        try
+        {
+            int id;
+            int.TryParse(Console.ReadLine(), out id);
+            Console.WriteLine(s_dalDependency!.Read(id));
+            Console.WriteLine("enter DependentTask,DependsOnTask");
+            int DependentTask;
+            int.TryParse(Console.ReadLine(), out DependentTask);
+            int DependsOnTask;
+            int.TryParse(Console.ReadLine(), out DependsOnTask);
+            Dependency newDependency = new(0, DependentTask, DependsOnTask);
+            s_dalDependency!.Update(newDependency);
+
+        }
+        catch (Exception EX)
+        {
+            Console.WriteLine(EX.ToString());
+        }
+
+    }
+
+
+    static public void creatDependency()
+    {
+        Console.WriteLine("enter DependentTask,DependsOnTask");
+        int DependentTask;
+        int.TryParse(Console.ReadLine(), out DependentTask);
+        int DependsOnTask;
+        int.TryParse(Console.ReadLine(), out DependsOnTask);
+        DO.Dependency newDependency = new(0, DependentTask, DependsOnTask);
+        s_dalDependency!.Create(newDependency);
+        Console.WriteLine(newDependency.Id);
+    }
+
+    static public void readDependency()
+    {
+        int _id;
+        Console.WriteLine("Enter dalDependency's ID");
+        int.TryParse(Console.ReadLine()!, out _id);
+        Console.WriteLine(s_dalDependency!.Read(_id));
+    }
+    static public void readAllDependency()
+    {
+        s_dalDependency!.ReadAll().ForEach(
+         dalDependency => Console.WriteLine(dalDependency)
+     );
+
+    }
+
+    static public void deleteDependency()
+    {
+        try
+        {
+            int _id;
+            Console.WriteLine("Enter s_dalDependency's ID to delete");
+            int.TryParse(Console.ReadLine()!, out _id);
+            s_dalDependency!.Delete(_id);
+        }
+        catch (Exception EX)
+        {
+            Console.WriteLine(EX.ToString());
+        }
+    }
+
+
     static public void Main_Menu(int num)
     {
 
@@ -282,48 +382,6 @@ internal class program
 
 
 
-//    internal class Program
-//    {
-//        private static IEngineer? s_dalEngineer = new EngineerImplementation();
-//        private static ITask? s_dalTask = new TaskImplementation();
-//        private static IDependency? s_dalDependency = new DependencyImplementation();
-//        private static void createEngineer()
-//        {
-//            try
-//            {
-//                int _id;
-//                DO.EngineerExperiece _level;
-//                string _name, _email;
-//                double _cost;
-//                Console.WriteLine("Enter id, name, email, level, cost");
-//                int.TryParse(Console.ReadLine()!, out _id);
-//                _name = Console.ReadLine()!;
-//                _email = Console.ReadLine()!;
-//                DO.EngineerExperiece.TryParse(Console.ReadLine()!, out _level);
-//                double.TryParse(Console.ReadLine()!, out _cost);
-//                Engineer newEngineer = new(_id, _name, _email, _level, _cost);
-//                s_dalEngineer!.Create(newEngineer);
-//            }
-//            catch (Exception e)
-//            {
-//                Console.WriteLine(e.ToString());
-//            }
-//        }
-//        private static void readEngineer()
-//        {
-//            int _id;
-//            Console.WriteLine("Enter engineer's ID");
-//            int.TryParse(Console.ReadLine()!, out _id);
-//            Console.WriteLine(s_dalEngineer!.Read(_id));
-//        }
-
-//        private static void readAllEngineers()
-//        {
-//            s_dalEngineer!.ReadAll().ForEach(ele =>
-//            {
-//                Console.WriteLine(ele);
-//            });
-//        }
 
 //        private static void updateEngineer()
 //        {
@@ -350,20 +408,7 @@ internal class program
 //            }
 //        }
 
-//        private static void deleteEngineer()
-//        {
-//            try
-//            {
-//                Console.WriteLine("Enter engineer's ID");
-//                int _id;
-//                int.TryParse(Console.ReadLine()!, out _id);
-//                s_dalEngineer!.Delete(_id);
-//            }
-//            catch (Exception e)
-//            {
-//                Console.WriteLine(e.ToString());
-//            }
-//        }
+
 //        private static void crudEngineer()
 //        {
 //            string choice;

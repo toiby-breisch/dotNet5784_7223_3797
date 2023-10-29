@@ -11,7 +11,7 @@ namespace project0
     {
         static partial void Welcome3797()
         {
-            Console.WriteLine("I am also here!")
+            Console.WriteLine("I am also here!");
         }
     }
 }
