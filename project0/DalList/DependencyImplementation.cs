@@ -12,10 +12,19 @@ public class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(copy);
         return newId;
     }
-
+    //public bool isDepend(int dependentTask, int dependsOnTask)
+    //{
+    //    //Dependency? result = DataSource.Engineers.Find(dependency => dependency./* == dependentTask&& dependency.DependsOnTask == dependsOnTask*/);
+    //    //if (result is not null)
+    //    //    return result;
+    //    //return null;
+    //}
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        if (result is not null)
+            DataSource.Dependencies.Remove(result);
+        throw new Exception($"Dependency with ID={id} is not exists");
     }
 
     public Dependency? Read(int id)

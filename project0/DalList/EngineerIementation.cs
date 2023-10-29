@@ -8,14 +8,17 @@ public class EngineerIementation : IEngineer
     public int Create(Engineer item)//add a new engineer
     {
         if (Read(item.Id) is not null)
-            throw new Exception($"Student with ID={item.Id} already exists");
+            throw new Exception($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        if (result is not null)
+            DataSource.Engineers.Remove(result);
+        throw new Exception($"Engineer with ID={id} is not exists");
     }
 
     public Engineer? Read(int id)
