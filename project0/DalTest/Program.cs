@@ -67,7 +67,7 @@ internal class program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX/*.ToString()*/);
         }
 
     }
@@ -119,7 +119,7 @@ internal class program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX/*.ToString()*/);
         }
     }
 
@@ -177,7 +177,7 @@ internal class program
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Console.WriteLine(e/*.ToString()*/);
         }
   
     }
@@ -203,7 +203,7 @@ internal class program
         }
         catch (Exception e)
         {
-             Console.WriteLine(e.ToString());
+             Console.WriteLine(e/*.ToString()*/);
         }
         
        
@@ -236,7 +236,7 @@ internal class program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX/*.ToString()*/);
         }
     }
 
