@@ -88,7 +88,7 @@ public static class Initialization
             while (s_dalEngineer!.Read(_id) != null);
             string _tEmail = _name.Replace(" ", "");
             string _email = _tEmail + "@gmail.com";
-            int _level = _id % 3;
+            int _level = _id % 5;
             int _cost = s_rand.Next(MIN_C, MAX_C);
             
             Engineer newEngineer = new(_id, _name, _email,(DO.EngineerExperience)_level, _cost);
@@ -128,7 +128,7 @@ public static class Initialization
             int indexId= s_rand.Next(0, 40);
             int _Engineerid = engineers[indexId].Id;
             int indexEI = s_rand.Next(0, 40);
-            int _level = indexA % 3;
+            int _level = indexA % 5;
             int indexR = s_rand.Next(0, 4);
             int indexDe = s_rand.Next(0, 4);
             string _Remarks = Remarks[indexR];

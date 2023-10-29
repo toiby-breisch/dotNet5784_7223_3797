@@ -1,4 +1,7 @@
 ﻿
+using System.Reflection.Emit;
+using System.Xml.Linq;
+
 namespace DO;
 /// <summary>
 /// Engineer Entity represents a engineer with all its prop
@@ -13,6 +16,13 @@ public record Engineer
        int Id,
        string Name,
        string? Email = null,
-       EngineerExperience Level = EngineerExperience.Junior,
+       EngineerExperience Level = EngineerExperience.Beginner,
        double? Cost = 0
-);
+)
+{
+    public override string ToString()
+    {
+        return "Engineer: " + Name + "Email " + Email + "Level:" + Level + "Cost:" + Cost;
+    }
+}
+ 

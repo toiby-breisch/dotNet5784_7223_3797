@@ -1,4 +1,7 @@
-﻿namespace DO;
+﻿using System.Reflection.Emit;
+using System.Xml.Linq;
+
+namespace DO;
 /// <summary>
 /// Dependency Entity represents an Dependency with all its props
 /// </summary>
@@ -10,4 +13,10 @@ public record Dependency
     int Id,
     int DependentTask,
     int DependsOnTask
-);
+)
+{
+    public override string ToString()
+    {
+        return "Dependency: " + Id + "DependentTask " + DependentTask + "DependsOnTask:" + DependsOnTask ;
+    }
+}
