@@ -1,7 +1,7 @@
 ﻿namespace DalTest;
 
-using Dal;
-using DalApi;
+    using Dal;
+    using DalApi;
     using DO;
     using System;
     using System.Threading;
@@ -84,13 +84,14 @@ public static class Initialization
         {
             int _id;
             do
-                _id = s_rand.Next(MIN_ID, MAX_ID);
+             _id = s_rand.Next(MIN_ID, MAX_ID);
             while (s_dalEngineer!.Read(_id) != null);
             string _tEmail = _name.Replace(" ", "");
             string _email = _tEmail + "@gmail.com";
-            EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
+            int _level = _id % 5;
+           //EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
             int _cost = s_rand.Next(MIN_C, MAX_C);
-            Engineer newEngineer = new(_id, _name, _email, _level, _cost);
+            Engineer newEngineer = new(_id, _name, _email, (EngineerExperiece)_level, _cost);
             s_dalEngineer!.Create(newEngineer);
         }
     }
@@ -107,7 +108,7 @@ public static class Initialization
     private static void createTask()
 
     {
-        List<Engineer> //**+engineers = s_dalEngineer.ReadAll();
+        List<Engineer> engineers = s_dalEngineer.ReadAll();
         string[] Aliases = { "a", "b", "c", "d", "e" };
         string[] Remarks = { "a", "b", "c", "d", "e" };
         string[] Deliverables = { "r", "a", "c", "e", "l" };
@@ -121,24 +122,24 @@ public static class Initialization
             bool _Milestone = s_rand.Next(0, 1) == 0 ? true : false;
             DateTime _CreatedAt = RandomDate(new DateTime(2020, 1, 1), DateTime.Today);
             DateTime _Start = RandomDate(_CreatedAt, DateTime.Today);
-            DateTime ForecasDate = _Start.AddDays(((indexD + 1) * 365));
-            DateTime Deadline = ForecasDate.AddDays((365 / 2));
-            DateTime Complete = RandomDate(ForecasDate, Deadline);
+            DateTime _ForecasDate = _Start.AddDays(((indexD + 1) * 365));
+            DateTime _Deadline = _ForecasDate.AddDays((365 / 2));
+            DateTime _Complete = RandomDate(_ForecasDate, _Deadline);
+            int indexId= s_rand.Next(0, 40);
+            int _Engineerid = engineers[indexId].Id;
             int indexEI = s_rand.Next(0, 40);
-            //int _EngineerId = /*DataList.*/DataSource.ElementAt(indexEI).Id;
-
-            
-
-
-
             EngineerExperience _level = (EngineerExperience)s_rand.Next(0, 2);
             int indexR = s_rand.Next(0, 4);
             int indexDe = s_rand.Next(0, 4);
             string _Remarks = Remarks[indexR];
             string _Deliverables = Deliverables[indexDe];
-            Task newTask = new(_Description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline,
-           _Complete, _Deliverables, _Remarks, _Engineerid, _level);
+            Task newTask = new(_description, _Alias, _Milestone,_CreatedAt,_Start,_ForecasDate,_Deadline,_Complete,_Deliverables,_Remarks,_Engineerid,_level);
             s_dalTask!.Create(newTask);
+
+
+
+
+
 
         }
     }     
