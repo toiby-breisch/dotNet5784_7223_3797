@@ -151,7 +151,9 @@ internal class program
             case 5:
                 deleteEngineer();
                 break;
-
+            default:
+                Console.WriteLine("enter another valua");
+                break;
         }
         
     }
@@ -265,6 +267,9 @@ internal class program
             case 5:
                 deleteDependency();
                 break;
+            default:
+                Console.WriteLine("enter another valua");
+                break;
 
         }
 
@@ -273,15 +278,17 @@ internal class program
     {
         try
         {
+            Console.WriteLine("Enter ID");
             int id;
             int.TryParse(Console.ReadLine(), out id);
+
             Console.WriteLine(s_dalDependency!.Read(id));
             Console.WriteLine("enter DependentTask,DependsOnTask");
             int DependentTask;
-            int.TryParse(Console.ReadLine(), out DependentTask);
+            int.TryParse(Console.ReadLine()!, out DependentTask);
             int DependsOnTask;
-            int.TryParse(Console.ReadLine(), out DependsOnTask);
-            Dependency newDependency = new(0, DependentTask, DependsOnTask);
+            int.TryParse(Console.ReadLine()!, out DependsOnTask);
+            Dependency newDependency = new(id, DependentTask, DependsOnTask);
             s_dalDependency!.Update(newDependency);
 
         }
@@ -292,7 +299,7 @@ internal class program
 
     }
 
-
+  
     static public void creatDependency()
     {
         Console.WriteLine("enter DependentTask,DependsOnTask");
@@ -357,10 +364,12 @@ internal class program
                 case 3:
                     task_Menu();
                     break;
+                default:
+                    Console.WriteLine("enter another valua");
+                    break;
 
             }
              Console.WriteLine("Enter your choise");
-            var numChoise = Console.ReadLine();
             int.TryParse(Console.ReadLine()!, out num);
         
         }while (true);
