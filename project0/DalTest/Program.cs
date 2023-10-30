@@ -3,11 +3,7 @@ using Dal;
 namespace DalTest;
 using DalApi;
 using System;
-using System.Reflection.Emit;
-using System.Reflection.PortableExecutable;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml.Linq;
+
 
 internal class Program
 {
@@ -59,11 +55,17 @@ internal class Program
             string? Deliverables = Console.ReadLine();
             string? Remarks = Console.ReadLine();
             int Engineerid;
-            int.TryParse(Console.ReadLine(), out Engineerid);
+            do
+            {
+                Console.WriteLine("enter Engineerid");
+                int.TryParse(Console.ReadLine(), out Engineerid);
+            }
+            while (s_dalEngineer!.Read(Engineerid)==null);
             EngineerExperience CopmlexityLevel;
             EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
             DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
             s_dalTask!.Update(newTask);
+            Console.WriteLine(newTask.Id);
         }
         catch (Exception EX)
         {
