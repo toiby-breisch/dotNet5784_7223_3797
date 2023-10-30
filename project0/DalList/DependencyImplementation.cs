@@ -24,7 +24,7 @@ public class DependencyImplementation : IDependency
         Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
         if (result is not null)
             DataSource.Dependencies.Remove(result);
-        throw new Exception($"Dependency with ID={id} is not exists");
+       else throw new Exception($"Dependency with ID={id} is not exists");
     }
 
     public Dependency? Read(int id)

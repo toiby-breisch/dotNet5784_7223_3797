@@ -18,7 +18,7 @@ public class EngineerIementation : IEngineer
         Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
         if (result is not null)
             DataSource.Engineers.Remove(result);
-        throw new Exception($"Engineer with ID={id} is not exists");
+       else throw new Exception($"Engineer with ID={id} is not exists");
     }
 
     public Engineer? Read(int id)
