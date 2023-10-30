@@ -186,7 +186,6 @@ internal class program
     static public void creatEngineer()
     {
         try
-
         {
             Console.WriteLine("enter Id,Name,Email,Level,Cost");
             int _id;
@@ -199,6 +198,7 @@ internal class program
             double.TryParse(Console.ReadLine()!, out _Cost);
             DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
             s_dalEngineer!.Create(newEngineer);
+            Console.WriteLine(newEngineer.Id);
 
         }
         catch (Exception e)
