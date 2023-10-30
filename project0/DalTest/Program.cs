@@ -338,25 +338,32 @@ internal class program
 
     static public void Main_Menu(int num)
     {
-
-        switch (num)
+        do
         {
-            case 0:
-                return;
 
-            case 1:
+            switch (num)
+            {
+                case 0:
+                    return;
 
-                engineer_Menu();
-                break;
-            case 2:
+                case 1:
 
-                dependency_Menu();
-                break;
-            case 3:
-                task_Menu();
-                break;
+                    engineer_Menu();
+                    break;
+                case 2:
 
-        }
+                    dependency_Menu();
+                    break;
+                case 3:
+                    task_Menu();
+                    break;
+
+            }
+             Console.WriteLine("Enter your choise");
+            var numChoise = Console.ReadLine();
+            int.TryParse(Console.ReadLine()!, out num);
+        
+        }while (true);
     }
     
     static void Main()
