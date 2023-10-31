@@ -17,7 +17,14 @@ public class TaskImplementation : ITask
     {
         Task? result = DataSource.Tasks.Find(task => task.Id == id);
         if (result is not null)
+        {
             DataSource.Tasks.Remove(result);
+            result = result with { Complete = new DateTime(00,0,0) };
+           DataSource.Tasks.Add(result);
+
+        }
+
+          
         else throw new Exception($"Task with ID={id} is not exists");
     }
 

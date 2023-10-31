@@ -12,13 +12,13 @@ public class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(copy);
         return newId;
     }
-    //public bool isDepend(int dependentTask, int dependsOnTask)
-    //{
-    //    //Dependency? result = DataSource.Engineers.Find(dependency => dependency./* == dependentTask&& dependency.DependsOnTask == dependsOnTask*/);
-    //    //if (result is not null)
-    //    //    return result;
-    //    //return null;
-    //}
+    public bool isDepend(int dependentTask, int dependsOnTask)
+    {
+        Dependency? result = DataSource.Dependencies.Find(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
+        if (result is not null)
+            return true ;
+        return false;
+    }
     public void Delete(int id)
     {
         Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
