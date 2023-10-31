@@ -19,10 +19,4 @@ public record Engineer
        EngineerExperience Level = EngineerExperience.Beginner,
        double? Cost = 0
 );
-//{
-//    public override string ToString()
-//    {
-//        return "Engineer: " + Name + "Email " + Email + "Level:" + Level + "Cost:" + Cost;
-//    }
-//}
- 
+
