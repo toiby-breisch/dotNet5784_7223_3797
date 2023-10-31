@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class DependencyImplementation : IDependency
 {
+    /// <summary>
+    /// crate a new dependency
+    /// </summary>
     public int Create(Dependency item)
     {
         int newId = DataSource.Config.NextDependencyId;
@@ -12,6 +15,9 @@ public class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(copy);
         return newId;
     }
+    /// <summary>
+    /// check if 2 task are dependency
+    /// </summary>
     public bool isDepend(int dependentTask, int dependsOnTask)
     {
         Dependency? result = DataSource.Dependencies.Find(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
@@ -19,6 +25,9 @@ public class DependencyImplementation : IDependency
             return true ;
         return false;
     }
+    /// <summary>
+    /// delete a  Task
+    /// </summary>
     public void Delete(int id)
     {
         Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
@@ -26,7 +35,9 @@ public class DependencyImplementation : IDependency
             DataSource.Dependencies.Remove(result);
        else throw new Exception($"Dependency with ID={id} is not exists");
     }
-
+    /// <summary>
+    /// read a Task
+    /// </summary>
     public Dependency? Read(int id)
     {
         Dependency?result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
@@ -34,13 +45,17 @@ public class DependencyImplementation : IDependency
             return result;
         return null;
     }
-
+    /// <summary>
+    /// read all Tasks
+    /// </summary>
     public List<Dependency> ReadAll()
     {
         return new List<Dependency>(DataSource.Dependencies);
 
     }
-
+    /// <summary>
+    /// update a Task
+    /// </summary>
     public void Update(Dependency item)
     {
         Dependency? dependencyToUpdate = Read(item.Id);

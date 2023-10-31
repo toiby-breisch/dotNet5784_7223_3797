@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class TaskImplementation : ITask
 {
+    /// <summary>
+    /// create a new Task
+    /// </summary>
     public int Create(Task item)
     {
         int newId = DataSource.Config.NextTaskId;
@@ -13,13 +16,16 @@ public class TaskImplementation : ITask
         return newId;
     }
 
+    /// <summary>
+    /// delete a  Task
+    /// </summary>
     public void Delete(int id)
     {
         Task? result = DataSource.Tasks.Find(task => task.Id == id);
         if (result is not null)
         {
             DataSource.Tasks.Remove(result);
-            result = result with { Complete = new DateTime(00,0,0) };
+            result = result with { Complete = DateTime.Now };
            DataSource.Tasks.Add(result);
 
         }
@@ -27,7 +33,9 @@ public class TaskImplementation : ITask
           
         else throw new Exception($"Task with ID={id} is not exists");
     }
-
+    /// <summary>
+    /// read a  Task
+    /// </summary>
     public Task? Read(int id)
     {
         Task ?result = DataSource.Tasks.Find(task => task.Id == id);
@@ -35,12 +43,16 @@ public class TaskImplementation : ITask
            return result;
         return null;
     }
-
+    /// <summary>
+    /// read all Task
+    /// </summary>
     public List<Task> ReadAll()
     {
         return new List<Task>(DataSource.Tasks);
     }
-
+    /// <summary>
+    /// update a Task
+    /// </summary>
     public void Update(Task item)
     {
         Task? taskToUpdate=Read(item.Id);    

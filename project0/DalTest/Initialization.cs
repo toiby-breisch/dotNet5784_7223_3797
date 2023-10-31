@@ -24,7 +24,9 @@ public static class Initialization
     private static IDependency? s_dalDependency; //stage 1
 
     private static readonly Random s_rand = new();
-
+    /// <summary>
+    /// Initializes the list of engineers
+    /// </summary>
     private static void createEmployee()
     {
         const int MIN_ID = 200000000;
@@ -95,15 +97,19 @@ public static class Initialization
             s_dalEngineer!.Create(newEngineer);
         }
     }
-
+    /// <summary>
+    /// Initializes the datetime
+    /// </summary>
     private static DateTime RandomDate(DateTime startDate, DateTime endDate)
     {
         Random gen = new Random();
         int range = (endDate - startDate).Days;
         return startDate.AddDays(gen.Next(range));
     }
-  
-      
+
+    /// <summary>
+    /// Initializes the tasks
+    /// </summary>
 
     private static void createTask()
 
