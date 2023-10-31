@@ -91,8 +91,8 @@ internal class Program
         EngineerExperience CopmlexityLevel;
         EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
         DO.Task newTask = new(0, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
-        s_dalTask!.Create(newTask);
-        Console.WriteLine(newTask.Id);
+        int id=s_dalTask!.Create(newTask);
+        Console.WriteLine(id);
     }
 
     static public void readTask()
