@@ -1,6 +1,5 @@
 ﻿namespace DalTest;
 using DO;
-//using Dal;
 using DalApi;
 using System;
 using System.Threading;
@@ -151,13 +150,13 @@ public static class Initialization
         int _dependentTask, _dependsOnTask;
         for (int i = 0; i < 250; i++)
         {
-            //do
-            //{
+            do
+            {
                 _dependentTask = s_rand.Next(100);
                 _dependsOnTask = s_rand.Next(_dependentTask);
-            //}
-            //while (s_dalDependency!.isDepend(_dependentTask, _dependsOnTask));
-            Dependency newDependency = new(0, _dependentTask, _dependsOnTask);
+        }
+        while (s_dalDependency!.isDepend(_dependentTask, _dependsOnTask)) ;
+        Dependency newDependency = new(0, _dependentTask, _dependsOnTask);
             s_dalDependency!.Create(newDependency);
         }
 

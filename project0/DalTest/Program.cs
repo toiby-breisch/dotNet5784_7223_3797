@@ -10,6 +10,9 @@ internal class Program
     private static ITask? s_dalTask = new TaskImplementation();
     private static IEngineer? s_dalEngineer = new EngineerIementation();
     private static IDependency? s_dalDependency = new DependencyImplementation();
+    //<summary>
+    //  Managing the list of tasks
+    //</summary>
     static public void task_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
@@ -38,6 +41,7 @@ internal class Program
 
         }
     }
+    ///<summary> update a task</summary>
     static public void updateTask()
     {
         try
@@ -74,7 +78,9 @@ internal class Program
 
     }
 
-
+    /// <summary> 
+    /// create a new task 
+    /// </summary>
     static public void creatTask()
     {
         DateTime CreatedAt;
@@ -94,7 +100,9 @@ internal class Program
         int id=s_dalTask!.Create(newTask);
         Console.WriteLine(id);
     }
-
+    /// <summary> 
+    /// read a task 
+    /// </summary>
     static public void readTask()
     {
         int _id ;
@@ -102,6 +110,9 @@ internal class Program
         int.TryParse(Console.ReadLine()!, out _id);
         Console.WriteLine(s_dalTask!.Read(_id));         
     }
+    /// <summary> 
+    /// read all tasks 
+    /// </summary>
     static public void readAllTask()
     {
         s_dalTask!.ReadAll().ForEach(
@@ -109,7 +120,9 @@ internal class Program
      );
         
     }
-    
+    /// <summary> 
+    /// delete a task 
+    /// </summary>
     static public void deleteTask()
     {
         try
@@ -124,10 +137,9 @@ internal class Program
             Console.WriteLine(EX.Message);
         }
     }
-
-
-
-
+    //<summary>
+    //  Managing the list of engineers
+    //</summary>
     static public void engineer_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
@@ -185,7 +197,9 @@ internal class Program
         }
   
     }
-
+    //<summary>
+    //  create an engineer
+    //</summary>
 
     static public void creatEngineer()
     {
@@ -212,7 +226,9 @@ internal class Program
         
        
     }
-
+    //<summary>
+    //  read an engineer
+    //</summary>
     static public void readEngineer()
     {
         int _id;
@@ -220,6 +236,9 @@ internal class Program
         int.TryParse(Console.ReadLine()!, out _id);
         Console.WriteLine(s_dalEngineer!.Read(_id));
     }
+    //<summary>
+    //  read all the list of engineers
+    //</summary>
     static public void readAllEngineer()
     {
         s_dalEngineer!.ReadAll().ForEach(
@@ -227,7 +246,9 @@ internal class Program
      );
 
     }
-
+    //<summary>
+    //  delete an engineer
+    //</summary>
     static public void deleteEngineer()
     {
    
@@ -240,10 +261,12 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX/*.ToString()*/);
+            Console.WriteLine(EX.Message);
         }
     }
-
+    //<summary>
+    //  Managing the list of dependencies
+    //</summary>
     static public void dependency_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
@@ -276,6 +299,9 @@ internal class Program
         }
 
     }
+    //<summary>
+    //  update a dependency
+    //</summary>
     static public void updateDependency()
     {
         try
@@ -290,6 +316,8 @@ internal class Program
             int.TryParse(Console.ReadLine()!, out DependentTask);
             int DependsOnTask;
             int.TryParse(Console.ReadLine()!, out DependsOnTask);
+            if (s_dalDependency!.isDepend(DependentTask, DependsOnTask))
+                Console.WriteLine("Enter another dependency");
             Dependency newDependency = new(id, DependentTask, DependsOnTask);
             s_dalDependency!.Update(newDependency);
 
@@ -300,7 +328,9 @@ internal class Program
         }
 
     }
-
+    //<summary>
+    // create a new dependency
+    //<summary>
   
     static public void creatDependency()
     {
@@ -309,8 +339,6 @@ internal class Program
         int.TryParse(Console.ReadLine(), out DependentTask);
         int DependsOnTask;
         int.TryParse(Console.ReadLine(), out DependsOnTask);
-        if (s_dalDependency!.isDepend(DependentTask, DependsOnTask))
-            Console.WriteLine("Enter another dependency");
         else
         {
             DO.Dependency newDependency = new(0, DependentTask, DependsOnTask);
@@ -318,7 +346,9 @@ internal class Program
             Console.WriteLine(newDependency.Id);
         }
     }
-
+    //<summary>
+    // read a dependency
+    //<summary>
     static public void readDependency()
     {
         int _id;
@@ -326,6 +356,9 @@ internal class Program
         int.TryParse(Console.ReadLine()!, out _id);
         Console.WriteLine(s_dalDependency!.Read(_id));
     }
+    //<summary>
+    // read all the dependencies
+    //<summary>
     static public void readAllDependency()
     {
         s_dalDependency!.ReadAll().ForEach(
@@ -333,7 +366,9 @@ internal class Program
      );
 
     }
-
+    //<summary>
+    // delete dependency
+    //<summary>
     static public void deleteDependency()
     {
         try
@@ -348,7 +383,9 @@ internal class Program
             Console.WriteLine(EX.ToString());
         }
     }
-
+    //<summary>
+    // main menu
+    //<summary>
 
     static public void Main_Menu(int num)
     {
