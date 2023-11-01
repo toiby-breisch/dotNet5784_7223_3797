@@ -339,12 +339,10 @@ internal class Program
         int.TryParse(Console.ReadLine(), out DependentTask);
         int DependsOnTask;
         int.TryParse(Console.ReadLine(), out DependsOnTask);
-        else
-        {
+      
             DO.Dependency newDependency = new(0, DependentTask, DependsOnTask);
             s_dalDependency!.Create(newDependency);
             Console.WriteLine(newDependency.Id);
-        }
     }
     //<summary>
     // read a dependency
