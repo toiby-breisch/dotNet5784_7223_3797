@@ -6,12 +6,16 @@ namespace DalTest
         switch (num)
         {
             case 0:return;
-                break;
                 case 1:
                 createEmployee();
                 break;
                 case 2:
                 createTask();
+                break;
+                case 3:
+                createDependency();
+                break;
+               
         }
     }
     internal class program
