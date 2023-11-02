@@ -1,4 +1,7 @@
-﻿namespace DO;
+﻿using System.Reflection.Emit;
+using System.Xml.Linq;
+
+namespace DO;
 /// <summary>
 /// Dependency Entity represents an Dependency with all its props
 /// </summary>
@@ -6,8 +9,9 @@
 /// <param name="DependentTask">ID number of pending task</param>
 ///  <param name="DependsOnTask">Previous assignment ID number</param>
 public record Dependency
-{
-    int Id;
-    int DependentTask;
-    int DependsOnTask;
-}
+(
+    int Id,
+    int DependentTask,
+    int DependsOnTask
+);
+

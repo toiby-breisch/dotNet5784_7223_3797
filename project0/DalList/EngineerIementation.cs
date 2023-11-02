@@ -3,44 +3,59 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class EngineerIementation : Iengineer
+public class EngineerIementation : IEngineer
 {
-    public int Create(Engineer item)//add a new engineer
+    /// <summary>
+    ///create a new engineer
+    /// </summary>
+    public int Create(Engineer item)
     {
         if (Read(item.Id) is not null)
-            throw new Exception($"Student with ID={item.Id} already exists");
+            throw new Exception($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
-
+    /// <summary>
+    /// delete an engineer
+    /// </summary>
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        if (result is not null)
+            DataSource.Engineers.Remove(result);
+       else throw new Exception($"Engineer with ID={id} is not exists");
     }
-
+    /// <summary>
+    /// read an engineer
+    /// </summary>
     public Engineer? Read(int id)
     {
-        Engineer result= DataSource.Engineers.Find(Engineer => Engineer.Id = id)
-        if (result)
+        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        if (result is not null)
             return result;
         return null;
     }
-
+    /// <summary>
+    /// read all engeneers
+    /// </summary>
     public List<Engineer> ReadAll()
     {
         return new List<Engineer>(DataSource.Engineers);
     }
-
+    /// <summary>
+    /// update an engineer
+    /// </summary>
     public void Update(Engineer item)
     {
-
-        if (Read(item.Id) is not null)
+        Engineer? engineerToUpdate = Read(item.Id);
+        if (engineerToUpdate is not null)
         {
-            DataSource.Engineers.Remove(Read(item.Id);
-             DataSource.Engineers.Add(item);
+            DataSource.Engineers.Remove(engineerToUpdate);
+            Engineer copy = new(item.Id, item.Name, item.Email, item.Level, item.Cost);
+            DataSource.Engineers.Add(copy);
         }
-        throw new Exception($"Engineer with ID={item.Id} does not exists");
-
+        else throw new Exception($"Engineer with ID={item.Id} does not exists");
     }
+}
    
 

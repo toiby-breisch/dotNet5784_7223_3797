@@ -5,41 +5,66 @@ using System.Collections.Generic;
 
 public class DependencyImplementation : IDependency
 {
+    /// <summary>
+    /// crate a new dependency
+    /// </summary>
     public int Create(Dependency item)
     {
-        int Id = DataSource.Config;
-        Dependency dependency = item;
-        dependency.Id = Id; 
-        Dependencies.Add(dependency);
-
+        int newId = DataSource.Config.NextDependencyId;
+        Dependency copy = item with { Id = newId };
+        DataSource.Dependencies.Add(copy);
+        return newId;
     }
-
+    /// <summary>
+    /// check if 2 task are dependency
+    /// </summary>
+    public bool isDepend(int dependentTask, int dependsOnTask)
+    {
+        Dependency? result = DataSource.Dependencies.Find(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
+        if (result is not null)
+            return true ;
+        return false;
+    }
+    /// <summary>
+    /// delete a  Task
+    /// </summary>
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        if (result is not null)
+            DataSource.Dependencies.Remove(result);
+       else throw new Exception($"Dependency with ID={id} is not exists");
     }
-
+    /// <summary>
+    /// read a Task
+    /// </summary>
     public Dependency? Read(int id)
     {
-        Dependency result = DataSource.Dependencies.Find(Dependency => Dependency.Id = id)
-            if (result)
+        Dependency?result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+            if (result is not null)
             return result;
         return null;
     }
-
+    /// <summary>
+    /// read all Tasks
+    /// </summary>
     public List<Dependency> ReadAll()
     {
-        return new List<T>(DataSource.Desependenci);
+        return new List<Dependency>(DataSource.Dependencies);
 
     }
-
+    /// <summary>
+    /// update a Task
+    /// </summary>
     public void Update(Dependency item)
     {
-        if (Read(item.Id) is not null)
+        Dependency? dependencyToUpdate = Read(item.Id);
+        if (dependencyToUpdate is not null)
         {
-            DataSource.Dependencies.Remove(Read(item.Id);
-            DataSource.Dependencies.Add(item);
+            DataSource.Dependencies.Remove(dependencyToUpdate);
+            Dependency dependency = new(item.Id, item.DependentTask, item.DependsOnTask);
+            DataSource.Dependencies.Add(dependency);
         }
-        throw new Exception($"Dependency with ID={item.Id} does 
+        else throw new Exception($"Dependency with ID={item.Id} does") ;
     }
 }

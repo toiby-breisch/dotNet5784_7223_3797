@@ -1,17 +1,22 @@
-﻿namespace DO;
+﻿
+using System.Reflection.Emit;
+using System.Xml.Linq;
+
+namespace DO;
 /// <summary>
-/// Engineer Entity represents an engineer with all its props
+/// Engineer Entity represents a engineer with all its prop
 /// </summary>
-///<param name="Id">Personal unique ID of engineer (as in national id card)</param>
-///<param name="Name">Private name of the engineer</param>
-///<param name="Level">The level of the engineer</param>
-///<param name="Email">Private Email of the engineer</param>
-///<param name="Cost">A reminder for the month of the engineer</param>
+/// <param name="Id">Personal unique ID of engineer (as in national id card)</param>
+/// <param name="Name">Name of the engineer</param>
+/// <param name="Email">Email address of the engineer</param>
+/// <param name="Level">The level of the engineer</param>
+/// <param name="Cost">Hourly cost of the engineer</param>
 public record Engineer
-{
-    int Id;
-    string Name;
-    EngineerExperience level ;
-    string? Email;
-    double Cost;
-}
+(
+       int Id,
+       string Name,
+       string? Email = null,
+       EngineerExperience Level = EngineerExperience.Beginner,
+       double? Cost = 0
+);
+
