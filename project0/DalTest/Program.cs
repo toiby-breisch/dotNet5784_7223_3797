@@ -46,6 +46,7 @@ internal class Program
     {
         try
         {
+            Console.WriteLine("enter the id'task you want to change");
             int id;
             int.TryParse(Console.ReadLine(), out id);
             Console.WriteLine(s_dalTask!.Read(id));
@@ -64,12 +65,12 @@ internal class Program
                 Console.WriteLine("enter Engineerid");
                 int.TryParse(Console.ReadLine(), out Engineerid);
             }
-            while (s_dalEngineer!.Read(Engineerid)==null);
+            while (s_dalEngineer!.Read(Engineerid) == null);
             EngineerExperience CopmlexityLevel;
             EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
             DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
             s_dalTask!.Update(newTask);
-            Console.WriteLine(newTask.Id);
+
         }
         catch (Exception EX)
         {
@@ -97,7 +98,7 @@ internal class Program
         EngineerExperience CopmlexityLevel;
         EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
         DO.Task newTask = new(0, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
-        int id=s_dalTask!.Create(newTask);
+        int id = s_dalTask!.Create(newTask);
         Console.WriteLine(id);
     }
     /// <summary> 
@@ -105,10 +106,10 @@ internal class Program
     /// </summary>
     static public void readTask()
     {
-        int _id ;
+        int _id;
         Console.WriteLine("Enter task's ID");
         int.TryParse(Console.ReadLine()!, out _id);
-        Console.WriteLine(s_dalTask!.Read(_id));         
+        Console.WriteLine(s_dalTask!.Read(_id));
     }
     /// <summary> 
     /// read all tasks 
@@ -118,7 +119,7 @@ internal class Program
         s_dalTask!.ReadAll().ForEach(
          task => Console.WriteLine(task)
      );
-        
+
     }
     /// <summary> 
     /// delete a task 
@@ -169,18 +170,18 @@ internal class Program
                 Console.WriteLine("enter another valua");
                 break;
         }
-        
+
     }
     static public void updateEngineer()
     {
         try
 
         {
+            Console.WriteLine("enter the id'sengineer you want to change");
             int _id;
             int.TryParse(Console.ReadLine(), out _id);
             Console.WriteLine(s_dalEngineer!.Read(_id));
             Console.WriteLine("enter ,Name,Email,Level,Cost");
-          
             string? _Name = Console.ReadLine()!;
             string? _Email = Console.ReadLine()!;
             EngineerExperience _CopmlexityLevel;
@@ -195,7 +196,7 @@ internal class Program
         {
             Console.WriteLine(e.Message);
         }
-  
+
     }
     //<summary>
     //  create an engineer
@@ -212,19 +213,19 @@ internal class Program
             string? _Email = Console.ReadLine()!;
             EngineerExperience _CopmlexityLevel;
             EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
-            double _Cost ;
+            double _Cost;
             double.TryParse(Console.ReadLine()!, out _Cost);
             DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
-            s_dalEngineer!.Create(newEngineer);
-            Console.WriteLine(newEngineer.Id);
+            int id = s_dalEngineer!.Create(newEngineer);
+            Console.WriteLine(id);
 
         }
         catch (Exception e)
         {
-             Console.WriteLine(e.Message);
+            Console.WriteLine(e.Message);
         }
-        
-       
+
+
     }
     //<summary>
     //  read an engineer
@@ -251,7 +252,7 @@ internal class Program
     //</summary>
     static public void deleteEngineer()
     {
-   
+
         try
         {
             int _id;
@@ -311,11 +312,16 @@ internal class Program
             int.TryParse(Console.ReadLine(), out id);
 
             Console.WriteLine(s_dalDependency!.Read(id));
-            Console.WriteLine("enter DependentTask,DependsOnTask");
-            int DependentTask;
-            int.TryParse(Console.ReadLine()!, out DependentTask);
-            int DependsOnTask;
-            int.TryParse(Console.ReadLine()!, out DependsOnTask);
+            int DependsOnTask, DependentTask; ;
+            do
+            {
+                Console.WriteLine("enter DependentTask,DependsOnTask");
+
+                int.TryParse(Console.ReadLine(), out DependentTask);
+
+                int.TryParse(Console.ReadLine(), out DependsOnTask);
+            }
+            while (s_dalDependency!.isDepend(DependentTask, DependsOnTask));
             if (s_dalDependency!.isDepend(DependentTask, DependsOnTask))
                 Console.WriteLine("Enter another dependency");
             Dependency newDependency = new(id, DependentTask, DependsOnTask);
@@ -324,25 +330,30 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
 
     }
     //<summary>
     // create a new dependency
     //<summary>
-  
+
     static public void creatDependency()
     {
-        Console.WriteLine("enter DependentTask,DependsOnTask");
-        int DependentTask;
-        int.TryParse(Console.ReadLine(), out DependentTask);
-        int DependsOnTask;
-        int.TryParse(Console.ReadLine(), out DependsOnTask);
-      
-            DO.Dependency newDependency = new(0, DependentTask, DependsOnTask);
-            s_dalDependency!.Create(newDependency);
-            Console.WriteLine(newDependency.Id);
+        int DependsOnTask, DependentTask; ;
+        do
+        {
+            Console.WriteLine("enter DependentTask,DependsOnTask");
+
+            int.TryParse(Console.ReadLine(), out DependentTask);
+
+            int.TryParse(Console.ReadLine(), out DependsOnTask);
+        }
+        while (s_dalDependency!.isDepend(DependentTask, DependsOnTask));
+        DO.Dependency newDependency = new(0, DependentTask, DependsOnTask);
+        int id = s_dalDependency!.Create(newDependency);
+        Console.WriteLine(id);
+
     }
     //<summary>
     // read a dependency
@@ -378,7 +389,7 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
     }
     //<summary>
@@ -411,12 +422,12 @@ internal class Program
                     break;
 
             }
-             Console.WriteLine("Enter your choise");
+            Console.WriteLine("Enter your choise");
             int.TryParse(Console.ReadLine()!, out num);
-        
-        }while (true);
+
+        } while (true);
     }
-    
+
     static void Main()
     {
 
@@ -431,7 +442,7 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
 
 
