@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class EngineerIementation : IEngineer
+internal class EngineerIementation : IEngineer
 {
     /// <summary>
     ///create a new engineer

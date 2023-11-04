@@ -7,9 +7,8 @@ using System;
 
 internal class Program
 {
-    private static ITask? s_dalTask = new TaskImplementation();
-    private static IEngineer? s_dalEngineer = new EngineerIementation();
-    private static IDependency? s_dalDependency = new DependencyImplementation();
+    static readonly IDal s_dal = new DalList(); //stage 2
+
     //<summary>
     //  Managing the list of tasks
     //</summary>
@@ -422,7 +421,7 @@ internal class Program
 
         try
         {
-            Initialization.Do(s_dalEngineer, s_dalTask, s_dalDependency);
+            Initialization.Do(s_dal);
             Console.WriteLine("Enter your choise");
             var numChoise = Console.ReadLine();
             Main_Menu(int.Parse(numChoise!));

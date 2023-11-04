@@ -1,5 +1,5 @@
 ﻿namespace DalApi;
 using DO;
-public interface IEngineer : ICud<T>
+public interface IEngineer : ICrud<Engineer>
 {
 }

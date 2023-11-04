@@ -1,6 +1,5 @@
-﻿
-namespace DalApi;
+﻿namespace DalApi;
 using DO;
-public interface ITask : ICud <T>
+public interface ITask : ICrud<Task>
 {
 }
