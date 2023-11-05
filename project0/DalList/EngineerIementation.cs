@@ -20,7 +20,7 @@ public class EngineerIementation : IEngineer
     /// </summary>
     public void Delete(int id)
     {
-        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        Engineer? result = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);
         if (result is not null)
             DataSource.Engineers.Remove(result);
        else throw new Exception($"Engineer with ID={id} is not exists");
@@ -30,7 +30,7 @@ public class EngineerIementation : IEngineer
     /// </summary>
     public Engineer? Read(int id)
     {
-        Engineer? result = DataSource.Engineers.Find(engineer => engineer.Id == id);
+        Engineer? result = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);
         if (result is not null)
             return result;
         return null;

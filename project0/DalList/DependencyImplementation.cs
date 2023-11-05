@@ -20,9 +20,16 @@ public class DependencyImplementation : IDependency
     /// </summary>
     public bool isDepend(int dependentTask, int dependsOnTask)
     {
-        Dependency? result = DataSource.Dependencies.Find(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
+        Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
         if (result is not null)
             return true ;
+        return false;
+    }
+    public bool isDepend1(int dependentTask, int dependsOnTask)
+    {
+        Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask && d.DependsOnTask == dependsOnTask);
+        if (result is not null)
+            return true;
         return false;
     }
     /// <summary>
@@ -30,7 +37,7 @@ public class DependencyImplementation : IDependency
     /// </summary>
     public void Delete(int id)
     {
-        Dependency? result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        Dependency? result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (result is not null)
             DataSource.Dependencies.Remove(result);
        else throw new Exception($"Dependency with ID={id} is not exists");
@@ -40,7 +47,7 @@ public class DependencyImplementation : IDependency
     /// </summary>
     public Dependency? Read(int id)
     {
-        Dependency?result = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        Dependency?result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
             if (result is not null)
             return result;
         return null;

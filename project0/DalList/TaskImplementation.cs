@@ -21,7 +21,7 @@ public class TaskImplementation : ITask
     /// </summary>
     public void Delete(int id)
     {
-        Task? result = DataSource.Tasks.Find(task => task.Id == id);
+        Task? result = DataSource.Tasks.FirstOrDefault(task => task.Id == id);
         if (result is not null)
         {
             DataSource.Tasks.Remove(result);
@@ -38,7 +38,7 @@ public class TaskImplementation : ITask
     /// </summary>
     public Task? Read(int id)
     {
-        Task ?result = DataSource.Tasks.Find(task => task.Id == id);
+        Task ?result = DataSource.Tasks.FirstOrDefault(task => task.Id == id);
          if (result is not null)
            return result;
         return null;
