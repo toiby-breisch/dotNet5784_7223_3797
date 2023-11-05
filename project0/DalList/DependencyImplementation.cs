@@ -3,7 +3,8 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class DependencyImplementation : IDependency
+public class DependencyImplementation:IDependency
+
 {
     /// <summary>
     /// crate a new dependency
@@ -25,13 +26,7 @@ public class DependencyImplementation : IDependency
             return true ;
         return false;
     }
-    public bool isDepend1(int dependentTask, int dependsOnTask)
-    {
-        Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask && d.DependsOnTask == dependsOnTask);
-        if (result is not null)
-            return true;
-        return false;
-    }
+
     /// <summary>
     /// delete a  Task
     /// </summary>
@@ -40,7 +35,7 @@ public class DependencyImplementation : IDependency
         Dependency? result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (result is not null)
             DataSource.Dependencies.Remove(result);
-       else throw new Exception($"Dependency with ID={id} is not exists");
+       else throw new DalDoesNotExistException($"Dependency with ID={id} is not exists");
     }
     /// <summary>
     /// read a Task
@@ -72,22 +67,10 @@ public class DependencyImplementation : IDependency
             Dependency dependency = new(item.Id, item.DependentTask, item.DependsOnTask);
             DataSource.Dependencies.Add(dependency);
         }
-        else throw new Exception($"Dependency with ID={item.Id} does") ;
+        else throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exists ") ;
     }
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         return DataSource.Dependencies.FirstOrDefault(d => filter(d));
     }
-    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
-    {
-        if (filter != null)
-        {
-            return from item in DataSource.Dependencies
-                   where filter(item)
-                   select item;
-        }
-        return from item in DataSource.Dependencies
-               select item;
-    }
-
 }

@@ -29,9 +29,8 @@ public class TaskImplementation : ITask
            DataSource.Tasks.Add(result);
 
         }
-
-          
-        else throw new Exception($"Task with ID={id} is not exists");
+  
+        else throw new DalDoesNotExistException($"Task with ID={id} is not exists");
     }
     /// <summary>
     /// read a  Task
@@ -62,7 +61,7 @@ public class TaskImplementation : ITask
             DataSource.Tasks.Add(item);
         }
         else 
-            throw new Exception($"Task with ID={item.Id} does ");
+            throw new DalDoesNotExistException ($"Task with ID={item.Id} does not existes ");
     }
     public Task? Read(Func<Task, bool> filter)
     {

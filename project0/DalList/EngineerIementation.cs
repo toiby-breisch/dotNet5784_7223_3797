@@ -11,7 +11,7 @@ public class EngineerIementation : IEngineer
     public int Create(Engineer item)
     {
         if (Read(item.Id) is not null)
-            throw new Exception($"Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -23,7 +23,7 @@ public class EngineerIementation : IEngineer
         Engineer? result = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);
         if (result is not null)
             DataSource.Engineers.Remove(result);
-       else throw new Exception($"Engineer with ID={id} is not exists");
+       else throw new DalDoesNotExistException($"Engineer with ID={id} is not exists");
     }
     /// <summary>
     /// read an engineer
@@ -54,7 +54,7 @@ public class EngineerIementation : IEngineer
             Engineer copy = new(item.Id, item.Name, item.Email, item.Level, item.Cost);
             DataSource.Engineers.Add(copy);
         }
-        else throw new Exception($"Engineer with ID={item.Id} does not exists");
+        else throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exists");
     }
     public Engineer? Read(Func<Engineer, bool> filter)
     {

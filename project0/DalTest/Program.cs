@@ -130,6 +130,7 @@ internal class Program
             Console.WriteLine("Enter task's ID to delete");
             int.TryParse(Console.ReadLine()!, out _id);
             s_dal!.Task.Delete(_id);
+        
         }
         catch (Exception EX)
         {
@@ -323,7 +324,7 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
 
     }
@@ -374,10 +375,11 @@ internal class Program
             Console.WriteLine("Enter s_dalDependency's ID to delete");
             int.TryParse(Console.ReadLine()!, out _id);
             s_dal!.Dependency.Delete(_id);
+
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
     }
     //<summary>
@@ -430,7 +432,7 @@ internal class Program
         }
         catch (Exception EX)
         {
-            Console.WriteLine(EX.ToString());
+            Console.WriteLine(EX.Message);
         }
 
 
