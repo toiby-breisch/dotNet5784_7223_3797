@@ -64,4 +64,20 @@ public class TaskImplementation : ITask
         else 
             throw new Exception($"Task with ID={item.Id} does ");
     }
+    public Task? Read(Func<Task, bool> filter)
+    {
+        return DataSource.Tasks.FirstOrDefault(d => filter(d));
+    }
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Tasks
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Tasks
+               select item;
+    }
+
 }

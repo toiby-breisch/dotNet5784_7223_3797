@@ -74,4 +74,20 @@ public class DependencyImplementation : IDependency
         }
         else throw new Exception($"Dependency with ID={item.Id} does") ;
     }
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+        return DataSource.Dependencies.FirstOrDefault(d => filter(d));
+    }
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null) //stage 2
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Dependencies
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Dependencies
+               select item;
+    }
+
 }

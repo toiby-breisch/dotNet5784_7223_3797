@@ -56,6 +56,22 @@ public class EngineerIementation : IEngineer
         }
         else throw new Exception($"Engineer with ID={item.Id} does not exists");
     }
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        return DataSource.Engineers.FirstOrDefault(d => filter(d));
+    }
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
+    {
+        if (filter != null)
+        {
+            return from item in DataSource.Engineers
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Engineers
+               select item;
+    }
+
 }
-   
+
 
