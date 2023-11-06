@@ -1,6 +1,8 @@
 ﻿namespace DalApi;
 using DO;
-
+/// <summary>
+/// interface that include 6 function crud
+/// </summary>
 public interface ICrud<T> where T : class
 {
     int Create(T item); //Creates new entity object in DAL

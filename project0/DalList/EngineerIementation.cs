@@ -56,10 +56,16 @@ public class EngineerIementation : IEngineer
         }
         else throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exists");
     }
+    /// <summary>
+    /// read an engineer according to a parameter
+    /// </summary>
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         return DataSource.Engineers.FirstOrDefault(d => filter(d));
     }
+    /// <summary>
+    /// read all the engineers
+    /// </summary>
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
     {
         if (filter != null)

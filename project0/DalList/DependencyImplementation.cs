@@ -28,7 +28,7 @@ public class DependencyImplementation:IDependency
     }
 
     /// <summary>
-    /// delete a  Task
+    /// delete a  dependency
     /// </summary>
     public void Delete(int id)
     {
@@ -38,7 +38,7 @@ public class DependencyImplementation:IDependency
        else throw new DalDoesNotExistException($"Dependency with ID={id} is not exists");
     }
     /// <summary>
-    /// read a Task
+    /// read a dependency
     /// </summary>
     public Dependency? Read(int id)
     {
@@ -48,7 +48,7 @@ public class DependencyImplementation:IDependency
         return null;
     }
     /// <summary>
-    /// read all Tasks
+    /// read all dependencies
     /// </summary>
     public List<Dependency> ReadAll()
     {
@@ -56,7 +56,7 @@ public class DependencyImplementation:IDependency
 
     }
     /// <summary>
-    /// update a Task
+    /// update a dependency
     /// </summary>
     public void Update(Dependency item)
     {
@@ -69,6 +69,9 @@ public class DependencyImplementation:IDependency
         }
         else throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exists ") ;
     }
+    /// <summary>
+    /// read a dependency according to a parameter
+    /// </summary>
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         return DataSource.Dependencies.FirstOrDefault(d => filter(d));

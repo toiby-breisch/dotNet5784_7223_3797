@@ -63,10 +63,16 @@ public class TaskImplementation : ITask
         else 
             throw new DalDoesNotExistException ($"Task with ID={item.Id} does not existes ");
     }
+    /// <summary>
+    /// read a task according to a parameter
+    /// </summary>
     public Task? Read(Func<Task, bool> filter)
     {
         return DataSource.Tasks.FirstOrDefault(d => filter(d));
     }
+    /// <summary>
+    /// read allthe tasks
+    /// </summary>
     public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
     {
         if (filter != null)
