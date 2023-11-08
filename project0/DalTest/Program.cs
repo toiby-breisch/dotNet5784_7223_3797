@@ -167,6 +167,11 @@ internal class Program
             EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
             double _Cost;
             double.TryParse(Console.ReadLine()!, out _Cost);
+            DO.Engineer temp = s_dal.Engineer!.Read(_id);
+            if (_Name =="") { _Name = temp!.Name; }
+            if (_Email =="") { _Email = temp!.Email; }
+            if (_CopmlexityLevel == 0) { _CopmlexityLevel = temp!.Level; }
+            if (_Cost == 0) { _Cost = temp!.Cost; }
             DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
             s_dal!.Engineer.Update(newEngineer);
 
@@ -262,6 +267,14 @@ internal class Program
             while (s_dal!.Engineer!.Read(Engineerid) == null);
             EngineerExperience CopmlexityLevel;
             EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
+            DO.Task temp = s_dal.Task!.Read(id);
+            if (Description == "") { Description = temp!.Description; }
+            if (Alias == "") { Description = temp!.Alias; }
+            if (Deadline == DateTime.MinValue) { Deadline = Convert.ToDateTime( temp!.Deadline); }
+            if (Deliverables == "") { Deliverables = temp!.Deliverables; }
+            if (Remarks == "") { Remarks = temp!.Remarks; }
+            if (Engineerid == 0) { Engineerid = temp!.Engineerid; }
+            if (CopmlexityLevel == 0) { CopmlexityLevel = temp!.CopmlexityLevel; }
             DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
             s_dal!.Task.Update(newTask);
             Console.WriteLine(newTask.Id);
@@ -397,6 +410,10 @@ internal class Program
             int.TryParse(Console.ReadLine()!, out DependsOnTask);
             if (s_dal!.Dependency.isDepend(DependentTask, DependsOnTask))
                 Console.WriteLine("Enter another dependency");
+            DO.Dependency temp = s_dal.Dependency!.Read(id);
+            if (DependentTask ==0) { DependentTask = temp!.DependentTask; }
+            if (DependsOnTask == 0) { DependsOnTask = temp!.DependsOnTask; }
+           
             Dependency newDependency = new(id, DependentTask, DependsOnTask);
             s_dal!.Dependency.Update(newDependency);
 

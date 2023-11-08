@@ -17,6 +17,6 @@ public record Engineer
        string Name,
        string? Email = null,
        EngineerExperience Level = EngineerExperience.Beginner,
-       double? Cost = 0
+       double Cost = 0
 );
 
