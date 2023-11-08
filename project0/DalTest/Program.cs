@@ -156,6 +156,7 @@ internal class Program
     {
         try
         {
+            Console.WriteLine("enter id");
             int _id;
             int.TryParse(Console.ReadLine(), out _id);
             Console.WriteLine(s_dal!.Engineer.Read(_id));
@@ -167,7 +168,7 @@ internal class Program
             EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
             double _Cost;
             double.TryParse(Console.ReadLine()!, out _Cost);
-            DO.Engineer temp = s_dal.Engineer!.Read(_id);
+            DO.Engineer ?temp =s_dal.Engineer.Read(_id);
             if (_Name =="") { _Name = temp!.Name; }
             if (_Email =="") { _Email = temp!.Email; }
             if (_CopmlexityLevel == 0) { _CopmlexityLevel = temp!.Level; }
@@ -247,6 +248,7 @@ internal class Program
         try
         {
             int id;
+            Console.WriteLine("enter id");
             int.TryParse(Console.ReadLine(), out id);
             Console.WriteLine(s_dal!.Task.Read(id));
             DateTime CreatedAt;
@@ -259,15 +261,15 @@ internal class Program
             string? Deliverables = Console.ReadLine();
             string? Remarks = Console.ReadLine();
             int Engineerid;
-            do
+            Console.WriteLine("enter Engineerid");
+            int.TryParse(Console.ReadLine(), out Engineerid);
+            DO.Task ?temp = s_dal.Task.Read(id);
+            if (s_dal!.Engineer!.Read(Engineerid) == null)
             {
-                Console.WriteLine("enter Engineerid");
-                int.TryParse(Console.ReadLine(), out Engineerid);
+                Engineerid = temp!.Engineerid;
             }
-            while (s_dal!.Engineer!.Read(Engineerid) == null);
             EngineerExperience CopmlexityLevel;
             EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
-            DO.Task temp = s_dal.Task!.Read(id);
             if (Description == "") { Description = temp!.Description; }
             if (Alias == "") { Description = temp!.Alias; }
             if (Deadline == DateTime.MinValue) { Deadline = Convert.ToDateTime( temp!.Deadline); }
@@ -409,7 +411,7 @@ internal class Program
             int.TryParse(Console.ReadLine()!, out DependentTask);
             int DependsOnTask;
             int.TryParse(Console.ReadLine()!, out DependsOnTask);
-            DO.Dependency temp =!s_dal.Dependency.Read(id);
+            DO.Dependency ?temp =s_dal.Dependency.Read(id);
             if(DependentTask == 0&& DependsOnTask == 0)
             { DependentTask = temp!.DependentTask;
                 DependsOnTask = temp!.DependsOnTask;
