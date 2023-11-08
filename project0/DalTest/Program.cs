@@ -272,6 +272,7 @@ internal class Program
             if (Alias == "") { Description = temp!.Alias; }
             if (Deadline == DateTime.MinValue) { Deadline = Convert.ToDateTime( temp!.Deadline); }
             if (Deliverables == "") { Deliverables = temp!.Deliverables; }
+
             if (Remarks == "") { Remarks = temp!.Remarks; }
             if (Engineerid == 0) { Engineerid = temp!.Engineerid; }
             if (CopmlexityLevel == 0) { CopmlexityLevel = temp!.CopmlexityLevel; }
@@ -408,11 +409,19 @@ internal class Program
             int.TryParse(Console.ReadLine()!, out DependentTask);
             int DependsOnTask;
             int.TryParse(Console.ReadLine()!, out DependsOnTask);
+            DO.Dependency temp =!s_dal.Dependency.Read(id);
+            if(DependentTask == 0&& DependsOnTask == 0)
+            { DependentTask = temp!.DependentTask;
+                DependsOnTask = temp!.DependsOnTask;
+                return;
+            }
+            if (DependentTask == 0) { DependentTask = temp!.DependentTask; }
+            if (DependsOnTask == 0) { DependsOnTask = temp!.DependsOnTask; }
+            
             if (s_dal!.Dependency.isDepend(DependentTask, DependsOnTask))
                 Console.WriteLine("Enter another dependency");
-            DO.Dependency temp = s_dal.Dependency!.Read(id);
-            if (DependentTask ==0) { DependentTask = temp!.DependentTask; }
-            if (DependsOnTask == 0) { DependsOnTask = temp!.DependsOnTask; }
+            
+           
            
             Dependency newDependency = new(id, DependentTask, DependsOnTask);
             s_dal!.Dependency.Update(newDependency);
