@@ -7,11 +7,207 @@ using System;
 
 internal class Program
 {
-    static readonly IDal s_dal = new Dal.DalList(); //stage 2
+    static readonly IDal s_dal = new Dal.DalList();
+    //<summary>
+    // main menu
+    //<summary>
 
+    static public void Main_Menu(int num)
+    {
+        do
+        {
+            switch (num)
+            {
+                case 0:
+                    return;
+                case 1:
+                    engineer_Menu();
+                    break;
+                case 2:
+                    dependency_Menu();
+                    break;
+                case 3:
+                    task_Menu();
+                    break;
+                default:
+                    Console.WriteLine("enter another valua");
+                    break;
+            }
+            Console.WriteLine("Enter your choise");
+            int.TryParse(Console.ReadLine()!, out num);
+
+        } while (true);
+    }
+    static void Main()
+    {
+        try
+        {
+            Initialization.Do(s_dal);
+            Console.WriteLine("Enter your choise");
+            var numChoise = Console.ReadLine();
+            Main_Menu(int.Parse(numChoise!));
+        }
+        catch (DalDoesNotExistException EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+        catch (DalAlreadyExistsException EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+        catch (DalDeletionImpossible EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+        catch (Exception EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+    }
+    //<summary>
+    //  Managing the list of engineers
+    //</summary>
+    static public void engineer_Menu()
+    {
+        Console.WriteLine("exit,creat,read,read all,Update,delete");
+        Console.WriteLine("Enter your choise");
+        var secondNumChoise = Console.ReadLine();
+        switch (int.Parse(secondNumChoise!))
+        {
+            case 0:
+                Main_Menu(0);
+                break;
+            case 1:
+                creatEngineer();
+                break;
+            case 2:
+                readEngineer();
+                break;
+            case 3:
+                readAllEngineer();
+                break;
+            case 4:
+                updateEngineer();
+                break;
+            case 5:
+                deleteEngineer();
+                break;
+            default:
+                Console.WriteLine("enter another valua");
+                break;
+        }
+
+    }
+
+    //<summary>
+    //  create an engineer
+    //</summary>
+
+    static public void creatEngineer()
+    {
+        try
+        {
+            Console.WriteLine("enter Id,Name,Email,Level,Cost");
+            int _id;
+            int.TryParse(Console.ReadLine()!, out _id);
+            string? _Name = Console.ReadLine()!;
+            string? _Email = Console.ReadLine()!;
+            EngineerExperience _CopmlexityLevel;
+            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
+            double _Cost;
+            double.TryParse(Console.ReadLine()!, out _Cost);
+            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
+            s_dal!.Engineer.Create(newEngineer);
+            Console.WriteLine(newEngineer.Id);
+
+        }
+        catch (DalAlreadyExistsException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    //<summary>
+    //  read an engineer
+    //</summary>
+    static public void readEngineer()
+    {
+        int _id;
+        Console.WriteLine("Enter engineer's ID");
+        int.TryParse(Console.ReadLine()!, out _id);
+        Console.WriteLine(s_dal!.Engineer.Read(_id));
+    }
+
+    //<summary>
+    //  read all the list of engineers
+    //</summary>
+    static public void readAllEngineer()
+    {
+        s_dal!.Engineer.ReadAll().ForEach(
+         engineer => Console.WriteLine(engineer)
+     );
+
+    }
+    static public void updateEngineer()
+    {
+        try
+        {
+            int _id;
+            int.TryParse(Console.ReadLine(), out _id);
+            Console.WriteLine(s_dal!.Engineer.Read(_id));
+            Console.WriteLine("enter ,Name,Email,Level,Cost");
+
+            string? _Name = Console.ReadLine()!;
+            string? _Email = Console.ReadLine()!;
+            EngineerExperience _CopmlexityLevel;
+            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
+            double _Cost;
+            double.TryParse(Console.ReadLine()!, out _Cost);
+            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
+            s_dal!.Engineer.Update(newEngineer);
+
+        }
+        catch (DalDoesNotExistException e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+    }
+
+    //<summary>
+    //  delete an engineer
+    //</summary>
+    static public void deleteEngineer()
+    {
+
+        try
+        {
+            int _id;
+            Console.WriteLine("Enter engineer's ID to delete");
+            int.TryParse(Console.ReadLine()!, out _id);
+            s_dal!.Engineer.Delete(_id);
+        }
+        catch (DalDoesNotExistException EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+        catch (Exception EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
+    }
     //<summary>
     //  Managing the list of tasks
     //</summary>
+
     static public void task_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
@@ -69,6 +265,11 @@ internal class Program
             DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
             s_dal!.Task.Update(newTask);
             Console.WriteLine(newTask.Id);
+        }
+        
+        catch (DalDoesNotExistException EX)
+        {
+            Console.WriteLine(EX.Message);
         }
         catch (Exception EX)
         {
@@ -132,138 +333,17 @@ internal class Program
             s_dal!.Task.Delete(_id);
         
         }
-        catch (Exception EX)
+        catch (DalDoesNotExistException EX)
         {
             Console.WriteLine(EX.Message);
-        }
-    }
-    //<summary>
-    //  Managing the list of engineers
-    //</summary>
-    static public void engineer_Menu()
-    {
-        Console.WriteLine("exit,creat,read,read all,Update,delete");
-        Console.WriteLine("Enter your choise");
-        var secondNumChoise = Console.ReadLine();
-        switch (int.Parse(secondNumChoise!))
-        {
-            case 0:
-                Main_Menu(0);
-                break;
-            case 1:
-                creatEngineer();
-                break;
-            case 2:
-                readEngineer();
-                break;
-            case 3:
-                readAllEngineer();
-                break;
-            case 4:
-                updateEngineer();
-                break;
-            case 5:
-                deleteEngineer();
-                break;
-            default:
-                Console.WriteLine("enter another valua");
-                break;
-        }
-
-    }
-    static public void updateEngineer()
-    {
-        try
-
-        {
-            int _id;
-            int.TryParse(Console.ReadLine(), out _id);
-            Console.WriteLine(s_dal!.Engineer.Read(_id));
-            Console.WriteLine("enter ,Name,Email,Level,Cost");
-
-            string? _Name = Console.ReadLine()!;
-            string? _Email = Console.ReadLine()!;
-            EngineerExperience _CopmlexityLevel;
-            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
-            double _Cost;
-            double.TryParse(Console.ReadLine()!, out _Cost);
-            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
-            s_dal!.Engineer.Update(newEngineer);
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-
-    }
-    //<summary>
-    //  create an engineer
-    //</summary>
-
-    static public void creatEngineer()
-    {
-        try
-        {
-            Console.WriteLine("enter Id,Name,Email,Level,Cost");
-            int _id;
-            int.TryParse(Console.ReadLine()!, out _id);
-            string? _Name = Console.ReadLine()!;
-            string? _Email = Console.ReadLine()!;
-            EngineerExperience _CopmlexityLevel;
-            EngineerExperience.TryParse(Console.ReadLine(), out _CopmlexityLevel);
-            double _Cost;
-            double.TryParse(Console.ReadLine()!, out _Cost);
-            DO.Engineer newEngineer = new(_id, _Name, _Email, _CopmlexityLevel, _Cost);
-            s_dal!.Engineer.Create(newEngineer);
-            Console.WriteLine(newEngineer.Id);
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-
-
-    }
-    //<summary>
-    //  read an engineer
-    //</summary>
-    static public void readEngineer()
-    {
-        int _id;
-        Console.WriteLine("Enter engineer's ID");
-        int.TryParse(Console.ReadLine()!, out _id);
-        Console.WriteLine(s_dal!.Engineer.Read(_id));
-    }
-    //<summary>
-    //  read all the list of engineers
-    //</summary>
-    static public void readAllEngineer()
-    {
-        s_dal!.Engineer.ReadAll().ForEach(
-         engineer => Console.WriteLine(engineer)
-     );
-
-    }
-    //<summary>
-    //  delete an engineer
-    //</summary>
-    static public void deleteEngineer()
-    {
-
-        try
-        {
-            int _id;
-            Console.WriteLine("Enter engineer's ID to delete");
-            int.TryParse(Console.ReadLine()!, out _id);
-            s_dal!.Engineer.Delete(_id);
         }
         catch (Exception EX)
         {
             Console.WriteLine(EX.Message);
         }
     }
+
+
     //<summary>
     //  Managing the list of dependencies
     //</summary>
@@ -309,7 +389,6 @@ internal class Program
             Console.WriteLine("Enter ID");
             int id;
             int.TryParse(Console.ReadLine(), out id);
-
             Console.WriteLine(s_dal!.Dependency.Read(id));
             Console.WriteLine("enter DependentTask,DependsOnTask");
             int DependentTask;
@@ -321,6 +400,10 @@ internal class Program
             Dependency newDependency = new(id, DependentTask, DependsOnTask);
             s_dal!.Dependency.Update(newDependency);
 
+        }
+        catch (DalDoesNotExistException EX)
+        {
+            Console.WriteLine(EX.Message);
         }
         catch (Exception EX)
         {
@@ -377,66 +460,16 @@ internal class Program
             s_dal!.Dependency.Delete(_id);
 
         }
+        catch (DalDoesNotExistException EX)
+        {
+            Console.WriteLine(EX.Message);
+        }
         catch (Exception EX)
         {
             Console.WriteLine(EX.Message);
         }
     }
-    //<summary>
-    // main menu
-    //<summary>
 
-    static public void Main_Menu(int num)
-    {
-        do
-        {
-
-            switch (num)
-            {
-                case 0:
-                    return;
-
-                case 1:
-
-                    engineer_Menu();
-                    break;
-                case 2:
-
-                    dependency_Menu();
-                    break;
-                case 3:
-                    task_Menu();
-                    break;
-                default:
-                    Console.WriteLine("enter another valua");
-                    break;
-
-            }
-            Console.WriteLine("Enter your choise");
-            int.TryParse(Console.ReadLine()!, out num);
-
-        } while (true);
-    }
-
-    static void Main()
-    {
-
-        try
-        {
-            Initialization.Do(s_dal);
-            Console.WriteLine("Enter your choise");
-            var numChoise = Console.ReadLine();
-            Main_Menu(int.Parse(numChoise!));
-
-
-        }
-        catch (Exception EX)
-        {
-            Console.WriteLine(EX.Message);
-        }
-
-
-    }
 }
 
 
