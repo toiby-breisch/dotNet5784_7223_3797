@@ -4,7 +4,6 @@ namespace DalTest;
 using DalApi;
 using System;
 
-
 internal class Program
 {
     static readonly IDal s_dal = new Dal.DalList();
@@ -161,7 +160,6 @@ internal class Program
             int.TryParse(Console.ReadLine(), out _id);
             Console.WriteLine(s_dal!.Engineer.Read(_id));
             Console.WriteLine("enter ,Name,Email,Level,Cost");
-
             string? _Name = Console.ReadLine()!;
             string? _Email = Console.ReadLine()!;
             EngineerExperience _CopmlexityLevel;
