@@ -12,9 +12,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{AB1DC6FE-84DF-46F3-ADF5-42644B7C13EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{871C4706-7D2F-4F17-B763-16CDBC49A23E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{871C4706-7D2F-4F17-B763-16CDBC49A23E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{8F944C8D-F252-496B-AEDB-DE6B22492777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{8F944C8D-F252-496B-AEDB-DE6B22492777}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{45CB122F-1053-48AB-8811-CC8525B345A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{39507B10-7BEA-4C2E-B8FA-67DD1D782AB2}"
+	ProjectSection(SolutionItems) = preProject
+		..\xml\dal-config.xml = ..\xml\dal-config.xml
+		..\xml\data-config.xml = ..\xml\data-config.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +46,10 @@ Global
 		{8F944C8D-F252-496B-AEDB-DE6B22492777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F944C8D-F252-496B-AEDB-DE6B22492777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F944C8D-F252-496B-AEDB-DE6B22492777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CB122F-1053-48AB-8811-CC8525B345A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CB122F-1053-48AB-8811-CC8525B345A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CB122F-1053-48AB-8811-CC8525B345A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CB122F-1053-48AB-8811-CC8525B345A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +59,8 @@ Global
 		{AB1DC6FE-84DF-46F3-ADF5-42644B7C13EE} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 		{871C4706-7D2F-4F17-B763-16CDBC49A23E} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 		{8F944C8D-F252-496B-AEDB-DE6B22492777} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
+		{45CB122F-1053-48AB-8811-CC8525B345A2} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
+		{39507B10-7BEA-4C2E-B8FA-67DD1D782AB2} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {507FBBC0-5BFC-45B8-9FCA-5222B1F4FE62}
