@@ -30,5 +30,11 @@ public record Task
     string? Remarks,
     int Engineerid,
     EngineerExperience CopmlexityLevel
-);
+)
+{
+    public Task() : this(null!) { } //empty ctor for stage 3
+
+    public DateTime RegistrationDate => DateTime.Now; //get only
+}
+
 

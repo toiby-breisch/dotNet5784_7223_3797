@@ -13,5 +13,10 @@ public record Dependency
     int Id,
     int DependentTask,
     int DependsOnTask
-);
+)
+{
+    public Dependency() : this(null!) { } //empty ctor for stage 3
+
+    public DateTime RegistrationDate => DateTime.Now; //get only
+}
 

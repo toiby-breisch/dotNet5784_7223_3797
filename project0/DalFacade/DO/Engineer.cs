@@ -18,5 +18,9 @@ public record Engineer
        string? Email = null,
        EngineerExperience Level = EngineerExperience.Beginner,
        double Cost = 0
-);
+)
+{
+    public Engineer() : this(null!) { }
+    public DateTime RegistrationDate => DateTime.Now; //get only
+}
 
