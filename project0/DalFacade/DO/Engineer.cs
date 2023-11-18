@@ -20,7 +20,7 @@ public record Engineer
        double Cost = 0
 )
 {
-    public Engineer() : this(null!) { }
+    public Engineer() : this(0,"") { }
     public DateTime RegistrationDate => DateTime.Now; //get only
 }
 
