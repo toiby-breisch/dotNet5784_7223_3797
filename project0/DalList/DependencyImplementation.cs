@@ -50,7 +50,7 @@ public class DependencyImplementation:IDependency
     /// <summary>
     /// read all dependencies
     /// </summary>
-    public List<Dependency> ReadAll()
+    public List<Dependency> ReadAll(Func<Dependency, bool> filter)
     {
         return new List<Dependency>(DataSource.Dependencies);
 

@@ -45,7 +45,7 @@ public class TaskImplementation : ITask
     /// <summary>
     /// read all Task
     /// </summary>
-    public List<Task> ReadAll()
+    public List<Task> ReadAll(Func<Task, bool> filter)
     {
         return new List<Task>(DataSource.Tasks);
     }

@@ -63,7 +63,7 @@ static class XMLTools
 
     #region SaveLoadWithXMLSerializer
     //static readonly bool s_writing = false;
-    public static void SaveListToXMLSerializer<T>(List<T?> list, string entity) where T : struct
+    public static void SaveListToXMLSerializer<T>(List<T?> list, string entity) where T : class
     {
         string filePath = $"{s_dir + entity}.xml";
         try
@@ -78,7 +78,7 @@ static class XMLTools
         }
     }
 
-    public static List<T?> LoadListFromXMLSerializer<T>(string entity) where T : struct
+    public static List<T?> LoadListFromXMLSerializer<T>(string entity) where T : class
     {
         string filePath = $"{s_dir + entity}.xml";
         try
