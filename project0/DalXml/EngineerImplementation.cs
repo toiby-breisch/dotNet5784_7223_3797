@@ -2,14 +2,25 @@
 using DalApi;
 using DO;
 using System;
+
+
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 internal class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {
-        throw new NotImplementedException();
+        string fileName = "engineers";
+        List<Engineer> Engineers = new List<Engineer>();
+        XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
+        
+        if (Engineers.Find(x => x.Id == item.Id) is not null)
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
+        DataSource.Engineers.Add(item);
+        return item.Id;
     }
+}
 
     public void Delete(int id)
     {
