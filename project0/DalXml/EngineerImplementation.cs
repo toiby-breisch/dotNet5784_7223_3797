@@ -14,10 +14,10 @@ internal class EngineerImplementation : IEngineer
         string fileName = "engineers";
         List<Engineer> Engineers = new List<Engineer>();
         XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
-        
-        if (Engineers.Find(x => x.Id == item.Id) is not null)
+         if (Engineers.Find(x => x.Id == item.Id) is not null)
             throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
-        DataSource.Engineers.Add(item);
+        Engineers.Add(item);
+        XMLTools.SaveListToXMLSerializer<Engineer>(Engineers,fileName);
         return item.Id;
     }
 }
