@@ -45,10 +45,10 @@ public class TaskImplementation : ITask
     /// <summary>
     /// read all Task
     /// </summary>
-    public List<Task> ReadAll(Func<Task, bool> filter)
-    {
-        return new List<Task>(DataSource.Tasks);
-    }
+    //public List<Task> ReadAll(Func<Task, bool> filter)
+    //{
+    //    return new List<Task>(DataSource.Tasks);
+    //}
     /// <summary>
     /// update a Task
     /// </summary>

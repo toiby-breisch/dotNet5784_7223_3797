@@ -18,5 +18,10 @@ public record Dependency
     public Dependency() : this(0,0,0) { } //empty ctor for stage 3
 
     public DateTime RegistrationDate => DateTime.Now; //get only
+
+    public static Dependency? Find(Func<object, bool> value)
+    {
+        throw new NotImplementedException();
+    }
 }
 

@@ -38,10 +38,10 @@ public class EngineerIementation : IEngineer
     /// <summary>
     /// read all engeneers
     /// </summary>
-    public List<Engineer> ReadAll(Func<Engineer, bool> filter)
-    {
-        return new List<Engineer>(DataSource.Engineers);
-    }
+    //public List<Engineer> ReadAll(Func<Engineer, bool> filter)
+    //{
+    //    return new List<Engineer>(DataSource.Engineers);
+    //}
     /// <summary>
     /// update an engineer
     /// </summary>

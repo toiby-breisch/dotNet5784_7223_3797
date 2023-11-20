@@ -53,25 +53,36 @@ internal class EngineerImplementation : IEngineer
         return Engineers.FirstOrDefault(d => filter(d));
     }
 
-    public List<Engineer> ReadAll(Func<Engineer, bool> filter)
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool> filter)
     {
         string fileName = "engineers";
         List<Engineer>? Engineers = new List<Engineer>();
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
-        //if (filter != null)
-        //{
-        //    return from item in Engineers
-        //           where filter(item)
-        //           select item;
-        //}
-        //return (from item in Engineers
-        //       select item);
-        return null;
+        if (filter != null)
+        {
+            return from item in Engineers
+                   where filter(item)
+                   select item;
+        }
+        return (from item in Engineers
+                select item);
+
     }
 
     public void Update(Engineer item)
     {
-        throw new NotImplementedException();
+        string fileName = "engineers";
+        List<Engineer>? Engineers = new List<Engineer>();
+        Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
+        Engineer? engineerToUpdate = Read(item.Id);
+        if (engineerToUpdate is not null)
+        {
+            Engineers.Remove(engineerToUpdate);
+            Engineer copy = new(item.Id, item.Name, item.Email, item.Level, item.Cost);
+            Engineers.Add(copy);
+            XMLTools.SaveListToXMLSerializer<Engineer>(Engineers!, fileName);
+        }
+        else throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exists");
     }
 }
 

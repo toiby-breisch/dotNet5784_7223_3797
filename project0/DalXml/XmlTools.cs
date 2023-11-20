@@ -94,5 +94,10 @@ static class XMLTools
             throw new Exception($"fail to load xml file: {filePath}", ex);
         }
     }
+
+    internal static int GetAndIncreaseNextId(string s_data_config_xml, string v)
+    {
+        throw new NotImplementedException();
+    }
     #endregion
 }
