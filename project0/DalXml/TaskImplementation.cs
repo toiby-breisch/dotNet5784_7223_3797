@@ -11,19 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class TaskImplementation : ITask
 {
-   //public XElement createXelement(Task item)
-   // {
-   //     Type t = typeof(Task);
-   //    var prop= t.GetProperties();
-   //     XElement? el = new("Task");
-   //     //prop.t
-        
-   //     return el;
-   // }
-
-
-
-
+ 
     static Task? getTask(XElement t) =>
       t.ToIntNullable("Id") is null ? null : new Task()
       {
@@ -77,25 +65,25 @@ internal class TaskImplementation : ITask
 /// <param name="CopmlexityLevel
     public int Create(Task item)
     {
-       
-        XDocument doc = XDocument.Load("tasks.xml");
-        XElement e = doc.Root ?? throw new Exception("there is no data");
-        XElement? one = e.Elements("Task")?.
+
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
         if(one!=null)
             throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
                 $"already exists");
-        //XElement el =createXelement(item);
-        //e.Add(el);
+        var el = createTaskElement(item);
+        e.Add(el);
         e.Save("tasks.xml");
         return item.Id;
     }
 
     public void Delete(int id)
     {
-        XDocument doc = XDocument.Load("tasks.xml");
-        XElement e = doc.Root ?? throw new Exception("there is no data");
-        XElement? one = e.Elements("Task")?.
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one != null)
             throw new DalAlreadyExistsException($"Engineer with ID={id} " +
@@ -105,9 +93,9 @@ internal class TaskImplementation : ITask
     }
     public Task? Read(int id)
     {
-         XDocument doc = XDocument.Load("tasks.xml");
-        XElement e = doc.Root ?? throw new Exception("there is no data");
-        XElement? one = e.Elements("Task")?.
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
@@ -119,16 +107,47 @@ internal class TaskImplementation : ITask
 
     public Task? Read(Func<Task, bool> filter)
     {
-        throw new NotImplementedException();
-    }
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        return tasks.FirstOrDefault(d => filter(d));
 
+    }
+    
     public IEnumerable<Task> ReadAll(Func<Task, bool> filter)
     {
-        throw new NotImplementedException();
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        if (filter != null)
+        {
+            return from item in tasks
+                   where filter(item)
+                   select item;
+        }
+        return (from item in tasks
+                select item);
     }
 
     public void Update(Task item)
     {
-        throw new NotImplementedException();
+        string fileName = "tasks.xml";
+        XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
+        XElement? one = tasks.Elements("Task")?.
+                  Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
+        if (one != null)
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
+                $"is not exists");
+        one!.Element("Complete")!.Value = item.Complete.ToString()!;
+        one!.Element("Description")!.Value = item.Description!.ToString()!;
+        one!.Element("Alias")!.Value = item.Alias!.ToString()!;
+        one!.Element("Milestone")!.Value = item.Milestone!.ToString()!;
+        one!.Element("CreatedAt")!.Value = item.CreatedAt.ToString()!;
+        one!.Element("Start")!.Value = item.Start!.ToString()!;
+        one!.Element("ForecasDate")!.Value = item.ForecasDate!.ToString()!;
+        one!.Element("Deadline")!.Value = item.Deadline!.ToString()!;
+        one!.Element("Deliverables")!.Value = item.Deliverables!.ToString()!;
+        one!.Element("Remarks")!.Value = item.Remarks.ToString()!;
+        one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
+        one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
+        one.Save("tasks.xml");   
     }
 }
