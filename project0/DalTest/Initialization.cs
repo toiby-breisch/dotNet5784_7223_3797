@@ -119,7 +119,7 @@ public static class Initialization
     private static void createTask()
 
     {
-        List<Engineer> engineers = s_dal!.Engineer.ReadAll();
+        List<Engineer> engineers = s_dal!.Engineer.ReadAll(ele => ele.Id > 0).ToList();
         string[] Aliases = { "a", "b", "c", "d", "e" };
         string[] Remarks = { "a", "b", "c", "d", "e" };
         string[] Deliverables = { "r", "a", "c", "e", "l" };

@@ -146,7 +146,7 @@ internal class Program
     //</summary>
     static public void readAllEngineer()
     {
-        s_dal!.Engineer.ReadAll().ForEach(
+        s_dal!.Engineer.ReadAll(ele=>ele.Id>0).ToList().ForEach(
          engineer => Console.WriteLine(engineer)
      );
 
@@ -329,7 +329,7 @@ internal class Program
     /// </summary>
     static public void readAllTask()
     {
-        s_dal!.Task.ReadAll().ForEach(
+        s_dal!.Task.ReadAll(ele => ele.Id > 0).ToList().ForEach(
          task => Console.WriteLine(task)
      );
 
@@ -468,7 +468,7 @@ internal class Program
     //<summary>
     static public void readAllDependency()
     {
-        s_dal!.Dependency.ReadAll().ForEach(
+        s_dal!.Dependency.ReadAll(ele => ele.Id > 0).ToList().ForEach(
          dalDependency => Console.WriteLine(dalDependency)
      );
 

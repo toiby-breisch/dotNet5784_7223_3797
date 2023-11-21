@@ -9,7 +9,7 @@ namespace Dal
 {
     internal class DalXml : IDal
     {
-        public IDependency Dependency => throw new NotImplemen
+        public IDependency Dependency => throw new NotImplementedException();
 
         public ITask Task => throw new NotImplementedException();
 
