@@ -65,8 +65,8 @@ internal class TaskImplementation : ITask
 /// <param name="CopmlexityLevel
     public int Create(Task item)
     {
-
-        string fileName = "tasks.xml";
+        //טיפול בconfig
+        string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
@@ -74,8 +74,8 @@ internal class TaskImplementation : ITask
             throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
                 $"already exists");
         var el = createTaskElement(item);
-        e.Add(el);
-        e.Save("tasks.xml");
+        tasks.Add(el);
+      XMLTools.SaveListToXMLElement(tasks, fileName);
         return item.Id;
     }
 
@@ -109,22 +109,19 @@ internal class TaskImplementation : ITask
     {
         string fileName = "tasks.xml";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        return tasks.FirstOrDefault(d => filter(d));
+        return getTask(tasks.Elements().FirstOrDefault(d =>  filter(getTask( d)!))!);
 
     }
     
-    public IEnumerable<Task> ReadAll(Func<Task, bool> filter)
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter=null)
     {
-        string fileName = "tasks.xml";
+       const string fileName = "tasks.xml";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         if (filter != null)
-        {
-            return from item in tasks
-                   where filter(item)
-                   select item;
-        }
-        return (from item in tasks
-                select item);
+            return tasks.Elements().Where(d => filter(getTask( d)!)).Select(getTask)! ;
+        return (tasks.Elements()
+            .Select(getTask)!);
+                
     }
 
     public void Update(Task item)
@@ -145,7 +142,7 @@ internal class TaskImplementation : ITask
         one!.Element("ForecasDate")!.Value = item.ForecasDate!.ToString()!;
         one!.Element("Deadline")!.Value = item.Deadline!.ToString()!;
         one!.Element("Deliverables")!.Value = item.Deliverables!.ToString()!;
-        one!.Element("Remarks")!.Value = item.Remarks.ToString()!;
+        one!.Element("Remarks")!.Value = item.Remarks!.ToString();
         one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
         one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
         one.Save("tasks.xml");   

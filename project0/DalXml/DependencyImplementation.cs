@@ -6,13 +6,13 @@ using System.Collections.Generic;
 
 internal class DependencyImplementation : IDependency
 {
-
+    
 
     public bool isDepend(int dependentTask, int dependsOnTask) //Reads entity object by 2 IDs
     {
-        string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        const string fileName = "dependencies";
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
        
         Dependency? isDepend= dependencies.Find(lk => lk.DependentTask == dependentTask && lk.DependsOnTask == dependsOnTask);
         return
@@ -21,10 +21,11 @@ internal class DependencyImplementation : IDependency
 
         public int Create(Dependency item)
     {
-        string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
-        int newId =Config.NextDependencyId;
+        const string fileName = "dependencies";
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //int newId =Config.NextDependencyId;
+        int newId = 0;
         Dependency copy = item with { Id = newId };
         dependencies.Add(copy);
         XMLTools.SaveListToXMLSerializer<Dependency>(dependencies!, fileName);
@@ -34,8 +35,8 @@ internal class DependencyImplementation : IDependency
     public void Delete(int id)
     {
         string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         Dependency? result = dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (result is not null)
         {
@@ -53,8 +54,8 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(int id)
     {
         string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         Dependency? result = dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (result is not null)
             return result;
@@ -64,24 +65,24 @@ internal class DependencyImplementation : IDependency
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+       // dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         return dependencies.FirstOrDefault(d => filter(d));
     }
 
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter=null)
     {
         string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+       // dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         return new List<Dependency>(dependencies);
     }
 
     public void Update(Dependency item)
     {
         string fileName = "dependencies";
-        List<Dependency>? dependencies = new List<Dependency>();
-        dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         
             Dependency? dependencyToUpdate = Read(item.Id);
             if (dependencyToUpdate is not null)

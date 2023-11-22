@@ -1,12 +1,10 @@
-﻿using DO;
-using DalList;
-namespace DalTest;
+﻿namespace DalTest;
+using Dal;
 using DalApi;
-using System;
-
+using DO;
 internal class Program
 {
-    static readonly IDal s_dal = new Dal.DalList();
+    static readonly IDal s_dal = new DalXml();
     //<summary>
     // main menu
     //<summary>

@@ -25,14 +25,14 @@ public static class Initialization
     {
 
         s_dal = dal ?? throw new DalDeletionImpossible("DAL object can not be null!"); //stage 2
-        createEmployee();
+        createEngineer();
         createTask();
         createDependency();
     }
     /// <summary>
     /// Initializes the list of engineers
     /// </summary>
-    private static void createEmployee()
+    private static void createEngineer()
     {
         const int MIN_ID = 200000000;
         const int MAX_ID = 400000000;
@@ -167,10 +167,6 @@ public static class Initialization
         }
 
     }
-
-
-
-
 }
 
 
