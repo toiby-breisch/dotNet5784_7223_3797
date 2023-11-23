@@ -24,8 +24,8 @@ internal class DependencyImplementation : IDependency
         const string fileName = "dependencies";
         List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
         //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
-        //int newId =Config.NextDependencyId;
-        int newId = 0;
+        int newId =Config.NextDependencyId;
+        //int newId = 0;
         Dependency copy = item with { Id = newId };
         dependencies.Add(copy);
         XMLTools.SaveListToXMLSerializer<Dependency>(dependencies!, fileName);

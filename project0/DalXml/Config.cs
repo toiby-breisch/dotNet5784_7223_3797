@@ -3,8 +3,6 @@
 internal static class Config
 {
     static string s_data_config_xml = "data-config";
-
-    //public static int NextDependencyId { get; internal set; }
-    internal static int NextTaskId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextTaskId"); }
     internal static int NextDependencyId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextDependencyId"); }
+    internal static int NextTaskId { get => XMLTools.GetAndIncreaseNextId(s_data_config_xml, "NextTaskId"); }
 }
