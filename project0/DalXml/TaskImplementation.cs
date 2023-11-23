@@ -65,18 +65,18 @@ internal class TaskImplementation : ITask
 /// <param name="CopmlexityLevel
     public int Create(Task item)
     {
-        //טיפול בconfig
+        //int newId = DataSource.Config.NextTaskId;
+        //Task copy = item with { Id = newId };
+        //DataSource.Tasks.Add(copy);
+        //return newId;
+        int newId = Config.NextTaskId;
+        Task copyItem = item with { Id = newId };
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        XElement? one = tasks.Elements("Task")?.
-                  Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
-        if(one!=null)
-            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
-                $"already exists");
-        var el = createTaskElement(item);
+        var el = createTaskElement(copyItem);
         tasks.Add(el);
       XMLTools.SaveListToXMLElement(tasks, fileName);
-        return item.Id;
+        return copyItem.Id;
     }
 
     public void Delete(int id)
