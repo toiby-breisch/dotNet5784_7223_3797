@@ -22,7 +22,7 @@ internal class TaskImplementation : ITask
           Alias = (string?)t.Element("Alias"),
           Milestone =(bool)t.Element("Milestone")!,
           CreatedAt = (DateTime)t.Element("CreatedAt")!,
-          Start = (DateTime?)t.Element("Start"),
+          Start = (DateTime)t.Element("Start")!,
           ForecasDate = (DateTime)t.Element("ForecasDate")!,
           Deadline = (DateTime)t.Element("Deadline")!,
           Complete = (DateTime)t.Element("Complete")!,
@@ -85,17 +85,7 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
-
-            //Task task =getTask(one)! with { Complete = DateTime.Now }; 
-           
-          //  task = one with { Complete = DateTime.Now }; ;
-           // one.Remove();
-            
-            one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy-mm-dd-HH-mm-ss",CultureInfo.InvariantCulture);
-           
-           // getTask(one);
-
-            //getTask(one).Complete.Value = DateTime.Now;
+            one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
             XMLTools.SaveListToXMLElement(tasks, fileName);
         }
            else throw new DalAlreadyExistsException($"Task with ID={id} " +
@@ -143,20 +133,26 @@ internal class TaskImplementation : ITask
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
         if (one != null)
-            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
+        {
+            //// one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
+            // one!.Element("Complete")!.Value = item.Complete.ToString()!;
+            // one!.Element("Description")!.Value = item.Description!.ToString()!;
+            // one!.Element("Alias")!.Value = item.Alias!.ToString()!;
+            // one!.Element("Milestone")!.Value = item.Milestone!.ToString()!;
+            // one!.Element("CreatedAt")!.Value = item.CreatedAt.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
+            // one!.Element("Start")!.Value = item.Start.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
+            // one!.Element("ForecasDate")!.Value = item.ForecasDate.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
+            // one!.Element("Deadline")!.Value = item.Deadline.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
+            // one!.Element("Deliverables")!.Value = item.Deliverables!.ToString()!;
+            // one!.Element("Remarks")!.Value = item.Remarks!.ToString();
+            // one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
+            // one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
+            one.Remove();
+            tasks.Add(new XElement("Task", item));
+            XMLTools.SaveListToXMLElement(tasks, fileName);
+        }
+           else throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
                 $"is not exists");
-        one!.Element("Complete")!.Value = item.Complete.ToString()!;
-        one!.Element("Description")!.Value = item.Description!.ToString()!;
-        one!.Element("Alias")!.Value = item.Alias!.ToString()!;
-        one!.Element("Milestone")!.Value = item.Milestone!.ToString()!;
-        one!.Element("CreatedAt")!.Value = item.CreatedAt.ToString()!;
-        one!.Element("Start")!.Value = item.Start!.ToString()!;
-        one!.Element("ForecasDate")!.Value = item.ForecasDate!.ToString()!;
-        one!.Element("Deadline")!.Value = item.Deadline!.ToString()!;
-        one!.Element("Deliverables")!.Value = item.Deliverables!.ToString()!;
-        one!.Element("Remarks")!.Value = item.Remarks!.ToString();
-        one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
-        one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
-        one.Save("tasks");   
+       
     }
 }
