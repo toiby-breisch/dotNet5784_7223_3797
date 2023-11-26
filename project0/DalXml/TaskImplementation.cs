@@ -5,8 +5,10 @@ using DO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Numerics;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class TaskImplementation : ITask
@@ -65,35 +67,44 @@ internal class TaskImplementation : ITask
 /// <param name="CopmlexityLevel
     public int Create(Task item)
     {
-        //int newId = DataSource.Config.NextTaskId;
-        //Task copy = item with { Id = newId };
-        //DataSource.Tasks.Add(copy);
-        //return newId;
         int newId = Config.NextTaskId;
         Task copyItem = item with { Id = newId };
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         var el = createTaskElement(copyItem);
-        tasks.Add(el);
+        tasks.Add(new XElement ("Task" ,el));
       XMLTools.SaveListToXMLElement(tasks, fileName);
         return copyItem.Id;
     }
 
     public void Delete(int id)
     {
-        string fileName = "tasks.xml";
+        string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
-        if (one != null)
-            throw new DalAlreadyExistsException($"Engineer with ID={id} " +
+        if (one is not null)
+        {
+
+            //Task task =getTask(one)! with { Complete = DateTime.Now }; 
+           
+          //  task = one with { Complete = DateTime.Now }; ;
+           // one.Remove();
+            
+            one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy-mm-dd-HH-mm-ss",CultureInfo.InvariantCulture);
+           
+           // getTask(one);
+
+            //getTask(one).Complete.Value = DateTime.Now;
+            XMLTools.SaveListToXMLElement(tasks, fileName);
+        }
+           else throw new DalAlreadyExistsException($"Task with ID={id} " +
                 $"is not exists");
-        one!.Element("Complete")!.Value = DateTime.Now.ToString();
-        one.Save("tasks.xml");
+
     }
     public Task? Read(int id)
     {
-        string fileName = "tasks.xml";
+        string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
@@ -107,7 +118,7 @@ internal class TaskImplementation : ITask
 
     public Task? Read(Func<Task, bool> filter)
     {
-        string fileName = "tasks.xml";
+        string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         return getTask(tasks.Elements().FirstOrDefault(d =>  filter(getTask( d)!))!);
 
@@ -115,18 +126,19 @@ internal class TaskImplementation : ITask
     
     public IEnumerable<Task> ReadAll(Func<Task, bool>? filter=null)
     {
-       const string fileName = "tasks.xml";
+       const string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        if (filter != null)
+        if (filter is not null)
             return tasks.Elements().Where(d => filter(getTask( d)!)).Select(getTask)! ;
         return (tasks.Elements()
             .Select(getTask)!);
-                
+        
+        
     }
 
     public void Update(Task item)
     {
-        string fileName = "tasks.xml";
+        string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
@@ -145,6 +157,6 @@ internal class TaskImplementation : ITask
         one!.Element("Remarks")!.Value = item.Remarks!.ToString();
         one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
         one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
-        one.Save("tasks.xml");   
+        one.Save("tasks");   
     }
 }

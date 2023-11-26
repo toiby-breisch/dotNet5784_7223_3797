@@ -60,28 +60,28 @@ public static class Initialization
         "Pnini Cohen",
         "Giti Leder",
         "Feigy Haker",
-        "Kaila Avramovitz",
-        "Rachely Vainberg",
-        "Gili Reker",
-        "Zehava Simcha",
-        "Nahama Levi",
-        "Hindi Nachumi",
-        "Leaha Segal",
-        "Chaya Toyal",
-        "Debbi Pety",
-        "Anna Coheni",
-        "Efrat Kati",
-        "Devora Tal",
-        "Tova Eliimelech",
-        "Yeudit Avramov",
-        "Sury Shvartz",
-        "Malki Gotfrid",
-        "Sari Brodi",
-        "Roizy Safrin",
-        "Eti Deblinger",
-        "Racheli Bekerman",
-        "Miri Kaner",
-        "Suly Eler"
+        //"Kaila Avramovitz",
+        //"Rachely Vainberg",
+        //"Gili Reker",
+        //"Zehava Simcha",
+        //"Nahama Levi",
+        //"Hindi Nachumi",
+        //"Leaha Segal",
+        //"Chaya Toyal",
+        //"Debbi Pety",
+        //"Anna Coheni",
+        //"Efrat Kati",
+        //"Devora Tal",
+        //"Tova Eliimelech",
+        //"Yeudit Avramov",
+        //"Sury Shvartz",
+        //"Malki Gotfrid",
+        //"Sari Brodi",
+        //"Roizy Safrin",
+        //"Eti Deblinger",
+        //"Racheli Bekerman",
+        //"Miri Kaner",
+        //"Suly Eler"
 
 
 
@@ -124,7 +124,7 @@ public static class Initialization
         string[] Remarks = { "a", "b", "c", "d", "e" };
         string[] Deliverables = { "r", "a", "c", "e", "l" };
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 5; i++)
         {
             int indexA = s_rand.Next(0, 4);
             int indexD = s_rand.Next(0, 4);
@@ -154,7 +154,7 @@ public static class Initialization
     public static void createDependency()
     {
         int _dependentTask, _dependsOnTask;
-        for (int i = 0; i < 250; i++)
+        for (int i = 0; i < 5; i++)
         {
             do
             {

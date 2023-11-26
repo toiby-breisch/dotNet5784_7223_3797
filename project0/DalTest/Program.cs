@@ -327,7 +327,7 @@ internal class Program
     /// </summary>
     static public void readAllTask()
     {
-        s_dal!.Task.ReadAll(ele => ele.Id > 0).ToList().ForEach(
+        s_dal!.Task.ReadAll(null!).ToList().ForEach(
          task => Console.WriteLine(task)
      );
 
