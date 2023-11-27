@@ -7,19 +7,24 @@ using System.Collections.Generic;
 internal class DependencyImplementation : IDependency
 {
     
-
-    public bool isDepend(int dependentTask, int dependsOnTask) //Reads entity object by 2 IDs
+    //<summary>
+    // check if 2 tasks are dependency
+    //</summary>
+    public bool isDepend(int dependentTask, int dependsOnTask) 
     {
         const string fileName = "dependencies";
         List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
-        //dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;
+       
        
         Dependency? isDepend= dependencies.Find(lk => lk.DependentTask == dependentTask && lk.DependsOnTask == dependsOnTask);
         return
             isDepend != null;
     }
+    //<summary>
+    // create a new dependency
+    //</summary>
 
-        public int Create(Dependency item)
+    public int Create(Dependency item)
     {
         const string fileName = "dependencies";
         List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;

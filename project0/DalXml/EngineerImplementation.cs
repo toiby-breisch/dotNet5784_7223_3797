@@ -8,17 +8,22 @@ using System.Collections.Generic;
 
 internal class EngineerImplementation : IEngineer
 {
+    //<summary>
+    //create a new engineer
+    //<summary>
     public int Create(Engineer item)
     {
         const string fileName = "engineers";
         List<Engineer>? Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
-        //Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
         if (Engineers.Find(x => x.Id == item.Id) is not null)
             throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         Engineers.Add(item);
         XMLTools.SaveListToXMLSerializer<Engineer>(Engineers!, fileName);
         return item.Id;
     }
+    //<summary>
+    //delete an engineer
+    //<summary>
     public void Delete(int id)
     {
         string fileName = "engineers";
@@ -34,17 +39,21 @@ internal class EngineerImplementation : IEngineer
 
     }
 
+    //<summary>
+    //read an engineer
+    //<summary>
     public Engineer? Read(int id)
     {
         string fileName = "engineers";
         List<Engineer>? Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
-        //Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
         Engineer? result = Engineers.FirstOrDefault(engineer => engineer.Id == id);
         if (result is not null)
             return result;
         return null;
     }
-    
+    //<summary>
+    //read an engineer
+    //<summary>
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         string fileName = "engineers";
@@ -52,7 +61,9 @@ internal class EngineerImplementation : IEngineer
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
         return Engineers.FirstOrDefault(d => filter(d));
     }
-
+    //<summary>
+    //read all the engineers
+    //<summary>
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool> filter)
     {
         string fileName = "engineers";
@@ -68,7 +79,9 @@ internal class EngineerImplementation : IEngineer
                 select item);
 
     }
-
+    //<summary>
+    //update an engineer
+    //<summary>
     public void Update(Engineer item)
     {
         string fileName = "engineers";

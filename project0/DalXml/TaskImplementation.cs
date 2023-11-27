@@ -13,7 +13,10 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class TaskImplementation : ITask
 {
- 
+    /// <summary>
+    /// get task from xelement to task
+    /// </summary>
+
     static Task? getTask(XElement t) =>
       t.ToIntNullable("Id") is null ? null : new Task()
       {
@@ -31,7 +34,9 @@ internal class TaskImplementation : ITask
           Engineerid = (int)t.Element("Engineerid")!,
           
       };
-
+    /// <summary>
+    /// create a task from task to xelement
+    /// </summary>
     static IEnumerable<XElement> createTaskElement(Task task)
     {
         yield return new XElement("Id", task.Id);
@@ -58,13 +63,10 @@ internal class TaskImplementation : ITask
         if (task.Engineerid != 0)
             yield return new XElement("Engineerid", task.Engineerid);
     }
-  
 
-/// <param name="Complete">Actual end date of the assignment</param>
-/// <param name="Deliverables">Product (string describing the product) of the assignment</param>
-/// <param name="Remarks">Notes of the assignment</param>
-/// <param name="Engineerid">The engineer ID assigned to the task</param>
-/// <param name="CopmlexityLevel
+    //<summary>
+    //create a new item
+    //</summary>
     public int Create(Task item)
     {
         int newId = Config.NextTaskId;
@@ -76,7 +78,9 @@ internal class TaskImplementation : ITask
       XMLTools.SaveListToXMLElement(tasks, fileName);
         return copyItem.Id;
     }
-
+    //<summary>
+    // delete a task
+    //<summary>
     public void Delete(int id)
     {
         string fileName = "tasks";
@@ -90,8 +94,10 @@ internal class TaskImplementation : ITask
         }
            else throw new DalAlreadyExistsException($"Task with ID={id} " +
                 $"is not exists");
-
     }
+    //<summary>
+    //read a task
+    //</summary>
     public Task? Read(int id)
     {
         string fileName = "tasks";
@@ -105,7 +111,9 @@ internal class TaskImplementation : ITask
         }
         return null;
     }
-
+    //<summary>
+    //read a task
+    //</summary>
     public Task? Read(Func<Task, bool> filter)
     {
         string fileName = "tasks";
@@ -125,7 +133,9 @@ internal class TaskImplementation : ITask
         
         
     }
-
+    //<summary>
+    //update a task
+    //</summary>
     public void Update(Task item)
     {
         string fileName = "tasks";
@@ -134,24 +144,12 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
         if (one != null)
         {
-            //// one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
-            // one!.Element("Complete")!.Value = item.Complete.ToString()!;
-            // one!.Element("Description")!.Value = item.Description!.ToString()!;
-            // one!.Element("Alias")!.Value = item.Alias!.ToString()!;
-            // one!.Element("Milestone")!.Value = item.Milestone!.ToString()!;
-            // one!.Element("CreatedAt")!.Value = item.CreatedAt.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
-            // one!.Element("Start")!.Value = item.Start.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
-            // one!.Element("ForecasDate")!.Value = item.ForecasDate.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
-            // one!.Element("Deadline")!.Value = item.Deadline.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture)!;
-            // one!.Element("Deliverables")!.Value = item.Deliverables!.ToString()!;
-            // one!.Element("Remarks")!.Value = item.Remarks!.ToString();
-            // one!.Element("Engineerid")!.Value = item.Engineerid!.ToString()!;
-            // one!.Element("CopmlexityLevel")!.Value = item.CopmlexityLevel!.ToString()!;
+           
             one.Remove();
             tasks.Add(new XElement("Task", item));
             XMLTools.SaveListToXMLElement(tasks, fileName);
         }
-           else throw new DalAlreadyExistsException($"Engineer with ID={item.Id} " +
+           else throw new DalAlreadyExistsException($"Task with ID={item.Id} " +
                 $"is not exists");
        
     }

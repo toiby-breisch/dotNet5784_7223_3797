@@ -5,6 +5,9 @@ using System;
 using System.Threading;
 using System.Security.Cryptography;
 
+//<summary>
+//initiation the lists
+//</summary>
 
 public static class Initialization
 {
@@ -17,7 +20,7 @@ public static class Initialization
         HARD,
         VERY_HARD
     }
-    private static IDal? s_dal;//stage2;
+    private static IDal? s_dal;
 
 
     private static readonly Random s_rand = new();
@@ -149,7 +152,9 @@ public static class Initialization
         }
     }
 
-
+    /// <summary>
+    /// Initializes the dependencies
+    /// </summary>
 
     public static void createDependency()
     {
