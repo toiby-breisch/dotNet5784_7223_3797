@@ -138,15 +138,32 @@ internal class TaskImplementation : ITask
     //</summary>
     public void Update(Task item)
     {
+
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
                   Where(p => p.Element("Id")?.Value == item.Id.ToString()).FirstOrDefault();
         if (one != null)
         {
-           
+
             one.Remove();
-            tasks.Add(new XElement("Task", item));
+            
+            Task task = new(item.Id,item.Description,item.Alias,item.Milestone,item.CreatedAt,item.Start,
+                item.ForecasDate,item.Deadline,item.Complete,item.Deliverables,item.Remarks,item.Engineerid,item.CopmlexityLevel);
+           var x= createTaskElement(task);
+            tasks.Add(new XElement("Task", x));
+            //  task.Id = (int)item.Id;
+            //  Description = (string?)one.Element("Description");
+            //  Alias = (string?)one.Element("Alias");
+            //  Milestone = (bool)one.Element("Milestone")!;
+            //  CreatedAt = (DateTime)one.Element("CreatedAt")!;
+            //  Start = (DateTime)one.Element("Start")!;
+            //  ForecasDate = (DateTime)one.Element("ForecasDate")!;
+            //  Deadline = (DateTime)one.Element("Deadline")!;
+            //  Complete = (DateTime)one.Element("Complete")!;
+            //  Deliverables = (string)one.Element("Deliverables")!;
+            //  Remarks = (string)one.Element("Remarks")!;
+            //Engineerid = (int)one.Element("Engineerid")!;
             XMLTools.SaveListToXMLElement(tasks, fileName);
         }
            else throw new DalAlreadyExistsException($"Task with ID={item.Id} " +
