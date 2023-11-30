@@ -89,8 +89,11 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
-            one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
+            //לא למחוק-אולי נצטרך בהמשך!
+            //one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
+            one.Remove();
             XMLTools.SaveListToXMLElement(tasks, fileName);
+           
         }
            else throw new DalAlreadyExistsException($"Task with ID={id} " +
                 $"is not exists");
@@ -152,18 +155,7 @@ internal class TaskImplementation : ITask
                 item.ForecasDate,item.Deadline,item.Complete,item.Deliverables,item.Remarks,item.Engineerid,item.CopmlexityLevel);
            var x= createTaskElement(task);
             tasks.Add(new XElement("Task", x));
-            //  task.Id = (int)item.Id;
-            //  Description = (string?)one.Element("Description");
-            //  Alias = (string?)one.Element("Alias");
-            //  Milestone = (bool)one.Element("Milestone")!;
-            //  CreatedAt = (DateTime)one.Element("CreatedAt")!;
-            //  Start = (DateTime)one.Element("Start")!;
-            //  ForecasDate = (DateTime)one.Element("ForecasDate")!;
-            //  Deadline = (DateTime)one.Element("Deadline")!;
-            //  Complete = (DateTime)one.Element("Complete")!;
-            //  Deliverables = (string)one.Element("Deliverables")!;
-            //  Remarks = (string)one.Element("Remarks")!;
-            //Engineerid = (int)one.Element("Engineerid")!;
+        
             XMLTools.SaveListToXMLElement(tasks, fileName);
         }
            else throw new DalAlreadyExistsException($"Task with ID={item.Id} " +

@@ -25,11 +25,12 @@ public class TaskImplementation : ITask
         if (result is not null)
         {
             DataSource.Tasks.Remove(result);
-            result = result with { Complete = DateTime.Now };
-           DataSource.Tasks.Add(result);
+            //לא למחוק-אולי נצטרך בהמשך!
+            // result = result with { Complete = DateTime.Now };
+            //DataSource.Tasks.Add(result);
 
         }
-  
+
         else throw new DalDoesNotExistException($"Task with ID={id} is not exists");
     }
     /// <summary>
