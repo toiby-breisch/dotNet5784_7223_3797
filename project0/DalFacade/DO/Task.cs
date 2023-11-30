@@ -33,9 +33,7 @@ public record Task
 )
 {
     public Task() : this(0,"","",false,DateTime.MinValue,DateTime.MinValue, DateTime.MinValue,
-        DateTime.Now, DateTime.Now,"","",0,0) { } //empty ctor for stage 3
-
-   //public DateTime RegistrationDate => DateTime.Now; //get only
+        DateTime.Now, DateTime.Now,"","",0,0) { } //empty ctor 
 }
 
 
