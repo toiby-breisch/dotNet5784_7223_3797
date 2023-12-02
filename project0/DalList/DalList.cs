@@ -3,8 +3,6 @@
 using DalApi;
 using DO;
 
-
-
 sealed public class DalList : IDal
 {
     public ITask Task => new TaskImplementation();

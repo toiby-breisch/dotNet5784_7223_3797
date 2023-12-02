@@ -1,5 +1,7 @@
 ﻿namespace DalApi;
 using DO;
+using System;
+using System.Collections.Generic;
 
 public interface IDependency : ICrud<Dependency>
 {
