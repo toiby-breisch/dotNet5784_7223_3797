@@ -4,7 +4,8 @@ using DalApi;
 using DO;
 internal class Program
 {
-    static readonly IDal s_dal = new DalXml();
+    static readonly IDal s_dal = Factory.Get; //stage 4
+
     //<summary>
     // main menu
     //<summary>
