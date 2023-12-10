@@ -1,7 +1,7 @@
 ﻿using DO;
 
 namespace BO;
-public class Student
+public class Engineer
 {
     public int Id { get; init; }
     public string? Name { get; set; }
