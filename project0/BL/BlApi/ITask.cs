@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO
+﻿namespace BlApi;
+public interface ITask
 {
-    internal class ITask
-    {
-    }
+    public BO.Task? Read(int id);
+    public IEnumerable<BO.TaskInList> ReadAll();
+    public void Update(BO.Engineer item);
+    public void Delete(int id);
+    public void Add(BO.Task item);
+
 }

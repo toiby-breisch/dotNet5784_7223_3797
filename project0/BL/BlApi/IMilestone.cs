@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlApi
+﻿namespace BlApi;
+public interface IMilestone
 {
-    internal interface IMilestone
-    {
-    }
+    //לוז להוסיף וכן לסדרnullable init
+    public BO.Milestone? Read(int id);
+    public BO.Milestone? Update(int id);
+    
 }
