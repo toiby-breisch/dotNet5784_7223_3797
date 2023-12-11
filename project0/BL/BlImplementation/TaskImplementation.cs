@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 internal class Task : ITask
 {
-   
+    private DalApi.IDal _dal = DalApi.Factory.Get;
 
     public void Add(BO.Task item)
     {
