@@ -1,7 +1,10 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DO;
+using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 
 
 internal class Task : ITask
@@ -21,7 +24,33 @@ internal class Task : ITask
 
     public BO.Task? Read(int id)
     {
-        throw new NotImplementedException();
+
+        DO.Task? doTask = _dal.Task.Read(id);
+        if (doTask == null)
+            throw new DalAlreadyExistsException($"Task with ID={id} does Not exist");
+        return new BO.Task()
+        {
+            Id = id,
+            Description = doTask.Description,
+            Alias = doTask.Alias,
+
+           // CreatedAt = doTask.CreatedAt,
+           // IsActive = doTask.IsActive,
+            
+           // Description,
+           // string ? Alias,
+           //// bool Milestone,????
+           // DateTime CreatedAt,
+           // DateTime ? Start,
+           // DateTime ? ForecasDate,
+           // DateTime ? Deadline,
+           // DateTime ? Complete,
+           // string ? Deliverables,
+           // string ? Remarks,
+           // int Engineerid,
+           // EngineerExperience CopmlexityLevel
+
+        };
     }
 
     public IEnumerable<TaskInList> ReadAll()

@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using DalApi;
+using DO;
 
 internal class Milestone : IMilestone
 {
