@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 
 namespace BO;
 public class Engineer
@@ -9,7 +10,14 @@ public class Engineer
     public double Cost { get; set; }
     public EngineerExperience Level { get; set; }
     public TaskInEngineer? Task { get; set; }
-   public bool IsActive { get; set; }
+     public bool IsActive { get; set; }
 
+  
   //  public override string ToString() => this.ToStringProperty();
+
+
+
+
 }
+
+

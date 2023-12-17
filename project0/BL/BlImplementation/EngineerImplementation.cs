@@ -2,9 +2,28 @@
 using BlApi;
 using BO;
 using DO;
+using System.Reflection.Emit;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 internal class Engineer : IEngineer
 {
+    private EngineerInTask? GetCurrentTaskOfEngineer(int idOfEngineer)
+    {
+    DalApi.IDal _dal = DalApi.Factory.Get;
+    var tasks = _dal.Task.ReadAll(null!);
+    EngineerInTask engineerInTask =
+        (from task in tasks
+         where (task.Id == idOfEngineer&& _Dal.Engineers.Read(idOfEngineer).IsActive == true)
+         select new
+         {
+             Id = task.Id,
+             Name = task.Description,
+         }).FirstOrDefault();
+     return engineerInTask;
+       }
+
+
     private DalApi.IDal _dal = DalApi.Factory.Get;
     public int Add(BO.Engineer boEngineer)
     {
@@ -34,7 +53,7 @@ internal class Engineer : IEngineer
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"boEngineer with ID={boEngineer?.Id} already exists", ex);
+          //  throw new BO.BlAlreadyExistsException($"boEngineer with ID={boEngineer?.Id} already exists", ex);
         }
 
     }
@@ -67,10 +86,15 @@ internal class Engineer : IEngineer
         };
     }
 
-    public IEnumerable<EngineerInList> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<EngineerInList> ReadAll() => (from DO.Engineer doEngineer in _dal.Engineer.ReadAll(null!)
+                                                     select new BO.EngineerInList
+                                                     {
+                                                         Id = doEngineer.Id,
+                                                         Email = doEngineer.Email,
+                                                         Level = doEngineer.Level,
+                                                         Cost = doEngineer.Cost,
+                                                         Task = GetCurrentTaskOfEngineer(doEngineer.Id),
+                                                     });
 
     public void Update(BO.Engineer boEngineer)
     {
@@ -95,5 +119,6 @@ internal class Engineer : IEngineer
             throw new DalAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists");
         Update(boEngineer);
     }
+ 
 }
 

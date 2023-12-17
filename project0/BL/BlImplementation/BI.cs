@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BlImplementation;
+using BlApi;
+internal class Bl : IBI { }
 
-namespace BlImplementation
-{
-    internal class BI
-    {
-    }
-}
