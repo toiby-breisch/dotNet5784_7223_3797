@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO
+﻿namespace BO;
+///<summary>levels of the engineer experience</summary>
+public enum EngineerExperience
 {
-    internal class Enums
-    {
-    }
+    Novice,
+    Beginner,
+    Competent,
+    Proficient,
+    Expert
 }
+

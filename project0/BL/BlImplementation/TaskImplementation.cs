@@ -13,8 +13,15 @@ internal class Task : ITask
 
     public void Add(BO.Task item)
     {
-
-        throw new NotImplementedException();
+        if (item.Id <= 0 || item.Alias == "")
+        {
+            // throw new NotImplementedException();
+        }
+        try
+        {
+          // _dal.Dependency.ReadAll()
+        }
+        catch { };
     }
 
     public void Delete(int id)
@@ -53,7 +60,7 @@ internal class Task : ITask
         };
     }
 
-    public IEnumerable<TaskInList> ReadAll()
+    public IEnumerable<TaskInList> ReadAll(Func<BO.Engineer?, bool> filter=null!)
     {
         throw new NotImplementedException();
     }

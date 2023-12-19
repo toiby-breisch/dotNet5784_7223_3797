@@ -1,4 +1,4 @@
 ﻿namespace BlImplementation;
 using BlApi;
-internal class Bl : IBI { }
+//internal class Bl : IBI { }
 
