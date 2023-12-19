@@ -19,5 +19,6 @@ public class Task
     public EngineerInTask?Engineer { get; set; }
     public Milestone? relatedMilestone { get; set; }
     public EngineerExperience? CopmlexityLevel { get; set; }
+    public bool IsActive { get; set; }
     // public override string ToString() => this.ToStringProperty();
 }

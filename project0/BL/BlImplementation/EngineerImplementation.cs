@@ -5,16 +5,23 @@ using DO;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using FluentEmail;
+
 
 internal class Engineer : IEngineer
 {
+    private DalApi.IDal _dal = DalApi.Factory.Get;
+    public bool IsValidEmail(string email)
+    {
+        return Email.IsValidEmail(email);
+    }
     private EngineerInTask? GetCurrentTaskOfEngineer(int idOfEngineer)
     {
     DalApi.IDal _dal = DalApi.Factory.Get;
     var tasks = _dal.Task.ReadAll(null!);
     EngineerInTask engineerInTask =
         (from task in tasks
-         where (task.Id == idOfEngineer&& _Dal.Engineers.Read(idOfEngineer).IsActive == true)
+         where task.Id == idOfEngineer// _Dal.Engineers.Read(idOfEngineer).IsActive == true)
          select new
          {
              Id = task.Id,
@@ -24,28 +31,20 @@ internal class Engineer : IEngineer
        }
 
 
-    private DalApi.IDal _dal = DalApi.Factory.Get;
+    
     public int Add(BO.Engineer boEngineer)
     {
-        DO.Engineer doEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Name!, boEngineer.Email, boEngineer.Level, boEngineer.Cost, boEngineer.IsActive);
-        if (boEngineer?.Id <=0)
+        
+        if (boEngineer?.Id >=0|| boEngineer?.Name == ""
+            !IsValidEmail(boEngineer?.Email)|| boEngineer?.Cost <= 0)
         {
             //throw new BO.BlAlreadyExistsException();
         }
-        if(boEngineer?.Email == "")
-        {
-            //throw new BO.BlAlreadyExistsException();
-        }
-        if(boEngineer?.Name =="")
-        {
-           // throw new BO.BlAlreadyExistsException();
-        }
-        if(boEngineer?.Cost <= 0)
-        {
-            //throw new BO.BlAlreadyExistsException();
-        }
-        if (Read(boEngineer!.Id) is not null)
-            throw new DalAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists");
+      
+       
+            DO.Engineer doEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+       
+  
         try
         {
             int idEngineer = _dal.Engineer.Create(doEngineer);
@@ -60,13 +59,18 @@ internal class Engineer : IEngineer
 
     public void Delete(int id)
     {
-        DO.Engineer? doEngineer = _dal.Engineer.Read(id);
-        if (doEngineer?.Id == null)
-            throw new DalAlreadyExistsException($"Student with ID={id} does Not exist");
-        //תבדוק שהמהנדס לא בביצוע של משימה
-        //אי אפשר למחוק מהנדס שכבר סיים לבצע משימה או נמצא בביצוע פעיל של משימה
-        //:לבדוק 
-        Delete(id);
+ 
+        if (GetCurrentTaskOfEngineer(id) == null)
+        {
+            throw new Exception();
+        }
+        try
+        {
+            _dal.Engineer.Delete(id);
+        }
+        catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        }    
     }
 
     public BO.Engineer? Read(int id)
@@ -79,33 +83,35 @@ internal class Engineer : IEngineer
             Id = id,
             Name = doEngineer.Name,
             Email = doEngineer.Email,
-            Level = doEngineer.Level,
+            Level = (BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
-            IsActive = doEngineer.IsActive,
            
         };
     }
 
-    public IEnumerable<EngineerInList> ReadAll() => (from DO.Engineer doEngineer in _dal.Engineer.ReadAll(null!)
-                                                     select new BO.EngineerInList
-                                                     {
-                                                         Id = doEngineer.Id,
-                                                         Email = doEngineer.Email,
-                                                         Level = doEngineer.Level,
-                                                         Cost = doEngineer.Cost,
-                                                         Task = GetCurrentTaskOfEngineer(doEngineer.Id),
-                                                     });
-
+    public IEnumerable<EngineerInList> ReadAll(Func<BO.Engineer?, bool filter>) {
+       
+        
+        from DO.Engineer doEngineer in _dal.Engineer.ReadAll(null!
+         select new BO.EngineerInList
+         {
+             Id = doEngineer.Id,
+             Email = doEngineer.Email,
+             Level = (BO.EngineerExperience)doEngineer.Level,
+             Cost = doEngineer.Cost,
+             Task = GetCurrentTaskOfEngineer(doEngineer.Id),
+         });
+    }
     public void Update(BO.Engineer boEngineer)
     {
-        DO.Engineer doEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Name!, boEngineer.Email, boEngineer.Level, boEngineer.Cost, boEngineer.IsActive);
-        if (boEngineer?.Id <= 0)
+        if (boEngineer?.Id <= 100000000)
         {
-            throw new DalAlreadyExistsException("");
+            //throw new BO.BlAlreadyExistsException();
         }
-        if (boEngineer?.Email == "")
+
+        if (!IsValidEmail(boEngineer?.Email))
         {
-            throw new DalAlreadyExistsException("");
+            //throw new BO.BlAlreadyExistsException();
         }
         if (boEngineer?.Name == "")
         {
