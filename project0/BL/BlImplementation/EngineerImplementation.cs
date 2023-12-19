@@ -107,7 +107,7 @@ internal class Engineer : IEngineer
              Email = doEngineer.Email,
              Level = (BO.EngineerExperience)doEngineer.Level,
              Cost = doEngineer.Cost,
-             CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id),
+             CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
          };
         return allTaskinBo;
     }
