@@ -19,9 +19,46 @@ internal class Task : ITask
         // _dal.Dependency.ReadAll()
         //ליצור Dependency
         //ליצור Do task
+        DO.EngineerExperience CopmlexityLevel =(DO.EngineerExperience) item.CopmlexityLevel!;
+      
+        DO.Task temp=new DO.Task(item.Id,item.Description,item.Alias,Milestone=null,
+            DateTime.Now,item.StartDate, item.ForecastDate, item.DeadlineDate, item.CompleteDate, Deliverables=null,item.Remarks,
+            item.engineer!.Id, CopmlexityLevel);
+    //public int Id { get; init; }
+    //public string? Description { get; set; }
+    //public string? Alias { get; set; }
+    //public Status? Status { get; set; }
+    //public TaskInList? TaskInList { get; set; }
+    //public DateTime BaseLineStartDate { get; set; }
+    //public DateTime StartDate { get; set; }
+    //public DateTime ScheduledStartDate { get; set; }n
+    //public DateTime ForecastDate { get; set; }
+    //public DateTime DeadlineDate { get; set; }
+    //public DateTime CompleteDate { get; set; }
+    //public string? Remarks { get; set; }
+    //public string? product { get; set; }
+    //public EngineerInTask? engineer { get; set; }
+    //public Milestone? relatedMilestone { get; set; }
+    //public EngineerExperience? CopmlexityLevel { get; set; }
+    //public bool IsActive { get; set; }
+
+       
+    //    int Id,
+    //string? Description,
+    //string? Alias,
+    //bool Milestone,
+    //DateTime CreatedAt,
+    //DateTime? Start,
+    //DateTime? ForecasDate,
+    //DateTime? Deadline,
+    //DateTime? Complete,
+    //string? Deliverables,
+    //string? Remarks,
+    //int Engineerid,
+    //EngineerExperience CopmlexityLevel
         try
         {
-            _dal.Task.Create(item);
+            _dal.Task.Create(temp);
         }
         catch { };
     }
