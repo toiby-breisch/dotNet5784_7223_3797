@@ -2,6 +2,7 @@
 using BlApi;
 using BO;
 using DO;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -14,12 +15,13 @@ internal class Task : ITask
     public void Add(BO.Task item)
     {
         if (item.Id <= 0 || item.Alias == "")
-        {
-            // throw new NotImplementedException();
-        }
+            throw new BlNullPropertyException(nameof(item));
+        // _dal.Dependency.ReadAll()
+        //ליצור Dependency
+        //ליצור Do task
         try
         {
-          // _dal.Dependency.ReadAll()
+            _dal.Task.Create(item);
         }
         catch { };
     }
