@@ -8,4 +8,14 @@ public enum EngineerExperience
     Proficient,
     Expert
 }
+/// <summary>
+/// taskes status
+/// </summary>
+public enum Status
+{
+   Unscheduled,
+    Scheduled,
+    OnTrack, 
+    InJeopardy
+}
 
