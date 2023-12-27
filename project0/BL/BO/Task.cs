@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 namespace BO;
 public class Task
 {
+
     public int Id { get; init; }
     public required string Description { get; set; }
     public required string Alias { get; set; }
@@ -23,22 +24,7 @@ public class Task
     public EngineerExperience? CopmlexityLevel { get; set; }
     //public Task(Task task)
     //{
-    //    Id = task.Id;
-    //    Description = task.Description;
-    //    Alias = task.Alias;
-    //    CreatedAtDate = task.CreatedAtDate;
-    //    status = task.status;
-    //    DependenciesList = task.DependenciesList;
-    //    milestone = task.milestone;
-    //    BaseLineStartDate = task.BaseLineStartDate;
-    //    StartDate = task.StartDate;
-    //    ForecastDate = task.ForecastDate;
-    //    DeadlineDate = task.DeadlineDate;
-    //    CompleteDate = task.CompleteDate;
-    //    Remarks = task.Remarks;
-    //    Deliverables = task.Deliverables;
-    //    engineer = task.engineer;
-    //    CopmlexityLevel = task.CopmlexityLevel;
+   
     //}
 
     public Task()

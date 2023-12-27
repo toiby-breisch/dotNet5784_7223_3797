@@ -1,6 +1,8 @@
 ﻿namespace BlImplementation;
 using BlApi;
+
 using DalApi;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 
 
-internal class Task : BO.ITask
+internal class Task : BlApi.ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
 
@@ -81,16 +83,46 @@ internal class Task : BO.ITask
 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
     {
-        IEnumerable<BO.Task> doTasks = _dal.Task.ReadAll((Func<DO.Task?, bool>)filter).Select
-            (task => new BO.Task(createBoTaskFromDoTask(task, _dal));
+        IEnumerable<BO.Task> boTasks = _dal.Task.ReadAll((Func<DO.Task?, bool>)filter).Select
+            (task =>  
+            new BO.Task
+            {
+                Id = task.Id,
+                Description = task.Description!,
+                Alias = task.Alias!,
+                CreatedAtDate = task.CreatedAt,
+                status = (BO.Status)1,// getStatuesOfTask(doTask),
+                DependenciesList = _dal.Dependency.ReadAll((d) => d!.DependentTask == task.Id).Select(d => new BO.TaskInList
+                {
+                    Id = d.Id,
+                    Alias = _dal.Task.Read(d.Id)!.Alias,
+                    Status = getStatuesOfTask(_dal.Task.Read(d.Id)!),
+                    Description = _dal.Task.Read(d.Id)!.Description
+                }),
+                milestone = _dal.Task.ReadAll(null!).Select(t => new BO.MilestoneInTask
+                {
+                    Id = t.Id,
+                    Alias = t.Alias
+                }
+          ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d!.DependentTask == task!.Id && d.DependOnTask == t.Id)) is not null)).FirstOrDefault(),
+               BaseLineStartDate = DateTime.Now,
+                StartDate = task.Start,
+                ForecastDate = task.ForecasDate,
+                DeadlineDate = task.Deadline,
+                CompleteDate = task.Complete,
+                Remarks = task.Remarks,
+                Deliverables = task.Deliverables,
+                engineer = GetEngineerInTask(task ),
+                CopmlexityLevel = (BO.EngineerExperience?)task.CopmlexityLevel
+            }
+             
+                
+            );
         
                                        
         return boTasks;
 
     }
-
-
-
 
 
     public void Update(BO.Task item)
@@ -140,20 +172,24 @@ private BO.Status getStatuesOfTask(DO.Task task)
     {
         return (BO.Status)1;
     }
-private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
+    private BO.EngineerInTask GetEngineerInTask(DO.Task doTask)
     {
-          MilestoneInTask? milestomeInList = _dal.Task.ReadAll(null!).Select(t => new MilestoneInTask
-          {
-              Id = t!.Id,
-              Alias = t.Alias
-          }
-         ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d!.DependentTask == doTask!.Id && d.DependOnTask == t.Id)) is not null)).FirstOrDefault();
         DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
         BO.EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer!.Name);
+        return engineerInTask;
+    }
+private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
+    {
+          BO.MilestoneInTask? milestomeInList = _dal.Task.ReadAll(null!).Select(t => new BO.MilestoneInTask
+          {
+              Id = t.Id,
+              Alias = t.Alias
+          }
+         ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d.DependentTask == doTask!.Id && d.DependOnTask! == t.Id)) is not null)).FirstOrDefault();
+        
 
         return new BO.Task()
         {
-
             Id = doTask.Id,
             Description = doTask.Description!,
             Alias = doTask.Alias!,
@@ -175,7 +211,7 @@ private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
             CompleteDate = doTask.Complete,
             Remarks = doTask.Remarks,
             Deliverables = doTask.Deliverables,
-            engineer = engineerInTask,
+            engineer = GetEngineerInTask( doTask),
             CopmlexityLevel = (BO.EngineerExperience?)doTask.CopmlexityLevel
         };
         
