@@ -71,10 +71,8 @@ internal class Task : ITask
                 if (!doTask!.IsActive) { throw new Exception(); }
             DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
             BO.EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer!.Name);
-            Status status = null!;
-            var dependsList = from dependency in _dal.Dependency.ReadAll(null!)
-                              where dependency.DependsOnTask == doTask.Engineerid
-                              select new BO.TaskInList(id, doTask.Description, doTask.Alias, status);
+            BO.Status status = null!;
+            
             return new BO.Task()
             {
                 Id = id,
@@ -82,11 +80,12 @@ internal class Task : ITask
                 Alias = doTask.Alias!,
                 CreatedAtDate = doTask.CreatedAt,
                 status = status,
-                DependsList = null,
-                milestone = null,
+                DependsList = from dependency in _dal.Dependency.ReadAll(null!)
+                              where dependency.DependsOnTask == id
+                              select new BO.TaskInList(id, doTask.Description, doTask.Alias, status),
+                milestone = new(id, doTask.Alias),
                 BaseLineStartDate = new DateTime(),
                 StartDate = doTask.Start,
-                ScheduledStartDate = null,
                 ForecastDate = doTask.ForecasDate,
                 DeadlineDate = doTask.Deadline,
                 CompleteDate = doTask.Complete,
