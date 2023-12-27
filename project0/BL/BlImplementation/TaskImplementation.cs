@@ -1,9 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using BO;
 using DalApi;
-using DO;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +14,7 @@ internal class Task : ITask
     public int create(BO.Task BoTask)
     {
         if (BoTask.Id <= 0 || BoTask.Alias == "")
-            throw new BlNullPropertyException(nameof(BoTask));
+           // throw new BlNullPropertyException(nameof(BoTask));
         try
         {
             DO.EngineerExperience CopmlexityLevel = (DO.EngineerExperience)BoTask.CopmlexityLevel!;
@@ -28,7 +25,7 @@ internal class Task : ITask
             {
                 return BoTask.Id;
             }
-            var dependencies = from TaskInList task in BoTask.DependsList
+            var dependencies = from BO.TaskInList task in BoTask.DependsList
                                select new DO.Dependency(0, BoTask.Id, task.Id);
 
             _dal.Task.Create(doTask);
@@ -49,7 +46,7 @@ internal class Task : ITask
             {
                 throw new Exception();
             }
-            Dependency dependency = _dal.Dependency.ReadAll((dependency) => dependency.DependsOnTask == id).FirstOrDefault()!;
+            DO.Dependency dependency = _dal.Dependency.ReadAll((dependency) => dependency.DependsOnTask == id).FirstOrDefault()!;
             if (dependency == null)
             {
 
@@ -66,40 +63,40 @@ internal class Task : ITask
 
     public BO.Task? Read(int id)
     {
-        try
-        {
-            DO.Task? doTask = _dal.Task.Read(id);
-            if (doTask == null)
-                throw new DalAlreadyExistsException($"Task with ID={id} does Not exist");
-            if (!doTask!.IsActive) { throw new Exception(); }
-            DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
-            EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer!.Name);
-            Status status = null!;
-            var dependsList = from dependency in _dal.Dependency.ReadAll(null!)
-                              where dependency.DependsOnTask == doTask.Engineerid
-                              select new TaskInList(id, doTask.Description, doTask.Alias, status);
-            return new BO.Task()
-            {
-                Id = id,
-                Description = doTask.Description!,
-                Alias = doTask.Alias!,
-                CreatedAtDate = doTask.CreatedAt,
-                status = status,
-                DependsList = null,
-                milestone = null,
-                BaseLineStartDate = new DateTime(),
-                StartDate = doTask.Start,
-                ScheduledStartDate = null,
-                ForecastDate = doTask.ForecasDate,
-                DeadlineDate = doTask.Deadline,
-                CompleteDate = doTask.Complete,
-                Remarks = doTask.Remarks,
-                Deliverables = doTask.Deliverables,
-                engineer = engineerInTask,
-                CopmlexityLevel = (BO.EngineerExperience?)doTask.CopmlexityLevel
-            };
-        }
-        catch { return null; }
+        //try
+        //{
+        //    DO.Task? doTask = _dal.Task.Read(id);
+        //    if (doTask == null)
+        //       // throw new DalAlreadyExistsException($"Task with ID={id} does Not exist");
+        //    if (!doTask!.IsActive) { throw new Exception(); }
+        //    DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
+        //    BO.EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer!.Name);
+        //    Status status = null!;
+        //    var dependsList = from dependency in _dal.Dependency.ReadAll(null!)
+        //                      where dependency.DependsOnTask == doTask.Engineerid
+        //                      select new BO.TaskInList(id, doTask.Description, doTask.Alias, status);
+        //    return new BO.Task()
+        //    {
+        //        Id = id,
+        //        Description = doTask.Description!,
+        //        Alias = doTask.Alias!,
+        //        CreatedAtDate = doTask.CreatedAt,
+        //        status = status,
+        //        DependsList = null,
+        //        milestone = null,
+        //        BaseLineStartDate = new DateTime(),
+        //        StartDate = doTask.Start,
+        //        ScheduledStartDate = null,
+        //        ForecastDate = doTask.ForecasDate,
+        //        DeadlineDate = doTask.Deadline,
+        //        CompleteDate = doTask.Complete,
+        //        Remarks = doTask.Remarks,
+        //        Deliverables = doTask.Deliverables,
+        //        engineer = engineerInTask,
+        //        CopmlexityLevel = (BO.EngineerExperience?)doTask.CopmlexityLevel
+        //    };
+        //}
+        //catch { return null; }
     }
 
 
@@ -130,10 +127,17 @@ public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
     public void Update(BO.Task item)
     {
 
-    //public DateTime? ForecastDate { get; set; }
-    //public DateTime? DeadlineDate { get; set; }
-    //public DateTime? CompleteDate { get; set; }
-        if(item.BaseLineStartDate < DateTime.Now|| item.ScheduledStartDate< DateTime.Now||item.ForecastDate<)
+        if(item.BaseLineStartDate < DateTime.Now||
+            item.ForecastDate<item.CompleteDate||item.DeadlineDate< item.CompleteDate ||
+            item.Id<=0||item.Alias=="")
+            
         throw new NotImplementedException();
+        try
+        {
+            _dal.Task.Update(DO.Task(item.Id, item.Description, item.Alias, item.milestone,
+               item.CreatedAtDate, item.StartDate, item.ForecastDate,
+              item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks,
+              item.engineer, (DO.EngineerExperience)item.CopmlexityLevel, true));
+        }
     }
 }
