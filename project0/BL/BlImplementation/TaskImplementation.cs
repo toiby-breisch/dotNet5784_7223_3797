@@ -66,60 +66,62 @@ internal class Task : ITask
 
     public BO.Task? Read(int id)
     {
-        //try
-        //{
-        //    DO.Task? doTask = _dal.Task.Read(id);
-        //    if (doTask == null)
-        //        throw new DalAlreadyExistsException($"Task with ID={id} does Not exist");
-        //    if (!doTask!.IsActive) { throw new Exception(); }
-        //    DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
-        //    EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer.Name);
-        //    Status status = null!;
-        //    var dependsList = from dependency in _dal.Dependency.ReadAll(null!)
-        //                      where dependency.DependsOnTask == doTask.Engineerid
-        //                      select new TaskInList(id, doTask.Description, doTask.Alias, status);
-        //    return new BO.Task()
-        //    {
-        //        Id = id,
-        //        Description = doTask.Description!,
-        //        Alias = doTask.Alias!,
-        //        CreatedAtDate = doTask.CreatedAt,
-        //        status = status,
-        //        DependsList = null,
-        //        milestone = null,
-        //        BaseLineStartDate = new DateTime(),
-        //        StartDate = doTask.Start,
-        //        ScheduledStartDate = null,
-        //        ForecastDate = doTask.ForecasDate,
-        //        DeadlineDate = doTask.Deadline,
-        //        CompleteDate = doTask.Complete,
-        //        Remarks = doTask.Remarks,
-        //        Deliverables = doTask.Deliverables,
-        //        engineer = engineerInTask,
-        //        CopmlexityLevel = (BO.EngineerExperience?)doTask.CopmlexityLevel
-        //    };
-        //}
-        //catch { return null; }
+        try
+        {
+            DO.Task? doTask = _dal.Task.Read(id);
+            if (doTask == null)
+                throw new DalAlreadyExistsException($"Task with ID={id} does Not exist");
+            if (!doTask!.IsActive) { throw new Exception(); }
+            DO.Engineer? doEngineer = _dal.Engineer.Read(doTask.Engineerid);
+            EngineerInTask engineerInTask = new(doTask.Engineerid, doEngineer!.Name);
+            Status status = null!;
+            var dependsList = from dependency in _dal.Dependency.ReadAll(null!)
+                              where dependency.DependsOnTask == doTask.Engineerid
+                              select new TaskInList(id, doTask.Description, doTask.Alias, status);
+            return new BO.Task()
+            {
+                Id = id,
+                Description = doTask.Description!,
+                Alias = doTask.Alias!,
+                CreatedAtDate = doTask.CreatedAt,
+                status = status,
+                DependsList = null,
+                milestone = null,
+                BaseLineStartDate = new DateTime(),
+                StartDate = doTask.Start,
+                ScheduledStartDate = null,
+                ForecastDate = doTask.ForecasDate,
+                DeadlineDate = doTask.Deadline,
+                CompleteDate = doTask.Complete,
+                Remarks = doTask.Remarks,
+                Deliverables = doTask.Deliverables,
+                engineer = engineerInTask,
+                CopmlexityLevel = (BO.EngineerExperience?)doTask.CopmlexityLevel
+            };
+        }
+        catch { return null; }
     }
 
 
-    //bool Milestone,
-    //DateTime ,
-
-    //DateTime? ForecasDate,
-    //DateTime? Deadline,
-    //DateTime? Complete,
-    //string? Deliverables,
-    //string? Remarks,
-    //int Engineerid,
-    //EngineerExperience CopmlexityLevel,
-    //  bool IsActive
-    //
 
 
+//bool Milestone,
+//DateTime ,
+
+//DateTime? ForecasDate,
+//DateTime? Deadline,
+//DateTime? Complete,
+//string? Deliverables,
+//string? Remarks,
+//int Engineerid,
+//EngineerExperience CopmlexityLevel,
+//  bool IsActive
+//
 
 
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
+
+
+public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
     {
         throw new NotImplementedException();
        
