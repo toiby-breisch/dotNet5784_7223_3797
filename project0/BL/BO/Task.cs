@@ -1,4 +1,6 @@
 ﻿using DO;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 
 namespace BO;
 public class Task
@@ -8,7 +10,7 @@ public class Task
     public required string Alias { get; set; }
     public DateTime CreatedAtDate { get; set; }
     public required Status status { get; set; }
-    public IEnumerable<TaskInList?>  DependsList { get; set; }=new List<TaskInList?>();  
+    public IEnumerable<TaskInList?> DependenciesList { get; set; }=new List<TaskInList?>();  
     public MilestoneInTask? milestone { get; set; }
     public DateTime? BaseLineStartDate { get; set; }
     public DateTime? StartDate { get; set; }
@@ -19,6 +21,28 @@ public class Task
     public string? Deliverables { get; set; }
     public EngineerInTask?engineer { get; set; }
     public EngineerExperience? CopmlexityLevel { get; set; }
-   
+    //public Task(Task task)
+    //{
+    //    Id = task.Id;
+    //    Description = task.Description;
+    //    Alias = task.Alias;
+    //    CreatedAtDate = task.CreatedAtDate;
+    //    status = task.status;
+    //    DependenciesList = task.DependenciesList;
+    //    milestone = task.milestone;
+    //    BaseLineStartDate = task.BaseLineStartDate;
+    //    StartDate = task.StartDate;
+    //    ForecastDate = task.ForecastDate;
+    //    DeadlineDate = task.DeadlineDate;
+    //    CompleteDate = task.CompleteDate;
+    //    Remarks = task.Remarks;
+    //    Deliverables = task.Deliverables;
+    //    engineer = task.engineer;
+    //    CopmlexityLevel = task.CopmlexityLevel;
+    //}
+
+    public Task()
+    {
+    }
     // public override string ToString() => this.ToStringProperty();
 }

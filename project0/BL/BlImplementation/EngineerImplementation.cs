@@ -137,7 +137,7 @@ internal class Engineer : IEngineer
            // throw new DalAlreadyExistsException("");
         }
         if (Read(boEngineer!.Id) is not null)
-            throw new DalAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists");
+            throw new Exception($"Engineer with ID={boEngineer.Id} already exists");
         Update(boEngineer);
     }
  
