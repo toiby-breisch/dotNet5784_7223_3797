@@ -25,9 +25,6 @@ internal class TaskImplementation : ITask
         if (result is not null)
         {
             DataSource.Tasks.Remove(result);
-            //לא למחוק-אולי נצטרך בהמשך!
-            // result = result with { Complete = DateTime.Now };
-            //DataSource.Tasks.Add(result);
 
         }
 
@@ -74,16 +71,12 @@ internal class TaskImplementation : ITask
     /// <summary>
     /// read allthe tasks
     /// </summary>
-    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) //stage 2
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) 
     {
-        if (filter != null)
-        {
-            return from item in DataSource.Tasks
-                   where filter(item)
-                   select item;
-        }
-        return from item in DataSource.Tasks
-               select item;
+        if (filter == null)
+            return DataSource.Tasks.Select(task => task);
+        else
+            return DataSource.Tasks.Where(filter);
     }
-
+       
 }

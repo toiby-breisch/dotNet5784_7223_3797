@@ -4,7 +4,6 @@ using DO;
 using System.Collections.Generic;
 
 internal class DependencyImplementation:IDependency
-
 {
     /// <summary>
     /// crate a new dependency
@@ -16,9 +15,11 @@ internal class DependencyImplementation:IDependency
         DataSource.Dependencies.Add(copy);
         return newId;
     }
+
     /// <summary>
     /// check if 2 task are dependency
     /// </summary>
+    
     public bool isDepend(int dependentTask, int dependsOnTask)
     {
         Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
@@ -50,14 +51,20 @@ internal class DependencyImplementation:IDependency
     /// <summary>
     /// read all dependencies
     /// </summary>
+
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool> filter)
-    {
-        return new List<Dependency>(DataSource.Dependencies);
+    {      
+            if (filter == null)
+                return DataSource.Dependencies.Select(dependency => dependency);
+            else
+                return DataSource.Dependencies.Where(filter);
 
     }
+
     /// <summary>
     /// update a dependency
     /// </summary>
+    /// 
     public void Update(Dependency item)
     {
         Dependency? dependencyToUpdate = Read(item.Id);
@@ -69,11 +76,14 @@ internal class DependencyImplementation:IDependency
         }
         else throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exists ") ;
     }
+
     /// <summary>
     /// read a dependency according to a parameter
     /// </summary>
+    /// 
     public Dependency? Read(Func<Dependency, bool> filter)
     {
         return DataSource.Dependencies.FirstOrDefault(d => filter(d));
     }
+
 }

@@ -4,15 +4,15 @@ namespace BO;
 public class Milestone
 {
     public int Id { get; init; }
-    public string? Description { get; set; }
-    public string ?Alias { get; set; }
-    public DateTime? CreatedAtDate { get; set; }
-    public Status? Status { get; set; }
-    public DateTime ForecastDate { get; set; }
-    public DateTime DeadlineDate { get; set; }
-    public DateTime CompleteDate { get; set; }
+    public required string Description { get; set; }
+    public required string Alias { get; set; }
+    public required DateTime CreatedAtDate { get; set; }
+    public required Status  Status { get; set; }
+    public DateTime? ForecastDate { get; set; }
+    public DateTime? DeadlineDate { get; set; }
+    public DateTime? CompleteDate { get; set; }
     public string ?Remarks { get; set; }
     public double CompletionPercentage { get; set; }
-    public TaskInList? Task { get; set; }   
+    public required TaskInList Task { get; set; }   
     //  public override string ToString() => this.ToStringProperty();
 }

@@ -20,20 +20,21 @@ public record Task
     int Id,
     string? Description,
     string? Alias,
-    bool Milestone,
+    bool ?Milestone,
     DateTime CreatedAt,
-    DateTime? Start,
-    DateTime? ForecasDate,
-    DateTime? Deadline,
-    DateTime? Complete,
-    string? Deliverables,
+    DateTime Start,
+    DateTime ForecasDate,
+    DateTime Deadline,
+    DateTime Complete,
+    string ?Deliverables,
     string? Remarks,
     int Engineerid,
-    EngineerExperience CopmlexityLevel
+    EngineerExperience CopmlexityLevel,
+      bool IsActive 
 )
 {
     public Task() : this(0,"","",false,DateTime.MinValue,DateTime.MinValue, DateTime.MinValue,
-        DateTime.Now, DateTime.Now,"","",0,0) { } //empty ctor 
+        DateTime.Now, DateTime.Now,"","",0,0,true) { } //empty ctor 
 }
 
 
