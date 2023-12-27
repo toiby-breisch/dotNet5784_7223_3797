@@ -22,8 +22,8 @@ internal class TaskImplementation : ITask
       t.ToIntNullable("Id") is null ? null : new Task()
       {
           Id = (int)t.Element("Id")!,
-          Description = (string?)t.Element("Description"),
-          Alias = (string?)t.Element("Alias"),
+          Description = (string)t.Element("Description")!,
+          Alias = (string)t.Element("Alias")!,
           Milestone =(bool)t.Element("Milestone")!,
           CreatedAt = (DateTime)t.Element("CreatedAt")!,
           Start = (DateTime)t.Element("Start")!,
@@ -142,7 +142,6 @@ internal class TaskImplementation : ITask
     //</summary>
     public void Update(Task item)
     {
-
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         XElement? one = tasks.Elements("Task")?.
@@ -153,7 +152,7 @@ internal class TaskImplementation : ITask
             one.Remove();
             
             Task task = new(item.Id,item.Description,item.Alias,item.Milestone,item.CreatedAt,item.Start,
-                item.ForecasDate,item.Deadline,item.Complete,item.Deliverables,item.Remarks,item.Engineerid,item.CopmlexityLevel);
+                item.ForecasDate,item.Deadline,item.Complete,item.Deliverables,item.Remarks,item.Engineerid,item.CopmlexityLevel,true);
            var x= createTaskElement(task);
             tasks.Add(new XElement("Task", x));
         

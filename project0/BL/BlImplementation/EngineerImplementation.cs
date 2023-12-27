@@ -27,7 +27,7 @@ internal class Engineer : IEngineer
     }
     private TaskInEngineer GetCurrentTaskOfEngineerActive(int idOfEngineer)
     {
-        return null;
+        return null!;
     }
     private IEnumerable<TaskInEngineer>? GetCurrentTaskOfEngineer(int idOfEngineer)
     {
@@ -43,15 +43,15 @@ internal class Engineer : IEngineer
            });
      return taskInEngineer;
      }
-    public int Add(BO.Engineer boEngineer)
+    public int create(BO.Engineer boEngineer)
     {
         
-        if (boEngineer?.Id <=0|| boEngineer.Name == ""||!IsValidEmail(boEngineer?.Email)|| boEngineer?.Cost <= 0)
+        if (boEngineer?.Id <=0|| boEngineer!.Name ==""||!IsValidEmail(boEngineer?.Email)|| boEngineer?.Cost <= 0)
         {
             //throw new BO.BlAlreadyExistsException();
            
         }
-            DO.Engineer doEngineer = new DO.Engineer(boEngineer.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+            DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
             int idEngineer = _dal.Engineer.Create(doEngineer);
@@ -97,13 +97,14 @@ internal class Engineer : IEngineer
         };
     }
 
-    public IEnumerable<Engineer> ReadAll(Func<BO.Engineer?,bool> filter){
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> filter){
 
         IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter);
         IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
         select new BO.Engineer
         {
              Id = doEngineer.Id,
+             Name = doEngineer.Name,
              Email = doEngineer.Email,
              Level = (BO.EngineerExperience)doEngineer.Level,
              Cost = doEngineer.Cost,
@@ -111,6 +112,7 @@ internal class Engineer : IEngineer
          };
         return allTaskinBo;
     }
+
     public void Update(BO.Engineer boEngineer)
     {
         if (boEngineer?.Id <= 100000000)

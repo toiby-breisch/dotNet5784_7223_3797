@@ -78,19 +78,19 @@ internal class Task : ITask
                 Description = doTask.Description,
                 Alias = doTask.Alias,
                 CreatedAtDate = doTask.CreatedAt,
-                status = null,
-                DependsList = null,
+                status = null!,
+                DependsList = null!,
                 milestone = null,
                 BaseLineStartDate = new DateTime(),
                 StartDate = doTask.Start,
-                ScheduledStartDate
-                ForecastDate=doTask.ForecasDate,
-                DeadlineDate
-                CompleteDate
-                Remarks
-                Deliverables
-                engineer
-                CopmlexityLevel
+                //ScheduledStartDate
+                //ForecastDate=doTask.ForecasDate,
+                //DeadlineDate
+                //CompleteDate
+                //Remarks
+                //Deliverables
+                //engineer
+                //CopmlexityLevel
             };
         }
         catch { return null; }
@@ -111,7 +111,7 @@ internal class Task : ITask
    
     
 
-    public IEnumerable<Task> ReadAll(Func<BO.Task?, bool> filter = null!)
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
     {
         throw new NotImplementedException();
     }

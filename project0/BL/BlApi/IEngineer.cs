@@ -8,6 +8,6 @@ public interface IEngineer
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool> filter);
      public void Update(BO.Engineer item);
     public void Delete(int id);
-    public int Add(BO.Engineer boEngineer);
+    public int create(BO.Engineer boEngineer);
   
 }
