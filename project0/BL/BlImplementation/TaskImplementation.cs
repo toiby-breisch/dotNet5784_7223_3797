@@ -1,18 +1,18 @@
 ﻿namespace BlImplementation;
 using BlApi;
-
+using BO;
 using DalApi;
-
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-
-
 internal class Task : BlApi.ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
+    public Status Scheduled { get; private set; }
 
     public int create(BO.Task BoTask)
     {
@@ -30,7 +30,6 @@ internal class Task : BlApi.ITask
                 }
                 var dependencies = from BO.TaskInList task in BoTask.DependenciesList
                                    select new DO.Dependency(0, BoTask.Id, task.Id);
-
                 _dal.Task.Create(doTask);
             }
             catch
@@ -39,8 +38,6 @@ internal class Task : BlApi.ITask
             };
         return BoTask.Id;
     }
-
-
     public void Delete(int id)
     {
         try
@@ -91,7 +88,7 @@ internal class Task : BlApi.ITask
                 Description = task.Description!,
                 Alias = task.Alias!,
                 CreatedAtDate = task.CreatedAt,
-                status = (BO.Status)1,// getStatuesOfTask(doTask),
+                status = (BO.Status)1, getStatuesOfTask(doTask),
                 DependenciesList = _dal.Dependency.ReadAll((d) => d!.DependentTask == task.Id).Select(d => new BO.TaskInList
                 {
                     Id = d.Id,
@@ -115,16 +112,9 @@ internal class Task : BlApi.ITask
                 engineer = GetEngineerInTask(task ),
                 CopmlexityLevel = (BO.EngineerExperience?)task.CopmlexityLevel
             }
-             
-                
             );
-        
-                                       
         return boTasks;
-
     }
-
-
     public void Update(BO.Task item)
     {
 
@@ -170,7 +160,15 @@ internal class Task : BlApi.ITask
 //        };
 private BO.Status getStatuesOfTask(DO.Task task)
     {
-        return (BO.Status)1;
+       // BO.Status scheduled = BO.Status.Scheduled;
+        DateTime now = DateTime.Now;
+        if (task.scheduledDate == null)
+            return BO.Status.Unscheduled;
+        else if (task.scheduledDate != null && task.StartDate == null)
+            return scheduled;
+        else if (task.DeadlineDate < now && task.CompleteDate == null)
+            return InJeopardy;
+        return OnTrack;
     }
     private BO.EngineerInTask GetEngineerInTask(DO.Task doTask)
     {
@@ -185,8 +183,7 @@ private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
               Id = t.Id,
               Alias = t.Alias
           }
-         ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d.DependentTask == doTask!.Id && d.DependOnTask! == t.Id)) is not null)).FirstOrDefault();
-        
+         ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d.DependentTask == doTask!.Id && d.DependOnTask== t.Id)) is not null)).FirstOrDefault();
 
         return new BO.Task()
         {
@@ -195,20 +192,19 @@ private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
             Alias = doTask.Alias!,
             CreatedAtDate = doTask.CreatedAt,
             status =( BO.Status)1,// getStatuesOfTask(doTask),
-            DependenciesList = _dal.Dependency.ReadAll((d) => d!.DependentTask == doTask.Id).Select(d => new TaskInList
+        DependenciesList = _dal.Dependency.ReadAll((d) => d!.DependentTask == doTask.Id).Select(d => new BO.TaskInList
             {
                 Id = d.Id,
-                Alias = _dal.Task.Read(d.Id).Alias,
+                Alias = _dal.Task.Read(d.Id)!.Alias,
                 Status = getStatuesOfTask(_dal.Task.Read(d.Id)!),
                 Description = _dal.Task.Read(d.Id)!.Description
             }),
             
             milestone = milestomeInList,
-            BaseLineStartDate = new DateTime(),
-            StartDate = doTask.Start,
-            ForecastDate = doTask.ForecasDate,
-            DeadlineDate = doTask.Deadline,
-            CompleteDate = doTask.Complete,
+            StartDate = doTask.StartDate,
+            ForecastDate = null,//Nה לשים פה?
+            DeadlineDate = doTask.DeadlineDate,
+            CompleteDate = doTask.CompleteDate,
             Remarks = doTask.Remarks,
             Deliverables = doTask.Deliverables,
             engineer = GetEngineerInTask( doTask),

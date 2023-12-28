@@ -78,5 +78,9 @@ internal class TaskImplementation : ITask
         else
             return DataSource.Tasks.Where(filter);
     }
-       
+
+    public void Update(object value)
+    {
+        throw new NotImplementedException();
+    }
 }

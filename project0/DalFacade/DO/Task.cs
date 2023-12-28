@@ -7,10 +7,10 @@
 /// <param name="Alias">Nickname of the assignment</param>
 /// <param name="Milestone">Milestone (Boolean) - of the assignment</param>
 /// <param name="CreatedAt">Creation date of the assignment</param>
-/// <param name="Start">Start date of the assignment</param>
+/// <param name="StartDate">StartDate date of the assignment</param>
 /// <param name="ForecasDate">Estimated date for completion of the assignment</param>
-/// <param name="Deadline">Last date to finish the assignment</param>
-/// <param name="Complete">Actual end date of the assignment</param>
+/// <param name="DeadlineDate">Last date to finish the assignment</param>
+/// <param name="CompleteDate">Actual end date of the assignment</param>
 /// <param name="Deliverables">Product (string describing the product) of the assignment</param>
 /// <param name="Remarks">Notes of the assignment</param>
 /// <param name="Engineerid">The engineer ID assigned to the task</param>
@@ -22,10 +22,10 @@ public record Task
     string Alias,
     bool ?Milestone,
     DateTime  CreatedAt,
-    DateTime? Start,
-    DateTime? ForecasDate,
-    DateTime? Deadline,
-    DateTime? Complete,
+    DateTime? StartDate,
+    DateTime? scheduledDate,
+    DateTime? DeadlineDate,
+    DateTime? CompleteDate,
     string ?Deliverables,
     string? Remarks,
     int Engineerid,
