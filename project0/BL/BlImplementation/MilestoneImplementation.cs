@@ -1,6 +1,8 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 using DalApi;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
 
 internal class Milestone : IMilestone
@@ -10,24 +12,46 @@ internal class Milestone : IMilestone
     {
         return (BO.Status)1;
     }
+    ///לבדוק באיזה תנאי הוא יספור לאיזה enum
+    private double getCompletionPercentage(IEnumerable<BO.TaskInList> dependencies) { 
+        var sumOfDependenciesTask = dependencies.Sum(task => task.Status == BO.Status.Unscheduled ? 1 : 0);
+       return (dependencies.Count() / sumOfDependenciesTask) *100;
+    }
     public BO.Milestone? Read(int id)
     {
-        try {
-            ///depenontask או השני?
-            IEnumerable <BO.TaskInList> dependencies = _dal.Dependency.ReadAll(d=>d.DependsOnTask==id).select new TaskInList
+        try
+        {
+            IEnumerable<BO.TaskInList> dependencies = from dependency in _dal.Dependency.ReadAll(dep => dep!.DependentTask == id)
+                                                      let task = _dal.Task.Read(dependency.Id)
+                                                      select new BO.TaskInList
+                                                      {
+                                                          Id = task.Id,
+                                                          Alias = task.Alias,
+                                                          Description = task.Description,
+                                                          Status = getStatusFromDo(task)
+                                                      };
+            //forcase???                 
+            ///צריך לבדוק האם milestone =true? 
+            DO.Task taskMilestone = _dal.Task.Read(id)!;
+            return new BO.Milestone
             {
-
-            }
-                );
-        ///צריך לבדוק האם milestone =true?
-        DO.Task taskMilestone = _dal.Task.Read(id)!;
-        new BO.Milestone milestone(taskMilestone.Id, taskMilestone.Description, taskMilestone.Alias,
-           taskMilestone.CreatedAt, getStatusFromDo(taskMilestone), taskMilestone.ForecasDate, taskMilestone.Deadline,
-           taskMilestone.Complete, taskMilestone.Remarks,2,);
-        //public double CompletionPercentage { get; set; }
-        //public required TaskInList Task { get; set; }
+                Id = taskMilestone.Id,
+                Description = taskMilestone.Description,
+                Alias = taskMilestone.Alias,
+                CreatedAtDate = taskMilestone.CreatedAt,
+                Status = getStatusFromDo(taskMilestone),
+                DeadlineDate = taskMilestone.DeadlineDate,
+                CompleteDate = taskMilestone.CompleteDate,
+                Remarks = taskMilestone.Remarks,
+                CompletionPercentage = getCompletionPercentage(dependencies),
+                Dependencies = dependencies.ToList(),
+                ForecastDate = null
+            };
         }
-        catch { throw new Exception(); };
+        catch
+        {
+            throw new Exception();
+        };
     }
 
     public BO.Milestone? Update(int id)

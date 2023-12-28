@@ -160,15 +160,15 @@ internal class Task : BlApi.ITask
 //        };
 private BO.Status getStatuesOfTask(DO.Task task)
     {
-       // BO.Status scheduled = BO.Status.Scheduled;
         DateTime now = DateTime.Now;
         if (task.scheduledDate == null)
             return BO.Status.Unscheduled;
-        else if (task.scheduledDate != null && task.StartDate == null)
-            return scheduled;
+        else if (task.StartDate == null)
+            return BO.Status.Scheduled;
         else if (task.DeadlineDate < now && task.CompleteDate == null)
-            return InJeopardy;
-        return OnTrack;
+            return BO.Status.InJeopardy;
+        else return BO.Status.OnTrack;
+ 
     }
     private BO.EngineerInTask GetEngineerInTask(DO.Task doTask)
     {
