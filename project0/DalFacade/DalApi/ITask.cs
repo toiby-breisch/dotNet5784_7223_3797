@@ -5,6 +5,6 @@ using System.Collections.Generic;
 
 public interface ITask : ICrud<Task>
 {
-    void Update(object value);
+    //void Update(object value); מה זה?
 
 }

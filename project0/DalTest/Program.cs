@@ -49,18 +49,6 @@ internal class Program
         {
             Console.WriteLine(EX.Message);
         }
-        catch (DalAlreadyExistsException EX)
-        {
-            Console.WriteLine(EX.Message);
-        }
-        catch (DalDeletionImpossible EX)
-        {
-            Console.WriteLine(EX.Message);
-        }
-        catch (Exception EX)
-        {
-            Console.WriteLine(EX.Message);
-        }
     }
     //<summary>
     //  Managing the list of engineers
@@ -273,13 +261,13 @@ internal class Program
             EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
             if (Description == "") { Description = temp!.Description; }
             if (Alias == "") { Description = temp!.Alias; }
-            if (Deadline == DateTime.MinValue) { Deadline = Convert.ToDateTime( temp!.Deadline); }
+            if (Deadline == DateTime.MinValue) { Deadline = Convert.ToDateTime( temp!.DeadlineDate); }
             if (Deliverables == "") { Deliverables = temp!.Deliverables; }
 
             if (Remarks == "") { Remarks = temp!.Remarks; }
             if (Engineerid == 0) { Engineerid = temp!.Engineerid; }
             if (CopmlexityLevel == 0) { CopmlexityLevel = temp!.CopmlexityLevel; }
-            DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
+            DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel,true);
             s_dal!.Task.Update(newTask);
             Console.WriteLine(newTask.Id);
         }
@@ -303,7 +291,17 @@ internal class Program
         DateTime CreatedAt;
         Console.WriteLine("enter Description,Alias,Deadline,Deliverables,Remarks,Engineerid,CopmlexityLevel");
         string? Description = Console.ReadLine();
+        while (Description == null || Description.Length == 0)
+        {
+              Console.Write("You must Enter Description ");
+             Description = Console.ReadLine();
+        }
         string? Alias = Console.ReadLine();
+        while (Alias == null || Alias.Length == 0)
+        {
+            Console.Write("You must Enter Alias ");
+            Alias = Console.ReadLine();
+        }
         CreatedAt = DateTime.Now;
         DateTime Deadline;
         DateTime.TryParse(Console.ReadLine()!, out Deadline);
@@ -313,10 +311,12 @@ internal class Program
         int.TryParse(Console.ReadLine(), out Engineerid);
         EngineerExperience CopmlexityLevel;
         EngineerExperience.TryParse(Console.ReadLine(), out CopmlexityLevel);
-        DO.Task newTask = new(0, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel);
+        DO.Task newTask = new(0, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel,true);
         int id = s_dal!.Task.Create(newTask);
         Console.WriteLine(id);
     }
+   
+
     /// <summary> 
     /// read a task 
     /// </summary>

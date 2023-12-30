@@ -13,7 +13,7 @@ using System.Xml.Linq;
 //סדנהמשדבועלכלרתויהלעהמישמתחאותואב,(ןמזעדימהזאוהאלעדימיסיסבלשסדנהמאלא
 //הנתשמםע, ןמזהןכלוםיצורשכגיצהלסדנהמךירצשפחלתבכשבםינותנהתאהמישמהתיחכונהאוהש
 //דבועהילעלבקלוהרובעתא.
-internal class Engineer : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private bool IsValidEmail(string? email)
@@ -25,6 +25,7 @@ internal class Engineer : IEngineer
         }
         catch
         {
+            //ליצור שגיאה 
             valid = false;
         }
         return valid;

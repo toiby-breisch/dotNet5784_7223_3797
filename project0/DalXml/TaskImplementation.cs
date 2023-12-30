@@ -24,16 +24,16 @@ internal class TaskImplementation : ITask
           Id = (int)t.Element("Id")!,
           Description = (string)t.Element("Description")!,
           Alias = (string)t.Element("Alias")!,
-          Milestone =(bool)t.Element("Milestone")!,
+          Milestone = (bool)t.Element("Milestone")!,
           CreatedAt = (DateTime)t.Element("CreatedAt")!,
-          Start = (DateTime)t.Element("Start")!,
-          ForecasDate = (DateTime)t.Element("ForecasDate")!,
-          Deadline = (DateTime)t.Element("Deadline")!,
-          Complete = (DateTime)t.Element("Complete")!,
+          StartDate = (DateTime)t.Element("StartDate")!,
+          scheduledDate = (DateTime)t.Element("scheduledDate")!,
+          DeadlineDate = (DateTime)t.Element("DeadlineDate")!,
+          CompleteDate = (DateTime)t.Element("CompleteDate")!,
           Deliverables = (string)t.Element("Deliverables")!,
           Remarks = (string)t.Element("Remarks")!,
           Engineerid = (int)t.Element("Engineerid")!,
-          
+
       };
     /// <summary>
     /// create a task from task to xelement
@@ -47,16 +47,16 @@ internal class TaskImplementation : ITask
             yield return new XElement("Alias", task.Alias);
         if (task.Milestone is not false)
             yield return new XElement("Milestone", task.Milestone);
-        if (task.CreatedAt !=DateTime.MinValue  )
+        if (task.CreatedAt != DateTime.MinValue)
             yield return new XElement("CreatedAt", task.CreatedAt);
-        if (task.Start != DateTime.MinValue)
-            yield return new XElement("Start", task.Start);
-        if (task.ForecasDate != DateTime.MinValue)
-            yield return new XElement("ForecasDate", task.ForecasDate);
-        if (task.Deadline != DateTime.MinValue)
-            yield return new XElement("Deadline", task.Deadline);
-        if (task.Complete != DateTime.MinValue)
-            yield return new XElement("Complete", task.Complete);
+        if (task.StartDate != DateTime.MinValue)
+            yield return new XElement("Start", task.StartDate);
+        if (task.scheduledDate != DateTime.MinValue)
+            yield return new XElement("ForecasDate", task.scheduledDate);
+        if (task.DeadlineDate != DateTime.MinValue)
+            yield return new XElement("Deadline", task.DeadlineDate);
+        if (task.CompleteDate != DateTime.MinValue)
+            yield return new XElement("Complete", task.CompleteDate);
         if (task.Deliverables is not null)
             yield return new XElement("Deliverables", task.Deliverables);
         if (task.Remarks is not null)
@@ -75,8 +75,8 @@ internal class TaskImplementation : ITask
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         var el = createTaskElement(copyItem);
-        tasks.Add(new XElement ("Task" ,el));
-      XMLTools.SaveListToXMLElement(tasks, fileName);
+        tasks.Add(new XElement("Task", el));
+        XMLTools.SaveListToXMLElement(tasks, fileName);
         return copyItem.Id;
     }
     //<summary>
@@ -94,10 +94,10 @@ internal class TaskImplementation : ITask
             //one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
             one.Remove();
             XMLTools.SaveListToXMLElement(tasks, fileName);
-           
+
         }
-           else throw new DalAlreadyExistsException($"Task with ID={id} " +
-                $"is not exists");
+        else throw new DalAlreadyExistsException($"Task with ID={id} " +
+             $"is not exists");
     }
     //<summary>
     //read a task
@@ -110,8 +110,8 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
-          return getTask(one);
-            
+            return getTask(one);
+
         }
         return null;
     }
@@ -122,20 +122,20 @@ internal class TaskImplementation : ITask
     {
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        return getTask(tasks.Elements().FirstOrDefault(d =>  filter(getTask( d)!))!);
+        return getTask(tasks.Elements().FirstOrDefault(d => filter(getTask(d)!))!);
 
     }
-    
-    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter=null)
+
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null)
     {
-       const string fileName = "tasks";
+        const string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         if (filter is not null)
-            return tasks.Elements().Where(d => filter(getTask( d)!)).Select(getTask)! ;
+            return tasks.Elements().Where(d => filter(getTask(d)!)).Select(getTask)!;
         return (tasks.Elements()
             .Select(getTask)!);
-        
-        
+
+
     }
     //<summary>
     //update a task
@@ -150,16 +150,16 @@ internal class TaskImplementation : ITask
         {
 
             one.Remove();
-            
-            Task task = new(item.Id,item.Description,item.Alias,item.Milestone,item.CreatedAt,item.Start,
-                item.ForecasDate,item.Deadline,item.Complete,item.Deliverables,item.Remarks,item.Engineerid,item.CopmlexityLevel,true);
-           var x= createTaskElement(task);
+
+            Task task = new(item.Id, item.Description, item.Alias, item.Milestone, item.CreatedAt, item.StartDate,
+                item.scheduledDate, item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks, item.Engineerid, item.CopmlexityLevel, true);
+            var x = createTaskElement(task);
             tasks.Add(new XElement("Task", x));
-        
+
             XMLTools.SaveListToXMLElement(tasks, fileName);
         }
-           else throw new DalAlreadyExistsException($"Task with ID={item.Id} " +
-                $"is not exists");
-       
+        else throw new DalAlreadyExistsException($"Task with ID={item.Id} " +
+             $"is not exists");
+
     }
 }

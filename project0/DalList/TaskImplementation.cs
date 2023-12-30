@@ -38,7 +38,7 @@ internal class TaskImplementation : ITask
         Task ?result = DataSource.Tasks.FirstOrDefault(task => task.Id == id);
          if (result is not null)
            return result;
-        return null;
+        throw new DalDoesNotExistException($"Task with ID={id} is not exists");
     }
     /// <summary>
     /// read all Task
@@ -79,8 +79,8 @@ internal class TaskImplementation : ITask
             return DataSource.Tasks.Where(filter);
     }
 
-    public void Update(object value)
-    {
-        throw new NotImplementedException();
-    }
+    //public void Update(object value)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

@@ -147,7 +147,7 @@ public static class Initialization
             int indexDe = s_rand.Next(0, 4);
             string _Remarks = Remarks[indexR];
             string _Deliverables = Deliverables[indexDe];
-            Task newTask = new(3, _description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline, _Complete, _Deliverables, _Remarks, _Engineerid, (DO.EngineerExperience)_level);
+            Task newTask = new(3, _description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline, _Complete, _Deliverables, _Remarks, _Engineerid, (DO.EngineerExperience)_level,true);
             s_dal!.Task.Create(newTask);
         }
     }
