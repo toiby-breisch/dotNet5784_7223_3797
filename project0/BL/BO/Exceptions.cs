@@ -13,3 +13,9 @@ public class BlNullPropertyException : Exception
 {
     public BlNullPropertyException(string? message) : base(message) { }
 }
+
+[Serializable]
+public class BlMustNotBeDeleted : Exception
+{
+    public BlMustNotBeDeleted(string? message) : base(message) { }
+}

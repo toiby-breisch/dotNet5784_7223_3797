@@ -1,4 +1,7 @@
 ﻿namespace BlImplementation;
+
+using BO;
+using DO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
@@ -14,7 +17,7 @@ internal class TaskIplementation : BlApi.ITask
     public int create(BO.Task BoTask)
     {
         if (BoTask.Id <= 0 || BoTask.Alias == "")
-            // throw new BlNullPropertyException(nameof(BoTask));
+             throw new BlNullPropertyException(nameof(BoTask));
             try
             {
                 DO.EngineerExperience CopmlexityLevel = (DO.EngineerExperience)BoTask.CopmlexityLevel!;
@@ -37,26 +40,28 @@ internal class TaskIplementation : BlApi.ITask
     }
     public void Delete(int id)
     {
+        //אי אפשר למוק משימה אחרי יצירת הלו"ז 
         try
         {
             var task = _dal.Task.ReadAll((task) => task.Id == id).FirstOrDefault();
             if (task == null)
             {
-                throw new Exception();
+                throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist"); ;
             }
             DO.Dependency dependency = _dal.Dependency.ReadAll((dependency) => dependency.DependsOnTask == id).FirstOrDefault()!;
             if (dependency == null)
             {
-
                 task = task with { IsActive = false };
                 _dal.Task.Create(task);
                 _dal.Task.Delete(id);
             }
             else
-                throw new Exception();
+                throw new BO.BlMustNotBeDeleted("This Task must not be deleted");
         }
-        catch { throw new NotImplementedException(); };
-
+        catch(DalDoesNotExistException) 
+        {
+            throw new BO.BlDoesNotExistException(($"Task with ID={id} is not exists");
+        };
     }
 
     public BO.Task? Read(int id)
@@ -72,12 +77,9 @@ internal class TaskIplementation : BlApi.ITask
         }
         catch { return null; }
     }
-
-
-
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter = null!)
     {
-        IEnumerable<DO.Task?> allTasks = _dal.Task.ReadAll((Func<DO.Task?, bool>?)filter);
+        IEnumerable<DO.Task?> allTasks = _dal.Task.ReadAll((Func<DO.Task?, bool>)filter);
         IEnumerable<BO.Task> allTaskinBo = allTasks.Select(task => new BO.Task
         {
             Id = task!.Id,
@@ -89,7 +91,7 @@ internal class TaskIplementation : BlApi.ITask
                 Id = t!.Id,
                 Alias = t.Alias
             }
-          ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d!.DependentTask == t!.Id && d.DependOnTask == t.Id)) is not null)).FirstOrDefault(),
+          ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d) => d!.DependentTask == t!.Id && d.DependsOnTask == t.Id)) is not null)).FirstOrDefault(),
            
             DependenciesList = _dal.Dependency.ReadAll((d) => d!.DependentTask == task.Id).Select(d => new BO.TaskInList
             {
@@ -99,14 +101,14 @@ internal class TaskIplementation : BlApi.ITask
                 Description = _dal.Task.Read(d.Id)!.Description
             }),
             CreatedAtDate = task.CreatedAt,
-            ScheduleDate = task.scheduledDate,
-            Start = task.Start,
+            scheduledDate = task.scheduledDate,
+            StartDate  = task.StartDate,
             ForecastDate = DateTime.Now/*doTask.ForecastDate,*/,
-            DeadLineDate = task.DeadLineDate,
-            C = task.CompleteDate,
+            DeadlineDate = task.DeadlineDate,
+            CompleteDate = task.CompleteDate,
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
-            ComplexilyLevel = (BO.EngineerExperience)task.ComplexilyLevel,
+            CopmlexityLevel = (BO.EngineerExperience)task.CopmlexityLevel,
         });
         return allTaskinBo;
     }
@@ -175,12 +177,13 @@ private BO.Status getStatuesOfTask(DO.Task task)
     }
 private BO.Task createBoTaskFromDoTask(DO.Task doTask, DalApi.IDal _dal)
     {
-          BO.MilestoneInTask? milestomeInList = _dal.Task.ReadAll(null!).Select(t => new BO.MilestoneInTask
-          {
-              Id = t.Id,
-              Alias = t.Alias
-          }
-         ).Where(t => (_dal.Task.Read(t.Id)!.Milestone && (_dal.Dependency.ReadAll((d => d.DependentTask == doTask!.Id && d.DependsOnTask == t.Id)) is not null)).FirstOrDefault();
+        BO.MilestoneInTask? milestomeInList = _dal.Task.ReadAll(null!).Select(t => new BO.MilestoneInTask
+        {
+            Id = t.Id,
+            Alias = t.Alias
+        }
+       ).Where(t => (_dal.Task.Read(t.Id).Milestone && (_dal.Dependency.ReadAll
+       ((d => d.DependentTask == doTask!.Id && d.DependsOnTask == t.Id)) is not null)).FirstOrDefault();
 
         return new BO.Task()    
         {
