@@ -1,8 +1,4 @@
 ﻿namespace BlImplementation;
-
-using BO;
-using DalApi;
-using DO;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 
@@ -11,31 +7,27 @@ internal class MilestoneImplementation : BlApi.IMilestone
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private void CreatingTheProjectSchedule()
     {
-        var tasks = from task in _dal.Task.ReadAll(null!)
-                    select new DO.Task
-                    {
-                        Alias = task.Alias,
-                        Id=task.Id,
-                        Description=task.Description,
-                        Milestone=true,
-                        CreatedAt=task.CreatedAt,
-                        StartDate=task.CreatedAt,
-                         scheduledDate=task.CreatedAt,
-                         DeadlineDate=task.CreatedAt,
-                        CompleteDate=task.CompleteDate,
-                         Deliverables=task.Deliverables,
-                         Remarks=task.Remarks,
-                         Engineerid=task.Engineerid,
-                         CopmlexityLevel=task.CopmlexityLevel,
-                        IsActive=true
+        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(null!)!;
+        var groupBy = dependencies.GroupBy(dependency => dependency!.DependsOnTask, (dependencyOnTask, dependenciesTasks) => new
+        {
+            key = dependencyOnTask,
+            dependencies = dependenciesTasks
+        }).Order();
+        var groupByDistinct = groupBy.Distinct();
+        var createMilistones = from milistone in groupByDistinct
+                               let dependencyMilistone = _dal.Task.Read(milistone.key)
+                               select new BO.Milestone
+                               {
+                                 
+                               }
 
-                    };
-        new 
 
-                    _dal.Dependency.ReadAll(dep => dep!.DependsOnTask == task.Id)
-
+       //if (dependencyMilistone.) { }
+       // Alias = 'M' + dependencyMilistone.Alias;
+       // Alias = dependencyMilistone.Alias,
 
     }
+
     private BO.Status getStatuesOfTask(DO.Task task)
     {
         DateTime now = DateTime.Now;
