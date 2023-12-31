@@ -1,5 +1,4 @@
 ﻿namespace BlImplementation;
-using BlApi;
 using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
@@ -13,7 +12,7 @@ using System.Xml.Linq;
 //סדנהמשדבועלכלרתויהלעהמישמתחאותואב,(ןמזעדימהזאוהאלעדימיסיסבלשסדנהמאלא
 //הנתשמםע, ןמזהןכלוםיצורשכגיצהלסדנהמךירצשפחלתבכשבםינותנהתאהמישמהתיחכונהאוהש
 //דבועהילעלבקלוהרובעתא.
-internal class EngineerImplementation : IEngineer
+internal class EngineerImplementation : BlApi.IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
     private bool IsValidEmail(string? email)
@@ -36,8 +35,8 @@ internal class EngineerImplementation : IEngineer
     }
     private IEnumerable<BO.TaskInEngineer>? GetCurrentTaskOfEngineer(int idOfEngineer)
     {
-    DalApi.IDal _dal = DalApi.Factory.Get;
-    var tasks = _dal.Task.ReadAll(null!);
+     DalApi.IDal _dal = DalApi.Factory.Get;
+     var tasks = _dal.Task.ReadAll(null!);
         IEnumerable<BO.TaskInEngineer>? taskInEngineer =
           (from task in tasks
            where task.Engineerid == idOfEngineer
@@ -104,7 +103,7 @@ internal class EngineerImplementation : IEngineer
 
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> filter){
 
-        IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter);
+        IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter)!;
         IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
         select new BO.Engineer
         {

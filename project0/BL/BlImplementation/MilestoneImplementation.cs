@@ -1,18 +1,52 @@
 ﻿namespace BlImplementation;
-using BlApi;
+
 using BO;
 using DalApi;
+using DO;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 
-internal class MilestoneImplementation : IMilestone
+internal class MilestoneImplementation : BlApi.IMilestone
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private BO.Status getStatusFromDo(DO.Task taskMilestone)
+    private void CreatingTheProjectSchedule()
     {
-        return (BO.Status)1;
+        var tasks = from task in _dal.Task.ReadAll(null!)
+                    select new DO.Task
+                    {
+                        Alias = task.Alias,
+                        Id=task.Id,
+                        Description=task.Description,
+                        Milestone=true,
+                        CreatedAt=task.CreatedAt,
+                        StartDate=task.CreatedAt,
+                         scheduledDate=task.CreatedAt,
+                         DeadlineDate=task.CreatedAt,
+                        CompleteDate=task.CompleteDate,
+                         Deliverables=task.Deliverables,
+                         Remarks=task.Remarks,
+                         Engineerid=task.Engineerid,
+                         CopmlexityLevel=task.CopmlexityLevel,
+                        IsActive=true
+
+                    };
+        new 
+
+                    _dal.Dependency.ReadAll(dep => dep!.DependsOnTask == task.Id)
+
+
     }
-    ///לבדוק באיזה תנאי הוא יספור לאיזה enum
+    private BO.Status getStatuesOfTask(DO.Task task)
+    {
+        DateTime now = DateTime.Now;
+        if (task.scheduledDate == DateTime.MinValue)
+            return BO.Status.Unscheduled;
+        else if (task.StartDate == DateTime.MinValue)
+            return BO.Status.Scheduled;
+        else if (task.DeadlineDate < now && task.CompleteDate == DateTime.MinValue)
+            return BO.Status.InJeopardy;
+        else return BO.Status.OnTrack;
+    }
     private double getCompletionPercentage(IEnumerable<BO.TaskInList> dependencies)
     {
         var sumOfDependenciesTask = dependencies.Sum(task => task.Status == BO.Status.Unscheduled ? 1 : 0);
@@ -28,7 +62,7 @@ internal class MilestoneImplementation : IMilestone
                                                           Id = task.Id,
                                                           Alias = task.Alias,
                                                           Description = task.Description,
-                                                          Status = getStatusFromDo(task)
+                                                          Status = getStatuesOfTask(task)
                                                       };
             return dependencies;
 
@@ -47,7 +81,7 @@ internal class MilestoneImplementation : IMilestone
                 Description = taskMilestone.Description,
                 Alias = taskMilestone.Alias,
                 CreatedAtDate = taskMilestone.CreatedAt,
-                Status = getStatusFromDo(taskMilestone),
+                Status = getStatuesOfTask(taskMilestone),
                 DeadlineDate = taskMilestone.DeadlineDate,
                 CompleteDate = taskMilestone.CompleteDate,
                 Remarks = taskMilestone.Remarks,
@@ -78,7 +112,7 @@ internal class MilestoneImplementation : IMilestone
                 Description = updateMilistone.Description,
                 Alias = updateMilistone.Alias,
                 CreatedAtDate = updateMilistone.CreatedAt,
-                Status = getStatusFromDo(updateMilistone),
+                Status = getStatuesOfTask(updateMilistone),
                 DeadlineDate = updateMilistone.DeadlineDate,
                 CompleteDate = updateMilistone.CompleteDate,
                 Remarks = updateMilistone.Remarks,

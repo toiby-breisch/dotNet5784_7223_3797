@@ -20,7 +20,7 @@ public record Task
     int Id,
     string Description,
     string Alias,
-    bool ?Milestone,
+    bool Milestone,
     DateTime  CreatedAt,
     DateTime? StartDate,
     DateTime? scheduledDate,
