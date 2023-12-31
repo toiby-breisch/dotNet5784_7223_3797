@@ -21,10 +21,7 @@ public class Task
     public string? Deliverables { get; set; }
     public EngineerInTask?engineer { get; set; }
     public EngineerExperience? CopmlexityLevel { get; set; }
-    //public Task(Task task)
-    //{
-   
-    //}
+    
 
     public Task()
     {
