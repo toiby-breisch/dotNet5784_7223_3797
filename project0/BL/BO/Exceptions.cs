@@ -9,6 +9,13 @@ public class BlDoesNotExistException : Exception
     : base(message, innerException) { }
 }
 [Serializable]
+public class BlAlreadyExistsException : Exception
+{
+    public BlAlreadyExistsException(string? message) : base(message) { }
+    public BlAlreadyExistsException(string? massage, Exception innerException) : base(massage, innerException) { }
+}
+
+[Serializable]
 public class BlNullPropertyException : Exception
 {
     public BlNullPropertyException(string? message) : base(message) { }
