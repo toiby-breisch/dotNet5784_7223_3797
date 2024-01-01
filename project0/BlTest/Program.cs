@@ -92,7 +92,7 @@ static public void engineer_Menu()
     }
 
     //<summary>
-    //  create an engineer
+    //  create an Engineer
     //</summary>
 
     static public void creatEngineer()
@@ -135,14 +135,14 @@ static public void engineer_Menu()
     }
 
     //<summary>
-    //  read an engineer
+    //  read an Engineer
     //</summary>
     static public void readEngineer()
     {
         try
         {
             int _id;
-            Console.WriteLine("Enter engineer's ID");
+            Console.WriteLine("Enter Engineer's ID");
             int.TryParse(Console.ReadLine()!, out _id);
             Console.WriteLine(s_bl!.Engineer.Read(_id));
         }
@@ -160,7 +160,7 @@ static public void engineer_Menu()
 
     }
     //summary>
-    //update an engineer
+    //update an Engineer
     // </summary>
     static public void updateEngineer()
     {
@@ -213,7 +213,7 @@ static public void engineer_Menu()
     }
 
     //<summary>
-    //  delete an engineer
+    //  delete an Engineer
     //</summary>
     static public void deleteEngineer()
     {
@@ -221,7 +221,7 @@ static public void engineer_Menu()
         try
         {
             int _id;
-            Console.WriteLine("Enter engineer's ID to delete");
+            Console.WriteLine("Enter Engineer's ID to delete");
             int.TryParse(Console.ReadLine()!, out _id);
             s_bl!.Engineer.Delete(_id);
         }
@@ -275,15 +275,15 @@ static public void engineer_Menu()
     //public DateTime CreatedAtDate { get; set; }
     //public required Status status { get; set; }
     //public IEnumerable<TaskInList?> DependenciesList { get; set; } = new List<TaskInList?>();
-    //public MilestoneInTask? milestone { get; set; }
+    //public MilestoneInTask? Milestone { get; set; }
     //public DateTime? StartDate { get; set; }
-    //public DateTime? scheduledDate { get; set; }
+    //public DateTime? ScheduledDate { get; set; }
     //public DateTime? ForecastDate { get; set; }
     //public DateTime? DeadlineDate { get; set; }
     //public DateTime? CompleteDate { get; set; }
     //public string? Remarks { get; set; }
     //public string? Deliverables { get; set; }
-    //public EngineerInTask? engineer { get; set; }
+    //public EngineerInTask? Engineer { get; set; }
     //public EngineerExperience? CopmlexityLevel { get; set; }
         try
         {
@@ -323,7 +323,7 @@ static public void engineer_Menu()
             //};
             if (s_bl!.Engineer!.Read(Engineerid) == null)
             {
-                Engineerid = temp!.engineer;
+                Engineerid = temp!.Engineer;
             }
             BO.EngineerExperience CopmlexityLevel;
             Console.WriteLine("enter CopmlexityLevel");

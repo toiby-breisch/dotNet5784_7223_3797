@@ -2,32 +2,41 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 
+/// <summary>
+/// Milistone implementation.
+/// 
+/// </summary>
 internal class MilestoneImplementation : BlApi.IMilestone
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    private void CreatingTheProjectSchedule()
-    {
-        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(null!)!;
-        var groupBy = dependencies.GroupBy(dependency => dependency!.DependsOnTask, (dependencyOnTask, dependenciesTasks) => new
-        {
-            key = dependencyOnTask,
-            dependencies = dependenciesTasks
-        }).Order();
-        var groupByDistinct = groupBy.Distinct();
-        var createMilistones = from milistone in groupByDistinct
-                               let dependencyMilistone = _dal.Task.Read(milistone.key)
-                               select new BO.Milestone
-                               {
-                                 
-                               }
+    //private void CreatingTheProjectSchedule()
+    //{
+    //    IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll()!;
+    //    var groupBy = dependencies.GroupBy(dependency => dependency!.DependsOnTask, (dependencyOnTask, dependenciesTasks) => new
+    //    {
+    //        key = dependencyOnTask,
+    //        dependencies = dependenciesTasks
+    //    }).Order();
+    //    var groupByDistinct = groupBy.Distinct();
+    //    var createMilistones = from milistone in groupByDistinct
+    //                           let dependencyMilistone = _dal.Task.Read(milistone.key)
+    //                           select new BO.Milestone
+    //                           {
+
+    //                           }
 
 
-       //if (dependencyMilistone.) { }
-       // Alias = 'M' + dependencyMilistone.Alias;
-       // Alias = dependencyMilistone.Alias,
+    //   //if (dependencyMilistone.) { }
+    //   // Alias = 'M' + dependencyMilistone.Alias;
+    //   // Alias = dependencyMilistone.Alias,
 
-    }
+    //}
 
+    /// <summary>
+    /// The function conculate the status's value.
+    /// </summary>
+    /// <param name="task"></param>
+    /// <returns> BO.Status</returns>
     private BO.Status getStatuesOfTask(DO.Task task)
     {
         DateTime now = DateTime.Now;
@@ -39,6 +48,11 @@ internal class MilestoneImplementation : BlApi.IMilestone
             return BO.Status.InJeopardy;
         else return BO.Status.OnTrack;
     }
+
+    /// <summary>
+    /// The function get CompletionPercentage of Milistone
+    /// </summary>
+    
     private double getCompletionPercentage(IEnumerable<BO.TaskInList> dependencies)
     {
         var sumOfDependenciesTask = dependencies.Sum(task => task.Status == BO.Status.Unscheduled ? 1 : 0);
@@ -46,7 +60,7 @@ internal class MilestoneImplementation : BlApi.IMilestone
     }
     private IEnumerable<BO.TaskInList> getDependeciesOfMilistone(int id)
     {
-        //לא צריך לעשות TRY כי אין בDAL?
+        
             IEnumerable<BO.TaskInList> dependencies = from dependency in _dal.Dependency.ReadAll(dep => dep!.DependentTask == id)
                                                       let task = _dal.Task.Read(dependency.Id)
                                                       select new BO.TaskInList
@@ -60,12 +74,17 @@ internal class MilestoneImplementation : BlApi.IMilestone
 
   
     }
+
+    /// <summary>
+    /// The function get a milistone's id and return the BO.milistone object.
+    /// </summary>
+  
     public BO.Milestone? Read(int id)
     {
         try
         {
             //forcase???                 
-            ///צריך לבדוק האם milestone =true? 
+            ///צריך לבדוק האם Milestone =true? 
             DO.Task taskMilestone = _dal.Task.Read(id)!;
             return new BO.Milestone
             {
@@ -82,19 +101,21 @@ internal class MilestoneImplementation : BlApi.IMilestone
                 ForecastDate = null
             };
         }
-        catch(DO.DalDoesNotExistException)
+        catch(DO.DalDoesNotExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Milistone with ID={id} is not exists");
+            throw new BO.BlDoesNotExistException($"Milistone with ID={id} is not exists",ex);
         };
     }
 
+    /// <summary>
+    /// The function get a miliston object and update this milistone.
+    /// </summary>
     public BO.Milestone? Update(BO.Task task)
     {
         if (task.Alias == "" || task.Description == "")
-            throw new Exception();
+            throw  new BO.BlNullOrNotIllegalPropertyException($"Milistone with ID={task.Id}lacks values");
         try
         {
-            //לבדוק אם זה אבן דרך? אפה מקבלים את הערכים?
             DO.Task taskMilestone = _dal.Task.Read(task.Id)!;
             DO.Task updateMilistone= taskMilestone with { Alias=task.Alias,Description=task.Description,Remarks=task.Remarks };
             _dal.Task.Update(updateMilistone);
@@ -113,9 +134,9 @@ internal class MilestoneImplementation : BlApi.IMilestone
                 ForecastDate = null
             };
         }
-        catch(DO.DalDoesNotExistException ) 
+        catch(DO.DalDoesNotExistException ex) 
         {
-            throw new BO.BlDoesNotExistException($"Milistone with ID={task.Id} is not exists");
+            throw new BO.BlDoesNotExistException($"Milistone with ID={task.Id} is not exists-can't update",ex);
         };
     }
 }

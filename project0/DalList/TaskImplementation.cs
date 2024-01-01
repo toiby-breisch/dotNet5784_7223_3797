@@ -71,7 +71,7 @@ internal class TaskImplementation : ITask
     /// <summary>
     /// read allthe tasks
     /// </summary>
-    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null) 
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter) 
     {
         if (filter == null)
             return DataSource.Tasks.Select(task => task);

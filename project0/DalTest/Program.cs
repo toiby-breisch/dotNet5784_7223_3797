@@ -267,7 +267,7 @@ internal class Program
             if (Remarks == "") { Remarks = temp!.Remarks; }
             if (Engineerid == 0) { Engineerid = temp!.Engineerid; }
             if (CopmlexityLevel == 0) { CopmlexityLevel = temp!.CopmlexityLevel; }
-            DO.Task newTask = new(id, Description, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel,true);
+            DO.Task newTask = new(id, Description!, Alias, false, CreatedAt, null, null, Deadline, null, Deliverables, Remarks, Engineerid, CopmlexityLevel,true);
             s_dal!.Task.Update(newTask);
             Console.WriteLine(newTask.Id);
         }

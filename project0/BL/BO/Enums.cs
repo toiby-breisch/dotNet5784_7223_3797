@@ -1,5 +1,5 @@
 ﻿namespace BO;
-///<summary>levels of the engineer experience</summary>
+///<summary>levels of the Engineer experience</summary>
 public enum EngineerExperience
 {
     Novice,

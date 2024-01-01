@@ -66,7 +66,7 @@ internal class EngineerIementation : IEngineer
     /// <summary>
     /// read all the engineers
     /// </summary>
-    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null) //stage 2
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter) //stage 2
     {
         if (filter != null)
         {

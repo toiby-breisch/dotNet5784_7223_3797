@@ -9,18 +9,18 @@ using static System.Formats.Asn1.AsnWriter;
 using System.Reflection.Metadata.Ecma335;
 
 namespace BO;
-[AttributeUsage(AttributeTargets.Property)]
-class PropertyDisplayAttribute : Attribute
-{
-    public String DisplayValue { get; set; }
-    public PropertyDisplayAttribute(string displayName)
-    {
-        DisplayValue = displayName;
-    }
-}
-static class Tools<T>
+
+static class Tools
  {
-    
+    [AttributeUsage(AttributeTargets.Property)]
+    class PropertyDisplayAttribute : Attribute
+    {
+        public String DisplayValue { get; set; }
+        public PropertyDisplayAttribute(string displayName)
+        {
+            DisplayValue = displayName;
+        }
+    }
     public static string ToStringProperty<T>(this T t)
     {
         string str = "";
