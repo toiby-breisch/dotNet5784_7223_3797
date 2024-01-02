@@ -20,16 +20,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{5553F272-1751-4D90-B036-49E469911F0A}"
 	ProjectSection(SolutionItems) = preProject
-		xml\data-config.xml = xml\data-config.xml
 		dal-config.xml = dal-config.xml
+		xml\data-config.xml = xml\data-config.xml
 		xml\dependencies.xml = xml\dependencies.xml
 		xml\engineers.xml = xml\engineers.xml
 		xml\tasks.xml = xml\tasks.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{E3D1A635-4C46-49E8-AEEA-B84EE154C712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{E3D1A635-4C46-49E8-AEEA-B84EE154C712}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pl", "pl\pl.csproj", "{F5D6142F-4E74-428B-9011-52E88577F44A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D6142F-4E74-428B-9011-52E88577F44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D6142F-4E74-428B-9011-52E88577F44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D6142F-4E74-428B-9011-52E88577F44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D6142F-4E74-428B-9011-52E88577F44A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{8F944C8D-F252-496B-AEDB-DE6B22492777} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 		{E3D1A635-4C46-49E8-AEEA-B84EE154C712} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 		{24A8B70D-1C1F-4B99-BF26-61BB7C79E635} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
+		{F5D6142F-4E74-428B-9011-52E88577F44A} = {99AD34D1-D0D7-4478-A379-6C912D9B4159}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {507FBBC0-5BFC-45B8-9FCA-5222B1F4FE62}
