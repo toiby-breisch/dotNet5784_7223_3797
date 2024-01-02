@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pl.Engineer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace pl
         public MainWindow()
         {
             InitializeComponent();
+           
+        }
+        private void btnEngineers_Click(object sender, RoutedEventArgs e)
+        {
+            new EngineerListWindow().Show();
         }
     }
 }

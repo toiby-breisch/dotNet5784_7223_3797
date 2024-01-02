@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Height="40" Width="90" HorizontalAlignment="Left" Content="Handle Engineers"/>
+        <!-- … A button will take you to the list view window … -->
+        <Button Height="40" Width="90" HorizontalAlignment="Left" Click="btnEngineers_Click" Content="Handle Engineers"/>
+        <!-- …  A button that, when clicked, will lead to initializing the  … -->
         <Button Height="40" Width="90" HorizontalAlignment="Center" Content="Initialization Engineers"/>
     </Grid>
 </Window>
