@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace pl
 {
@@ -21,6 +22,7 @@ namespace pl
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DalApi.IDal _dal = DalApi.Factory.Get;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,6 +31,12 @@ namespace pl
         private void btnEngineers_Click(object sender, RoutedEventArgs e)
         {
             new EngineerListWindow().Show();
+        }
+        private void btnDalTestInitialization_click(object sender, RoutedEventArgs e)
+        {
+           //זה הכוונה?
+            MessageBox.Show("To Initialization?" );
+            DalTest.Initialization.Do(_dal);
         }
     }
 }

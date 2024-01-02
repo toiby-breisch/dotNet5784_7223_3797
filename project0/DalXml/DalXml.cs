@@ -2,7 +2,6 @@
 namespace Dal;
 
 using DalApi;
-using DO;
 
 
 sealed internal class DalXml : IDal
