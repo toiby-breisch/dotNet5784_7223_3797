@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pl.Engineer"
         mc:Ignorable="d"
-        Title="EngineerListWindow" Height="450" Width="800">
+        Title="EngineerListWindow" Height="640" Width="800">
+    <!--Extrnal Grid-->
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+   
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="113*"/>
+                <ColumnDefinition Width="287*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Label" HorizontalAlignment="Left"  Margin="45,0,0,0" VerticalAlignment="Top"/>
+            <ComboBox Grid.ColumnSpan="2" SelectionChanged="ComboBox_SelectionChanged"/>
+
+        </Grid>
+        <ListView Grid.Row="1" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+
+
     </Grid>
 </Window>
