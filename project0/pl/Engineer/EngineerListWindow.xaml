@@ -23,7 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Label" HorizontalAlignment="Left"  Margin="45,0,0,0" VerticalAlignment="Top"/>
-            <ComboBox Grid.ColumnSpan="2" SelectionChanged="ComboBox_SelectionChanged"/>
+            <ComboBox Grid.ColumnSpan="2" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left" Width="400"/>
 
         </Grid>
         <ListView Grid.Row="1" >

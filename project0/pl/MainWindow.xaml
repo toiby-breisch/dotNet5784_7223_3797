@@ -12,7 +12,6 @@
         <!-- …  A button that, when clicked, will lead to initializing the  … -->
         <Button Height="40" Width="90" HorizontalAlignment="Center" Click="btnDalTestInitialization_click" Content="Initialization Engineers"/>
         
-            
-       
+
     </Grid>
 </Window>
