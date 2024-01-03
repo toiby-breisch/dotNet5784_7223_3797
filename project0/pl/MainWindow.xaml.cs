@@ -34,9 +34,11 @@ namespace pl
         }
         private void btnDalTestInitialization_click(object sender, RoutedEventArgs e)
         {
-           //זה הכוונה?
-            MessageBox.Show("To Initialization?" );
-            DalTest.Initialization.Do(_dal);
+            if (MessageBox.Show("Do you want to create new data?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                DalApi.IDal dal = DalApi.Factory.Get;
+                DalTest.Initialization.Do(dal);
+            }
         }
     }
 }

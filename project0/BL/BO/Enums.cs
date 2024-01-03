@@ -2,6 +2,7 @@
 ///<summary>levels of the Engineer experience</summary>
 public enum EngineerExperience
 {
+    None,
     Novice,
     Beginner,
     Competent,

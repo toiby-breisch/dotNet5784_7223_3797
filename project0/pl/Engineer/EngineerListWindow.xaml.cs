@@ -18,33 +18,34 @@ namespace pl.Engineer
     /// <summary>
     /// Interaction logic for EngineerListWindow.xaml
     /// </summary>
+    /// /////////////Engineer Or EngineerInList
     public partial class EngineerListWindow : Window
     {
+        public BO.EngineerExperience EngineerFilter { get; set; } = BO.EngineerExperience.None;
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public ObservableCollection<BO.EngineerInList> EngineerList
+        public ObservableCollection<BO.Engineer> EngineerList
         {
-            get { return (ObservableCollection<BO.EngineerInList>)GetValue(EngineerListProperty); }
+            get { return (ObservableCollection<BO.Engineer>)GetValue(EngineerListProperty); }
             set { SetValue(EngineerListProperty, value); }
         }
 
         public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.EngineerInList>), typeof(EngineerListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
 
         public EngineerListWindow()
         {
             InitializeComponent();
-            var temp = s_bl?.Engineer.ReadAll(null!);//
+            var temp = s_bl?.Engineer.ReadAll();//
             EngineerList = temp == null ? new() : new(temp);/////////////
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+                var temp = EngineerFilter == BO.EngineerExperience.None ?
+                s_bl?.Engineer.ReadAll() :
+                s_bl?.Engineer.ReadAll(item => item!.Level == EngineerFilter);
+                EngineerList = temp == null ? new() : new(temp);
 
         }
     }

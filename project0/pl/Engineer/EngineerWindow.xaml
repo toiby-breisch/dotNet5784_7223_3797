@@ -6,7 +6,44 @@
         xmlns:local="clr-namespace:pl.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="32" />
+            <Setter Property="FontFamily"
+                    Value="Consolas" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="FontFamily"
+                    Value="Consolas" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="Width"
+                    Value="50"/>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Label Content="ID" Margin="0,10,0,0"/>
+        <TextBox   Text="ID" />
+        <Label Content="Name" Margin="0,40,0,0"/>
+        <TextBox   Text="Name" />
+        <Label Content="Email" Margin="0,70,0,0"/>
+        <TextBox   Text="Email" />
+        <Label Content="Cost" Margin="0,100,0,0"/>
+        <TextBox  Text="Cost"/>
+        <Label Content="Level" Margin="0,130,0,0"/>
         
+        <Label Content="CurrentTask" Margin="0,160,0,0"/>
+        <ComboBox HorizontalAlignment="Left" Margin="375,140,0,0" VerticalAlignment="Top" Width="120"/>
+
+
+
+
     </Grid>
 </Window>

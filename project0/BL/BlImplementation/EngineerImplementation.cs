@@ -83,9 +83,9 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns>IEnumerable<BO.Engineer></returns>
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> filter){
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> ?filter=null){
 
-        IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter)!;
+        IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter!)!;
         IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
         select new BO.Engineer
         {
