@@ -19,9 +19,32 @@ namespace pl.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
+        private static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public int ID
+        {//לשאול
+            get { return (int)GetValue(IDProperty); }
+            set { SetValue(IDProperty, value); }
+        }
+
+        public BO.Engineer CurrentEngineer
+        {
+
+            get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
+            set { SetValue(CurrentEngineerProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentEngineerProperty =
+            DependencyProperty.Register("EngineersValue", typeof(BO.Engineer), typeof(BO.Engineer), new PropertyMetadata(0));
+        //לשאול
+        public static readonly DependencyProperty IDProperty =
+          DependencyProperty.Register("EngineersValue", typeof(int), typeof(int), new PropertyMetadata(0));
+
+
         public EngineerWindow()
         {
             InitializeComponent();
+
         }
     }
 }

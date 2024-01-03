@@ -29,7 +29,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Content="ID" Margin="0,10,0,0"/>
+        <Label Margin="0,10,0,0"/>
         <TextBox   Text="ID" />
         <Label Content="Name" Margin="0,40,0,0"/>
         <TextBox   Text="Name" />
@@ -38,9 +38,15 @@
         <Label Content="Cost" Margin="0,100,0,0"/>
         <TextBox  Text="Cost"/>
         <Label Content="Level" Margin="0,130,0,0"/>
-        
-        <Label Content="CurrentTask" Margin="0,160,0,0"/>
-        <ComboBox HorizontalAlignment="Left" Margin="375,140,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox  Margin="375,196,0,0"/>
+        <Label  content="CurrentTask" Margin="0,160,0,0">
+            <TextBox Text="IDTaskInEngineer"  Margin="0,130,0,0"/>
+            <TextBox  Text="AliasTaskInEngineer" Margin="0,130,0,0" />
+
+
+
+
+
 
 
 
