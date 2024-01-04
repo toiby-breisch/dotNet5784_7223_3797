@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pl.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800">
+        Title="EngineerWindow" Height="450" Width="800"
+   	    DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize"
@@ -24,32 +26,39 @@
                     Value="Bold" />
             <Setter Property="HorizontalAlignment"
                     Value="Center"/>
-            <Setter Property="Width"
-                    Value="50"/>
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Margin="0,10,0,0"/>
-        <TextBox   Text="ID" />
-        <Label Content="Name" Margin="0,40,0,0"/>
-        <TextBox   Text="Name" />
-        <Label Content="Email" Margin="0,70,0,0"/>
-        <TextBox   Text="Email" />
-        <Label Content="Cost" Margin="0,100,0,0"/>
-        <TextBox  Text="Cost"/>
-        <Label Content="Level" Margin="0,130,0,0"/>
-        <ComboBox  Margin="375,196,0,0"/>
-        <Label  content="CurrentTask" Margin="0,160,0,0">
-            <TextBox Text="IDTaskInEngineer"  Margin="0,130,0,0"/>
-            <TextBox  Text="AliasTaskInEngineer" Margin="0,130,0,0" />
+        <Label Margin="0,10,0,0">
+            
+        </Label>
 
 
-
-
-
-
-
-
-
+        <TextBox Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,
+            ValidatesOnExceptions=true}"   HorizontalAlignment="Left" Height="NaN"  Margin="0,10,20,20"/>
+        <Label Content="Name" Margin="0,40,0,0" HorizontalAlignment="Left" Width="112"/>
+        <TextBox    Text="{Binding  EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Height ="40"  Margin="0,40,20,20"/>
+        <Label Content="Email" Margin="0,70,655,0"/>
+        <TextBox   Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Height ="40"  Margin="0,70,20,20"/>
+        <Label Content="Cost" Margin="0,100,655,0"/>
+        <TextBox Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   Height ="40" Margin="0,100,20,20"/>
+        <Label Content="Level" Margin="0,130,655,0"/>
+        <!--//////לבדוק איך למלא בעזרת BINDING--> 
+        <!--<ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
+SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, 
+ValidatesOnExceptions=true}" 
+ Height ="40"  Width="50"   Margin="0,150,0,0">
+            <ComboBoxItem Content="None"></ComboBoxItem>
+            <ComboBoxItem Content="Novice"></ComboBoxItem>
+            <ComboBoxItem Content="Beginner"></ComboBoxItem>
+            <ComboBoxItem Content="Competent"></ComboBoxItem>
+            <ComboBoxItem Content="Proficient"></ComboBoxItem>
+            <ComboBoxItem Content="Expert"></ComboBoxItem>
+        </ComboBox>-->
+        <Label  Content="CurrentTask" Margin="0,170,0,0" HorizontalAlignment="Left" Width="167"/>
+        <TextBox Text="{Binding IDTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   Height ="40"  Margin="0,160,20,20"/>
+        <TextBox Text = "{Binding AliasTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"    Height ="40" Margin="150,160,20,20" />
+        <Button Content="ADD" Margin="200,330,450,0"/>
+        <Button Content="APDATE" Margin="450,330,200,0"/>
     </Grid>
 </Window>
