@@ -30,20 +30,20 @@
     </Window.Resources>
     <Grid>
         <Label Margin="0,10,0,0">
-            
+
         </Label>
 
 
         <TextBox Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,
             ValidatesOnExceptions=true}"   HorizontalAlignment="Left" Height="NaN"  Margin="0,10,20,20"/>
         <Label Content="Name" Margin="0,40,0,0" HorizontalAlignment="Left" Width="112"/>
-        <TextBox    Text="{Binding  EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Height ="40"  Margin="0,40,20,20"/>
+        <TextBox    Text="{Binding  EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Margin="282,222,0,189" HorizontalAlignment="Left" Width="68"/>
         <Label Content="Email" Margin="0,70,655,0"/>
-        <TextBox   Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Height ="40"  Margin="0,70,20,20"/>
+        <TextBox   Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Margin="282,252,0,164" HorizontalAlignment="Left" Width="68"/>
         <Label Content="Cost" Margin="0,100,655,0"/>
-        <TextBox Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   Height ="40" Margin="0,100,20,20"/>
+        <TextBox Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="282,270,0,139" HorizontalAlignment="Left" Width="68"/>
         <Label Content="Level" Margin="0,130,655,0"/>
-        <!--//////לבדוק איך למלא בעזרת BINDING--> 
+        <!--//////לבדוק איך למלא בעזרת BINDING-->
         <!--<ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
 SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, 
 ValidatesOnExceptions=true}" 
@@ -56,9 +56,30 @@ ValidatesOnExceptions=true}"
             <ComboBoxItem Content="Expert"></ComboBoxItem>
         </ComboBox>-->
         <Label  Content="CurrentTask" Margin="0,170,0,0" HorizontalAlignment="Left" Width="167"/>
-        <TextBox Text="{Binding IDTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   Height ="40"  Margin="0,160,20,20"/>
-        <TextBox Text = "{Binding AliasTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"    Height ="40" Margin="150,160,20,20" />
-        <Button Content="ADD" Margin="200,330,450,0"/>
-        <Button Content="APDATE" Margin="450,330,200,0"/>
+        <TextBox Text="{Binding IDTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Margin="0,282,0,127" RenderTransformOrigin="0.5,0.5" Width="1">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <TextBox Text = "{Binding AliasTaskInEngineer, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"    Height ="40" Margin="316,283,0,111" HorizontalAlignment="Left" />
+        <Button Grid.Column="0" 
+Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+HorizontalAlignment="Left" Margin="4,-2,0,0"  VerticalAlignment="Top" Padding="5" 
+Click="btnAddUpdate_Click" RenderTransformOrigin="0.5,0.5" Height="56" Width="94">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-2.364"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+
     </Grid>
 </Window>
