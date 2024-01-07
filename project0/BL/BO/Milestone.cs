@@ -13,6 +13,7 @@ public class Milestone
     public DateTime? CompleteDate { get; set; }
     public string ?Remarks { get; set; }
     public double CompletionPercentage { get; set; }
-    public required List<TaskInList> Dependencies { get; set; }   
+    public required List<TaskInList> Dependencies { get; set; }
     //  public override string ToString() => this.ToStringProperty();
+    public override string ToString() => Tools.ToStringProperty(this);
 }

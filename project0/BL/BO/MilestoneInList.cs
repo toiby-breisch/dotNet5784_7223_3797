@@ -6,6 +6,7 @@ public class MilestoneInList
     public required string Alias { get; set; }
     public required Status Status { get; set; }
     public  DateTime CreatedAt { get; set; }
+    public override string ToString() => Tools.ToStringProperty(this);
 
     // public override string ToString() => this.ToStringProperty();
 }

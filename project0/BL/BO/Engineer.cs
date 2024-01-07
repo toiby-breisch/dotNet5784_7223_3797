@@ -12,7 +12,7 @@ public class Engineer
     public EngineerExperience Level { get; set; }
     public TaskInEngineer? CurrentTask { get; set; }
   
-  //  public override string ToString() => this.ToStringProperty();
+   public override string ToString() => Tools.ToStringProperty(this);
 
 
 

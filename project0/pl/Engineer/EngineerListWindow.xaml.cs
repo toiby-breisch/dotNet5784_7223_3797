@@ -42,8 +42,8 @@ public partial class EngineerListWindow : Window
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-            var temp = EngineerFilter == BO.EngineerExperience.None ?
-            s_bl?.Engineer.ReadAll() :
+        var temp = EngineerFilter == BO.EngineerExperience.None?
+        s_bl?.Engineer.ReadAll():
             s_bl?.Engineer.ReadAll(item => item!.Level == EngineerFilter);
             EngineerList = temp == null ? new() : new(temp);
 
