@@ -71,7 +71,15 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="187,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
                 SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="200,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="175,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="200,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="75,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskAlias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
+
+        <Button Grid.Row="5" 
+Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+HorizontalAlignment="Left" Margin="314,10,0,0"  VerticalAlignment="Top" Padding="5" 
+Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2"/>
+
+
         <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="175,36,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>-->
 
 

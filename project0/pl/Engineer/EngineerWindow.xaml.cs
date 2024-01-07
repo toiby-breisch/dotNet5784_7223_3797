@@ -62,4 +62,13 @@ public partial class EngineerWindow : Window
     {
 
     }
+    private void btnAddUpdate_Click(object sender, TextChangedEventArgs e)
+    {
+        if (Id == 0)
+        {
+            BO.Engineer Engineer = new BO.Engineer { Id = 0, Name = , Email = EngineerEmail, Cost = 0, Level = BO.EngineerExperience.None };
+            s_bl.Engineer.Update()
+        }
+       
+    }
 }
