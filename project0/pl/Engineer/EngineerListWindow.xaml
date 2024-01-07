@@ -1,9 +1,9 @@
-﻿<Window x:Class="pl.Engineer.EngineerListWindow"
+﻿<Window x:Class="PL.Engineer.EngineerListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:pl.Engineer"
+        xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
@@ -26,8 +26,14 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Label" HorizontalAlignment="Left"  Margin="45,0,0,0" VerticalAlignment="Top"/>
-            <!--<ComboBox   Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedValue="{Binding EngineerFilter,Mode=TwoWay}"
+            <!--<ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedValue="{Binding EngineerFilter,Mode=TwoWay}"
                  SelectionChanged="CangeEngineerExperience"   />-->
+
+            <!--<ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}"
+                Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
 
         </Grid>
         <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}">

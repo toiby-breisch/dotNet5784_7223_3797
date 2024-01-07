@@ -1,9 +1,9 @@
-﻿<Window x:Class="pl.Engineer.EngineerWindow"
+﻿<Window x:Class="PL.Engineer.EngineerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:pl.Engineer"
+        xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
    	    DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
@@ -57,17 +57,12 @@
         <TextBox Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-300,105,0,200" HorizontalAlignment="Center" Width="112"/>
         <Label Content="Level" HorizontalAlignment="Left" Margin="0,140,0,200"/>
         <!--//////לבדוק איך למלא בעזרת BINDING-->
-        <!--<ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
-SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, 
-ValidatesOnExceptions=true}" 
- Height ="40"  Width="50"   Margin="0,150,0,0">
-            <ComboBoxItem Content="None"></ComboBoxItem>
-            <ComboBoxItem Content="Novice"></ComboBoxItem>
-            <ComboBoxItem Content="Beginner"></ComboBoxItem>
-            <ComboBoxItem Content="Competent"></ComboBoxItem>
-            <ComboBoxItem Content="Proficient"></ComboBoxItem>
-            <ComboBoxItem Content="Expert"></ComboBoxItem>
-        </ComboBox>-->
+        <ComboBox ItemsSource="{Binding Source=StaticResource EngineersCollectionKey}" 
+                SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+             Height ="40"  Width="50"   Margin="0,150,0,0"
+         />
+   
+
         <Label  Content="CurrentTask" Margin="0,175,0,200" HorizontalAlignment="Left" Width="112"/>
         <TextBox Text="{Binding CurrentTaskID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-300,175,0,200" HorizontalAlignment="Center" Width="112"/>
         <TextBox Text="{Binding CurrentTaskAlias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-75,175,0,200" HorizontalAlignment="Center" Width="112"/>

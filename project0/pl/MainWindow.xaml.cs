@@ -1,4 +1,4 @@
-﻿using pl.Engineer;
+﻿using PL.Engineer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,30 +15,30 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 
-namespace pl
+namespace PL;
+
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml
+/// </summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private DalApi.IDal _dal = DalApi.Factory.Get;
+    public MainWindow()
     {
-        private DalApi.IDal _dal = DalApi.Factory.Get;
-        public MainWindow()
+        InitializeComponent();
+       
+    }
+    private void btnEngineers_Click(object sender, RoutedEventArgs e)
+    {
+        new EngineerListWindow().Show();
+    }
+    private void btnDalTestInitialization_click(object sender, RoutedEventArgs e)
+    {
+        if (MessageBox.Show("Do you want to create new data?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
         {
-            InitializeComponent();
-           
-        }
-        private void btnEngineers_Click(object sender, RoutedEventArgs e)
-        {
-            new EngineerListWindow().Show();
-        }
-        private void btnDalTestInitialization_click(object sender, RoutedEventArgs e)
-        {
-            if (MessageBox.Show("Do you want to create new data?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                DalApi.IDal dal = DalApi.Factory.Get;
-                DalTest.Initialization.Do(dal);
-            }
+            DalApi.IDal dal = DalApi.Factory.Get;
+            DalTest.Initialization.Do(dal);
         }
     }
 }

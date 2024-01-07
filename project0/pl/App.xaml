@@ -1,12 +1,12 @@
-﻿<Application x:Class="pl.App"
+﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:pl" xmlns:local1="clr-namespace:PL"
-             StartupUri="MainWindow.xaml"
-             >
-    <Application.Resources>
+             xmlns:local="clr-namespace:PL" 
+             StartupUri="MainWindow.xaml">
+
+    <!--<Application.Resources>
         <local:EngineersCollection x:Key="EngineersCollectionKey" />
-        <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
-    </Application.Resources>
+        --><!--x:Key="EngineersCollectionKey"/>--><!--
+    </Application.Resources>-->
 </Application>
- ת
+ 
