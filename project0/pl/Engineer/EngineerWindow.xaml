@@ -60,47 +60,19 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Content="ID" HorizontalAlignment="Left" Margin="165,0,0,0" VerticalAlignment="Center"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="165,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="-1.258,0.527"/>
-        <Label Content="Label" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="203,0,0,0" Grid.Row="3" VerticalAlignment="Center"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="184,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="184,10,0,0" Grid.Row="5" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="183,10,0,0" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="183,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="183,10,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="171,10,0,0" Grid.Row="3" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="171,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" Content="Label" HorizontalAlignment="Left" Margin="183,23,0,0" Grid.Row="5" VerticalAlignment="Top"/>
-
-
-
-
-
-
-        <!--<Label Content="ID" Margin="0,0,0,200" HorizontalAlignment="Left" Width="112"/>
-        <TextBox Text="r444r45" Margin="-300,0,0,200" HorizontalAlignment="Center" Width="112"/>
-        <Label Content="Name" Margin="0,35,0,200" HorizontalAlignment="Left" Width="112"/>
-        <TextBox   Text="rrr"  Margin="-300,35,0,200" HorizontalAlignment="Center" Width="112"/>
-        -->
-        <!--left,top,right,bottom"-->
-        <!--
-        <Label Content="Email"  HorizontalAlignment="Left" Margin="0,70,655,200"/>
-        <TextBox   Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"   Margin="-300,70,0,200" HorizontalAlignment="Center" Width="112"/>
-        <Label Content="Cost" HorizontalAlignment="Left" Margin="0,105,0,200"/>
-        <TextBox Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-300,105,0,200" HorizontalAlignment="Center" Width="112"/>
-        <Label Content="Level" HorizontalAlignment="Left" Margin="0,140,0,200"/>
-        -->
-        <!--//////לבדוק איך למלא בעזרת BINDING-->
-        <!--
+        <Label Content="Name" HorizontalAlignment="Left" Margin="165,0,0,0" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="-1.258,0.527"/>
+        <Label Content="Email" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Label Content="Cost" HorizontalAlignment="Left" Margin="203,0,0,0" Grid.Row="3" VerticalAlignment="Center"/>
+        <Label Content="Level" HorizontalAlignment="Left" Margin="184,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <Label Content="CurrentTask" HorizontalAlignment="Left" Margin="184,10,0,0" Grid.Row="5" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="200,10,0,0" TextWrapping="Wrap" Text="{Binding EngineerID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="187,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
+        <TextBox   Text="{Binding EngineerEmail, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="175,23,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="187,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EngineerCost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
-                SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-             Height ="40"  Width="50"   Margin="0,150,0,0"
-         />
-   
-
-        <Label  Content="CurrentTask" Margin="0,175,0,200" HorizontalAlignment="Left" Width="112"/>
-        <TextBox Text="{Binding CurrentTaskID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-300,175,0,200" HorizontalAlignment="Center" Width="112"/>
-        <TextBox Text="{Binding CurrentTaskAlias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Margin="-75,175,0,200" HorizontalAlignment="Center" Width="112"/>-->
+                SelectedValue="{Binding InLevel, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="200,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="175,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskID, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="175,36,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding EngineerCurrentTaskName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>-->
 
 
     </Grid>
