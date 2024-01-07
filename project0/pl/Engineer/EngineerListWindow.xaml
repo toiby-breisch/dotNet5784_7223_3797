@@ -29,8 +29,8 @@
             <!--<ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedValue="{Binding EngineerFilter,Mode=TwoWay}"
                  SelectionChanged="CangeEngineerExperience"   />-->
 
-            <!--<ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}"
-                Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+            <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}"
+                Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 

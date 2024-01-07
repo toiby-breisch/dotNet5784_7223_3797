@@ -4,9 +4,9 @@
              xmlns:local="clr-namespace:PL" 
              StartupUri="MainWindow.xaml">
 
-    <!--<Application.Resources>
+    <Application.Resources>
         <local:EngineersCollection x:Key="EngineersCollectionKey" />
-        --><!--x:Key="EngineersCollectionKey"/>--><!--
-    </Application.Resources>-->
+       
+    </Application.Resources>
 </Application>
  
