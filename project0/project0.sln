@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{E3D1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{24A8B70D-1C1F-4B99-BF26-61BB7C79E635}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pl", "pl\pl.csproj", "{F5D6142F-4E74-428B-9011-52E88577F44A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "pl\PL.csproj", "{F5D6142F-4E74-428B-9011-52E88577F44A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
