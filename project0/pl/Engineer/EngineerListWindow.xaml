@@ -29,14 +29,9 @@
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedValue="{Binding EngineerFilter,Mode=TwoWay}"
                  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" />
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom"/>
+        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}"/>
 
+
+        <Button  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddOrUpdate_Click" />
     </Grid>
 </Window>

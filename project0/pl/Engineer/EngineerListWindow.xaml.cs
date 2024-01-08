@@ -48,4 +48,9 @@ public partial class EngineerListWindow : Window
             EngineerList = temp == null ? new() : new(temp);
 
     }
+    private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        EngineerWindow win = new EngineerWindow();
+        win.Show();
+    }
 }
