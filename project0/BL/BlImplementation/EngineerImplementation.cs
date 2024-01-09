@@ -96,17 +96,7 @@ internal class EngineerImplementation : BlApi.IEngineer
                                                 CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
                                             };
         return filter == null ? allTasks : allTasks.Where(filter);
-        //IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
-        //select new BO.Engineer
-        //{
-        //     Id = doEngineer.Id,
-        //     Name = doEngineer.Name,
-        //     Email = doEngineer.Email,
-        //     Level = (BO.EngineerExperience)doEngineer.Level,
-        //     Cost = doEngineer.Cost,
-        //     CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
-        // };
-       
+ 
     }
     /// <summary>
     /// The function updates an engineer.

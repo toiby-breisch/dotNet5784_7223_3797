@@ -21,6 +21,7 @@ namespace PL.Engineer;
 /// /////////////Engineer Or EngineerInList
 public partial class EngineerListWindow : Window
 {
+
     public BO.EngineerExperience EngineerFilter { get; set; } = BO.EngineerExperience.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
@@ -57,8 +58,7 @@ public partial class EngineerListWindow : Window
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
         BO.Engineer? engineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-        EngineerWindow window = new EngineerWindow(engineerInList!.Id);
-        window.Show();
+        new EngineerWindow(engineerInList!.Id).ShowDialog();      // window.Show();
     }
 
 }

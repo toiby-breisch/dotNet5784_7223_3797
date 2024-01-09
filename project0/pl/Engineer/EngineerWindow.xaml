@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
-   	    DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
+   	    DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode= Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize"

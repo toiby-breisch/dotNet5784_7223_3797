@@ -39,13 +39,13 @@ public partial class EngineerWindow : Window
         InitializeComponent();
         if (Id == 0)
         {
-            BO.Engineer CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None };
+            CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None };
         }
         else
         {
             try
             {
-                BO.Engineer CurrentEngineer = s_bl.Engineer.Read(Id)!;
+                CurrentEngineer = s_bl.Engineer.Read(Id)!;
             }
             ////////לשאול!!!!!!!!!!!!!!!!!!!!!!dont forget!!!!!!!!!!!!please!!!!!!forever!to smile;)
             catch (Exception ex)
@@ -60,20 +60,18 @@ public partial class EngineerWindow : Window
     //}
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
+        
+        string content=(sender as Button)!.Content.ToString()!;
         try
         {
-            BO.Engineer newEngineer = new BO.Engineer
+
+            if(content =="Add") {
+                s_bl.Engineer.create(CurrentEngineer);
+            }
+            else
             {
-                Id = CurrentEngineer.Id,
-                Name = CurrentEngineer.Name,
-                Email = CurrentEngineer.Email,
-                Cost = CurrentEngineer.Cost,
-                Level = CurrentEngineer.Level,
-                CurrentTask = CurrentEngineer.CurrentTask
-            };
-            //if()
-            s_bl.Engineer.Update(newEngineer);
-            s_bl.Engineer.create(newEngineer);
+                s_bl.Engineer.Update(CurrentEngineer);
+            }
         }
         ////////לשאול
          catch (Exception ex)
