@@ -52,6 +52,7 @@ public partial class EngineerListWindow : Window
     {
         EngineerWindow win = new EngineerWindow();
         win.Show();
+
     }
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {

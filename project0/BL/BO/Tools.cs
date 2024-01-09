@@ -32,13 +32,13 @@ static class Tools
             if (itemDisplayAtt.Length == 1)
             {
                 PropertyDisplayAttribute att = (PropertyDisplayAttribute)itemDisplayAtt[0];
-                str += string.Format("\nname: {0,-15} value: {1,-15}",
+                str += string.Format("\n {0,-15}  {1,-15}",
                 att.DisplayValue,
                 item.GetValue(t, null));
             }
             else
             {
-                str += string.Format("\nname: {0,-15} value: {1,-15}",
+                str += string.Format("\n {0,-15}  {1,-15}",
                 item.Name,
                 item.GetValue(t, null));
             }

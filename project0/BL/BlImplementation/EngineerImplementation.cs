@@ -85,18 +85,28 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <returns>IEnumerable<BO.Engineer></returns>
     public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> ?filter=null){
                                     
-        IEnumerable<DO.Engineer> allTasks = _dal.Engineer.ReadAll((Func<DO.Engineer?, bool>)filter!)!;
-        IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
-        select new BO.Engineer
-        {
-             Id = doEngineer.Id,
-             Name = doEngineer.Name,
-             Email = doEngineer.Email,
-             Level = (BO.EngineerExperience)doEngineer.Level,
-             Cost = doEngineer.Cost,
-             CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
-         };
-        return allTaskinBo;
+        IEnumerable<BO.Engineer> allTasks = from doEngineer in _dal.Engineer.ReadAll()
+                                            select new BO.Engineer
+                                            {
+                                                Id = doEngineer.Id,
+                                                Name = doEngineer.Name,
+                                                Email = doEngineer.Email,
+                                                Level = (BO.EngineerExperience)doEngineer.Level,
+                                                Cost = doEngineer.Cost,
+                                                CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
+                                            };
+        return filter == null ? allTasks : allTasks.Where(filter);
+        //IEnumerable<BO.Engineer> allTaskinBo= from doEngineer in allTasks
+        //select new BO.Engineer
+        //{
+        //     Id = doEngineer.Id,
+        //     Name = doEngineer.Name,
+        //     Email = doEngineer.Email,
+        //     Level = (BO.EngineerExperience)doEngineer.Level,
+        //     Cost = doEngineer.Cost,
+        //     CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
+        // };
+       
     }
     /// <summary>
     /// The function updates an engineer.

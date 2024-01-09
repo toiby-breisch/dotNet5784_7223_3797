@@ -31,7 +31,7 @@ public partial class EngineerWindow : Window
 
     // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentEngineerProperty =
-        DependencyProperty.Register("EngineersValue", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(0));
+        DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
 
     public EngineerWindow(int Id = 0)
