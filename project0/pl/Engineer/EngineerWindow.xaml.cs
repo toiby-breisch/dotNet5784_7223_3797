@@ -1,11 +1,6 @@
 ﻿using BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,7 +26,7 @@ public partial class EngineerWindow : Window
 
     // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentEngineerProperty =
-        DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
 
     public EngineerWindow(int Id = 0)
@@ -54,17 +49,13 @@ public partial class EngineerWindow : Window
             }
         }
     }
-    //private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-
-    //}
+ 
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        
-        string content=(sender as Button)!.Content.ToString()!;
+         Console.Write(CurrentEngineer.Name);
+        string content =(sender as Button)!.Content.ToString()!;
         try
         {
-
             if(content =="Add") {
                 s_bl.Engineer.create(CurrentEngineer);
             }
@@ -72,12 +63,14 @@ public partial class EngineerWindow : Window
             {
                 s_bl.Engineer.Update(CurrentEngineer);
             }
+            
         }
         ////////לשאול
          catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-        Close();
+        MessageBox.Show("Succeeded!");
+        this.Close();
     }
 }

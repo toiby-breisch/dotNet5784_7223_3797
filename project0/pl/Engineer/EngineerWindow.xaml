@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="800"
-   	    DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode= Self}, Mode=TwoWay}">
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize"
@@ -24,7 +24,7 @@
             <!--<Setter Property="Background"
                     Value="LightPink"/>-->
         </Style>
-        <Style TargetType="TextBox">
+        <!--<Style TargetType="TextBox">
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="FontFamily"
@@ -35,7 +35,7 @@
                     Value="Center"/>
             <Setter Property="Background"
                     Value="LightPink"/>
-        </Style>
+        </Style>-->
         <Style TargetType="Button">
             <Setter Property="Background"
                     Value="LightPink"/>
@@ -64,19 +64,19 @@
         <Label Content="Email"  Grid.Row="2" />
         <Label Content="Cost"  Grid.Row="3" />
         <Label Content="Level" HorizontalAlignment="Left"  Margin="150,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <Label Content="CurrentTask" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="5" VerticalAlignment="Top"/>
+        <!--<Label Content="CurrentTask" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="5" VerticalAlignment="Top"/>-->
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
         <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
                 SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="230,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="102,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>
+        <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="230,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>-->
+        <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="102,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>-->
 
         <Button Grid.Row="5" 
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
       HorizontalAlignment="Left" Margin="336,0,0,0"  VerticalAlignment="Center" Padding="5" 
-      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2"/>
+      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308"/>
     </Grid>
 </Window>

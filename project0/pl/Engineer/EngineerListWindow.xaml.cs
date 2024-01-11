@@ -52,13 +52,16 @@ public partial class EngineerListWindow : Window
     private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         EngineerWindow win = new EngineerWindow();
-        win.Show();
+        win.ShowDialog();
 
     }
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
         BO.Engineer? engineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-        new EngineerWindow(engineerInList!.Id).ShowDialog();      // window.Show();
+        new EngineerWindow(engineerInList!.Id).ShowDialog();
+        var temp = s_bl?.Engineer.ReadAll();//
+        EngineerList= new(temp!);/////////////
+
     }
 
 }
