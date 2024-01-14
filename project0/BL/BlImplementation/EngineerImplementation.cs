@@ -111,9 +111,18 @@ internal class EngineerImplementation : BlApi.IEngineer
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
         }
 
-        if (Read(boEngineer!.Id) is not null)
+        if (_dal.Engineer.Read(boEngineer!.Id) is  null)
             throw new Exception($"Engineer with ID={boEngineer.Id} already exists");
-        Update(boEngineer);
+        DO.Engineer doEngineer = new DO.Engineer
+        {
+            Id = boEngineer.Id,
+            Name = boEngineer.Name,
+            Email = boEngineer.Email,
+            Level = (DO.EngineerExperience)boEngineer.Level,
+            Cost = boEngineer.Cost,
+            IsActive = true
+        };
+        _dal.Engineer.Update(doEngineer);
     }
     /// <summary>
     /// THe function gets current actives's taskInEngineer.

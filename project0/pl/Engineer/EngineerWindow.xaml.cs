@@ -49,24 +49,25 @@ public partial class EngineerWindow : Window
             }
         }
     }
- 
+
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-         Console.Write(CurrentEngineer.Name);
-        string content =(sender as Button)!.Content.ToString()!;
+        //Console.Write(CurrentEngineer.Name);
+        string content = (sender as Button)!.Content.ToString()!;
         try
         {
-            if(content =="Add") {
-                s_bl.Engineer.create(CurrentEngineer);
+            if (content == "Add")
+            {
+               var t= s_bl.Engineer.create(CurrentEngineer);
             }
             else
             {
                 s_bl.Engineer.Update(CurrentEngineer);
             }
-            
+
         }
         ////////לשאול
-         catch (Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
