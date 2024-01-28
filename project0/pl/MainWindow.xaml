@@ -6,12 +6,23 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background"
+                    Value="LightPink"/>
+            <Setter Property="Padding"
+                    Value="6"/>
+            <Setter Property="FontFamily"
+                    Value="French Script MT"/>
+
+        </Style>
+    </Window.Resources>
     <Grid RenderTransformOrigin="0.654,-0.868">
         <!-- … A button will take you to the list view window … -->
-        <Button Height="40" Width="90" HorizontalAlignment="Left" Click="btnEngineers_Click" Content="Handle Engineers"/>
+        <Button Width="144" Height="100" HorizontalAlignment="Left" Click="btnEngineers_Click" Content="Handle Engineers" Margin="198,201,0,158"/>
         <!-- …  A button that, when clicked, will lead to initializing the  … -->
-        <Button Height="40" Width="90" HorizontalAlignment="Center" Click="btnDalTestInitialization_click" Content="Initialization Engineers"/>
-        
+        <Button Width="144"  Height="100" HorizontalAlignment="Left" Click="btnDalTestInitialization_click" Content="Initialization Engineers" Margin="454,201,0,158"/>
+
 
     </Grid>
 </Window>
