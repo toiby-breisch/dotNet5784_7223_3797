@@ -8,7 +8,14 @@
         Title="EngineerWindow" Height="450" Width="800"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
-        <Style TargetType="Label">
+       
+            <LinearGradientBrush x:Key="myLinearGradientBrush">
+            <GradientStop Color="#FF187F25" Offset="0"/>
+            <GradientStop Color="Red" Offset="1"/>
+            <GradientStop Color="LightPink" Offset="0.3"/>
+        </LinearGradientBrush>
+
+            <Style TargetType="Label">
             <Setter Property="FontSize"
                     Value="32" />
             <Setter Property="FontFamily"
@@ -21,10 +28,8 @@
                        Value="Center"/>
             <Setter Property="HorizontalAlignment"
                     Value="Center"/>
-            <!--<Setter Property="Background"
-                    Value="LightPink"/>-->
         </Style>
-        <!--<Style TargetType="TextBox">
+        <Style TargetType="TextBox">
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="FontFamily"
@@ -35,7 +40,19 @@
                     Value="Center"/>
             <Setter Property="Background"
                     Value="LightPink"/>
-        </Style>-->
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize"
+                    Value="20" />
+            <Setter Property="FontFamily"
+                    Value="Consolas" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center"/>
+            <Setter Property="Background"
+                    Value="LightPink"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="Background"
                     Value="LightPink"/>
@@ -43,7 +60,6 @@
                     Value="6"/>
             <Setter Property="FontFamily"
                     Value="French Script MT"/>
-           
         </Style>
     </Window.Resources>
     <Grid>
@@ -65,18 +81,21 @@
         <Label Content="Cost"  Grid.Row="3" />
         <Label Content="Level" HorizontalAlignment="Left"  Margin="150,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
         <!--<Label Content="CurrentTask" HorizontalAlignment="Left" Margin="150,10,0,0" Grid.Row="5" VerticalAlignment="Top"/>-->
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-        <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
-                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"/>
+                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
         <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="230,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>-->
         <!--<TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="102,23,0,0" Grid.Row="5" TextWrapping="Wrap" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  VerticalAlignment="Top" Width="120"/>-->
-
         <Button Grid.Row="5" 
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
       HorizontalAlignment="Left" Margin="336,0,0,0"  VerticalAlignment="Center" Padding="5" 
-      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308"/>
+      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308" Background="{StaticResource myLinearGradientBrush}">
+           
+        </Button>
+        
+        
     </Grid>
 </Window>
