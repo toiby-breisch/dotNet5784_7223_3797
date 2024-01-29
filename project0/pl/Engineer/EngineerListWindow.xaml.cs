@@ -53,8 +53,12 @@ public partial class EngineerListWindow : Window
     {
         EngineerWindow win = new EngineerWindow();
         win.ShowDialog();
+        var temp = s_bl?.Engineer.ReadAll();
+        EngineerList = new(temp!);
+
 
     }
+
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
         BO.Engineer? engineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
