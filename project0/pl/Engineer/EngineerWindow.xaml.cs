@@ -1,6 +1,5 @@
 ﻿using BO;
 using System;
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,7 +27,10 @@ public partial class EngineerWindow : Window
     public static readonly DependencyProperty CurrentEngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
-
+    /// <summary>
+    ///  Initialize Engineer window
+    /// </summary>
+    /// <param name="Id"></param>
     public EngineerWindow(int Id = 0)
     {
         InitializeComponent();
@@ -42,17 +44,17 @@ public partial class EngineerWindow : Window
             {
                 CurrentEngineer = s_bl.Engineer.Read(Id)!;
             }
-            ////////לשאול!!!!!!!!!!!!!!!!!!!!!!dont forget!!!!!!!!!!!!please!!!!!!forever!to smile;)
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            catch (BO.BlDoesNotExistException message)
+            { MessageBox.Show(message.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
     }
-
+    /// <summary>
+    /// The function is for btn Add or Update_Click
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        //Console.Write(CurrentEngineer.Name);
         string content = (sender as Button)!.Content.ToString()!;
         try
         {
@@ -64,14 +66,14 @@ public partial class EngineerWindow : Window
             {
                 s_bl.Engineer.Update(CurrentEngineer);
             }
+        }
+        catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
+        catch (BO.BlDoesNotExistException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
+        catch (BO.BlNullOrNotIllegalPropertyException
+        ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
+        MessageBox.Show("the transaction completed successfully");
+        Close();
 
-        }
-        ////////לשאול
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        MessageBox.Show("Succeeded!");
-        this.Close();
     }
+
 }

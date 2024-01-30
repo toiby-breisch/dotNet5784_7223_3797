@@ -112,7 +112,7 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
 
         if (_dal.Engineer.Read(boEngineer!.Id) is  null)
-            throw new Exception($"Engineer with ID={boEngineer.Id} already exists");
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer.Id} does not exixt exists");
         DO.Engineer doEngineer = new DO.Engineer
         {
             Id = boEngineer.Id,

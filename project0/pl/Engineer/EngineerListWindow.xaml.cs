@@ -18,7 +18,7 @@ namespace PL.Engineer;
 /// <summary>
 /// Interaction logic for EngineerListWindow.xaml
 /// </summary>
-/// /////////////Engineer Or EngineerInList
+/// 
 public partial class EngineerListWindow : Window
 {
 
@@ -33,7 +33,9 @@ public partial class EngineerListWindow : Window
 
     public static readonly DependencyProperty EngineerListProperty =
         DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
-
+/// <summary>
+/// Initialize EngineerListWindow
+/// </summary>
     public EngineerListWindow()
     {
         InitializeComponent();
@@ -49,6 +51,11 @@ public partial class EngineerListWindow : Window
             EngineerList = temp == null ? new() : new(temp);
 
     }
+    /// <summary>
+    /// The function is for btn Add or Update_Click
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         EngineerWindow win = new EngineerWindow();
@@ -58,13 +65,17 @@ public partial class EngineerListWindow : Window
 
 
     }
-
+    /// <summary>
+    /// The function updates the engineer by clicking the button.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
         BO.Engineer? engineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
         new EngineerWindow(engineerInList!.Id).ShowDialog();
-        var temp = s_bl?.Engineer.ReadAll();//
-        EngineerList= new(temp!);/////////////
+        var temp = s_bl?.Engineer.ReadAll();
+        EngineerList= new(temp!);
 
     }
 
