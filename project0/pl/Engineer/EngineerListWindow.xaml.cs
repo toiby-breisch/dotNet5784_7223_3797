@@ -21,10 +21,8 @@ namespace PL.Engineer;
 /// 
 public partial class EngineerListWindow : Window
 {
-
     public BO.EngineerExperience EngineerFilter { get; set; } = BO.EngineerExperience.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
     public ObservableCollection<BO.Engineer> EngineerList
     {
         get { return (ObservableCollection<BO.Engineer>)GetValue(EngineerListProperty); }
@@ -39,8 +37,8 @@ public partial class EngineerListWindow : Window
     public EngineerListWindow()
     {
         InitializeComponent();
-        var temp = s_bl?.Engineer.ReadAll();//
-        EngineerList = temp == null ? new() : new(temp);/////////////
+        var temp = s_bl?.Engineer.ReadAll();
+        EngineerList = temp == null ? new() : new(temp);
     }
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,7 +60,6 @@ public partial class EngineerListWindow : Window
         win.ShowDialog();
         var temp = s_bl?.Engineer.ReadAll();
         EngineerList = new(temp!);
-
 
     }
     /// <summary>
