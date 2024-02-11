@@ -106,7 +106,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="Exception"></exception>
     public void Update(BO.Engineer boEngineer)
     {
-        if (boEngineer?.Id <= 100000000|| !isValidEmail(boEngineer?.Email)|| boEngineer?.Name == ""|| boEngineer?.Cost <= 0)
+        if (boEngineer?.Id <= 0|| !isValidEmail(boEngineer?.Email)|| boEngineer?.Name == ""|| boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
         }
