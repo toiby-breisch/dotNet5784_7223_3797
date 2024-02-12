@@ -6,7 +6,34 @@
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
         Title="TaskListWindowxaml" Height="450" Width="800">
+    
     <Grid>
-        
+  
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF187F25" Offset="0"/>
+                <GradientStop Color="Red" Offset="1"/>
+                <GradientStop Color="LightPink" Offset="0.3"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="113*"/>
+                <ColumnDefinition Width="287*"/>
+                <ColumnDefinition Width="400*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Level" HorizontalAlignment="Left"  Margin="45,0,0,0" VerticalAlignment="Top"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedValue="{Binding TaskFilter,Mode=TwoWay}"
+                 SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" />
+        </Grid>
+        <ListView MouseDoubleClick="UpdateThisObject" Margin="5,10,10,10" Grid.Row="1" ItemsSource="{Binding TaskList}"/>
+        <Button Padding="6" Background="LightPink" FontFamily="French Script MT"  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddOrUpdate_Click" />
     </Grid>
 </Window>

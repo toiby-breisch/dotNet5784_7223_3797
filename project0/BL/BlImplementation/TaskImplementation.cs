@@ -116,13 +116,14 @@ internal class TaskIplementation : BlApi.ITask
     /// <param name="filter"></param>
     /// <returns>IEnumerable<BO.Task></returns>
     /// 
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool> filter)
+    public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool>? filter=null)
     {
-        IEnumerable<DO.Task?> allTasks = _dal.Task.ReadAll((Func<DO.Task?, bool>)filter);
-        IEnumerable<BO.Task> allTaskinBo = allTasks.Select(task => new BO.Task
+
+        IEnumerable<BO.Task> allTasks = from task in _dal.Task.ReadAll()
+                                            select new BO.Task
         {
-            Id = task!.Id,
-            Description = task!.Description!,
+            Id = task.Id,
+            Description = task.Description!,
             Alias = task!.Alias,
             status = getStatuesOfTask(task),
             Milestone = getMilistoneInLis(task),   
@@ -136,15 +137,32 @@ internal class TaskIplementation : BlApi.ITask
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
             CopmlexityLevel = (BO.EngineerExperience)task.CopmlexityLevel,
-        });
-        return allTaskinBo;
+        };
+        return filter == null ? allTasks : allTasks.Where(filter);
+
     }
-/// <summary>
-/// The function updates a task
-/// </summary>
-/// <param name="task"></param>
-/// <exception cref="BO.BlNullPropertyException"></exception>
-/// <exception cref="BO.BlDoesNotExistException"></exception>
+    //public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter = null)
+    //{
+
+    //    IEnumerable<BO.Engineer> allTasks = from doEngineer in _dal.Engineer.ReadAll()
+    //                                        select new BO.Engineer
+    //                                        {
+    //                                            Id = doEngineer.Id,
+    //                                            Name = doEngineer.Name,
+    //                                            Email = doEngineer.Email,
+    //                                            Level = (BO.EngineerExperience)doEngineer.Level,
+    //                                            Cost = doEngineer.Cost,
+    //                                            CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
+    //                                        };
+    //    return filter == null ? allTasks : allTasks.Where(filter);
+
+    //}
+    /// <summary>
+    /// The function updates a task
+    /// </summary>
+    /// <param name="task"></param>
+    /// <exception cref="BO.BlNullPropertyException"></exception>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(BO.Task task)
     {
         //איזה בדיקות על התאריכם?
