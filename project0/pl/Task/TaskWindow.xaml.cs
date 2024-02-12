@@ -1,5 +1,6 @@
 ﻿using BO;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,35 +15,53 @@ namespace PL.Task;
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
 /// </summary>
-public partial class EngineerWindow : Window
+public partial class TaskWindow : Window
 {
     private static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public BO.Engineer CurrentEngineer
+    public BO.Task CurrentTask
     {
-        get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
-        set { SetValue(CurrentEngineerProperty, value); }
+        get { return (BO.Task)GetValue(CurrentTaskProperty); }
+        set { SetValue(CurrentTaskProperty, value); }
     }
 
-    // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty CurrentEngineerProperty =
-        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+    // Using a DependencyProperty as the backing store for TasksValue.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty CurrentTaskProperty =
+        DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
     /// <summary>
     ///  Initialize Engineer window
     /// </summary>
     /// <param name="Id"></param>
-    public EngineerWindow(int Id = 0)
+    public TaskWindow(int Id = 0)
     {
         InitializeComponent();
         if (Id == 0)
         {
-            CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None };
+            CurrentTask = new BO.Task 
+            { 
+                Id = 0,
+                Description = "",
+                Alias = "",
+                CreatedAtDate = null,
+                status= BO.Status.Unscheduled,
+                DependenciesList=null,
+                Milestone=null,
+                StartDate=null,
+                ScheduledDate=null,
+                ForecastDate=null,
+                DeadlineDate=null,
+                CompleteDate=null,
+                Remarks=null,
+                Deliverables=null,
+                Engineer=null,
+                CopmlexityLevel = BO.EngineerExperience.None
+            };
         }
         else
         {
             try
             {
-                CurrentEngineer = s_bl.Engineer.Read(Id)!;
+                CurrentTask = s_bl.Task.Read(Id)!;
             }
             catch (BO.BlDoesNotExistException message)
             { MessageBox.Show(message.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -60,11 +79,11 @@ public partial class EngineerWindow : Window
         {
             if (content == "Add")
             {
-                var t = s_bl.Engineer.create(CurrentEngineer);
+                var t = s_bl.Task.create(CurrentTask);
             }
             else
             {
-                s_bl.Engineer.Update(CurrentEngineer);
+                s_bl.Task.Update(CurrentTask);
             }
         }
         catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }

@@ -19,8 +19,8 @@
     </Window.Resources>
     <Grid RenderTransformOrigin="0.654,-0.868">
         <!-- … A button will take you to the list view window … -->
-        <Button Width="144" Height="70" HorizontalAlignment="Left" Click="btnTask_Click" Content="Handle Engineers" Margin="198,201,0,158"/>
-        <Button Width="144" Height="70" HorizontalAlignment="Left" Click="btnEngineers_Click" Content="Handle Tasks" Margin="198,0,0,158"/>
+        <Button Width="144" Height="70" HorizontalAlignment="Left" Click="btnTask_Click" Content="Handle Tasks" Margin="198,201,0,158"/>
+        <Button Width="144" Height="70" HorizontalAlignment="Left" Click="btnEngineers_Click" Content="Handle Engineers" Margin="198,0,0,158"/>
         <!-- …  A button that, when clicked, will lead to initializing the  … -->
         <Button Width="144"  Height="70" HorizontalAlignment="Left" Click="btnDalTestInitialization_click" Content="Initialization Engineers" Margin="454,201,0,158"/>
 

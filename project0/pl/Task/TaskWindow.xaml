@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800">
+        Title="TaskWindow" Height="450" Width="800"
     DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}">
     <Window.Resources>
         <LinearGradientBrush x:Key="myLinearGradientBrush">
@@ -82,7 +82,7 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
         <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource TaskCollectionKey}}" 
+        <ComboBox ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
                 SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
         <Button Grid.Row="5" 
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
