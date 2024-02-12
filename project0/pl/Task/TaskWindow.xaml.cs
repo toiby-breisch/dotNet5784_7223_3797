@@ -96,4 +96,8 @@ public partial class TaskWindow : Window
 
     }
 
+    private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
+    }
 }

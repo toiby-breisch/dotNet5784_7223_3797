@@ -22,7 +22,8 @@ namespace PL.Task;
 /// 
 public partial class TaskListWindow : Window
 {
-    public BO.EngineerExperience TaskFilter { get; set; } = BO.EngineerExperience.None;
+    
+    public BO.Status TaskFilter { get; set; } = BO.Status.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public ObservableCollection<BO.Task> TaskList
     {
@@ -44,9 +45,10 @@ public partial class TaskListWindow : Window
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var temp = TaskFilter == BO.EngineerExperience.None ?
+        var temp = TaskFilter == BO.Status.None ?
         s_bl?.Task.ReadAll() :
-            s_bl?.Task.ReadAll(item => item!.CopmlexityLevel == TaskFilter);
+        
+            s_bl?.Task.ReadAll(item => item!.status == TaskFilter);
         TaskList = temp == null ? new() : new(temp);
 
     }

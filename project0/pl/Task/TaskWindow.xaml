@@ -16,6 +16,16 @@
         <Style TargetType="Label">
             <Setter Property="FontSize"
                     Value="32" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+            <Setter Property="Grid.RowSpan"
+                    Value="2"/>
+            <Setter Property="Margin"
+                    Value="80,2,0,0"/>
+            <Setter Property="FontSize"
+                    Value="16" />
             <Setter Property="FontFamily"
                     Value="Verdana" />
             <Setter Property="FontWeight"
@@ -23,9 +33,11 @@
             <Setter  Property="Width"
                      Value="112"/>
             <Setter Property="VerticalAlignment"
-                       Value="Center"/>
-            <Setter Property="HorizontalAlignment"
-                    Value="Center"/>
+                       Value="Top"/>
+            <Setter Property="Height"
+                    Value="28"/>
+            <Setter Property="Grid.RowSpan"
+                    Value="3"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize"
@@ -35,9 +47,27 @@
             <Setter Property="FontWeight"
                     Value="Bold" />
             <Setter Property="HorizontalAlignment"
-                    Value="Center"/>
+                    Value="Left"/>
             <Setter Property="Background"
                     Value="LightPink"/>
+            <Setter Property="Height"
+                    Value="28"/>
+            <Setter Property="Width"
+                    Value="120"/>
+            <Setter Property="Margin"
+                    Value="80,2,0,0"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Top"/>
+            <Setter Property="Grid.RowSpan"
+                    Value="2"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+            <Setter Property="TextWrapping"
+                    Value="Wrap"/>
+            <Setter Property="Background"
+                    Value="{StaticResource myLinearGradientBrush}"/>
+            <Setter Property="Grid.Column"
+                    Value="2"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="FontSize"
@@ -53,11 +83,21 @@
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background"
-                    Value="LightPink"/>
+                      Value="{StaticResource myLinearGradientBrush}"/>
             <Setter Property="Padding"
                     Value="6"/>
+            <Setter Property="Height"
+                    Value="28"/>
+            <Setter Property="Width"
+                    Value="120"/>
             <Setter Property="FontFamily"
                     Value="French Script MT"/>
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"/>
+            <Setter Property="Margin"
+                    Value="336,0,0,0"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -68,48 +108,56 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="ID"  />
-            <Label Content="Description"  Grid.Row="2" />
-            <Label Content="Alias"  Grid.Row="1"  />
-            <Label Content="CreatedAtDate"  Grid.Row="3" />
-            <Label Content="status"  Grid.Row="3" />
-            <Label Content="StartDate"  Grid.Row="3" />
-            <Label Content="ScheduledDate"  Grid.Row="3" />
-            <Label Content="ForecastDate"  Grid.Row="3" />
-            <Label Content="DeadlineDate"  Grid.Row="3" />
-            <Label Content="CompleteDate"  Grid.Row="3" />
-            <Label Content="Remarks"  Grid.Row="3" />
-            <Label Content="Deliverables"  Grid.Row="3" />
-            <Label Content="Engineer :Id"  Grid.Row="3" />
-            <Label Content="Engineer : Name"  Grid.Row="3" />
-            <Label Content="CopmlexityLevel" HorizontalAlignment="Left"  Margin="150,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox   Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <Label Content="ID"   />
+        <Label Content="Description" Grid.Row="1"/>
+        <Label Content="Alias"  Grid.Row="2"  />
+        <Label Content="CreatedAtDate" Grid.Row="3" />
+        <Label Content="status" Grid.Row="4" />
+        <Label Content="StartDate"  Grid.Row="5" />
+        <Label Content="ScheduledDate" Grid.Row="6" Grid.RowSpan="2" Width="159"  />
+        <Label Content="ForecastDate" Grid.Row="7" Grid.RowSpan="2" Width="138" />
+        <Label Content="DeadlineDate"  Grid.Row="8"  />
+        <Label Content="CompleteDate"  Grid.Row="9" />
+        <Label Content="Remarks"  Grid.Row="10"   />
+        <Label Content="Deliverables"  Grid.Row="11" />
+        <Label Content="Engineer :Id"  Grid.Row="12" Grid.RowSpan="2" Width="159"  />
+        <Label Content="Engineer : Name"  Grid.Row="13" Grid.RowSpan="2" Width="184"   />
+        <Label Content="CopmlexityLevel"  Grid.Row="14" Grid.RowSpan="2" Width="184"  />
+        <TextBox Grid.Row="0"  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <TextBox Grid.Row="1"  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <TextBox  Grid.Row="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  />
+        <TextBox Grid.Row="3"  Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" 
-                SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
+                SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="4" VerticalAlignment="Top"   Background="{StaticResource myLinearGradientBrush}"/>
         <DatePicker Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"></DatePicker>
         <DatePicker Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"></DatePicker>
         <DatePicker Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"></DatePicker>
         <DatePicker Text="{Binding DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"></DatePicker>
         <DatePicker Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"></DatePicker>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox Grid.Row="4" Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <TextBox Grid.Row="5" Text="{Binding EngineerId, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        <TextBox Grid.Row="6" Text="{Binding EngineerName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <ComboBox ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
                 SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
-        <Button Grid.Row="5" 
-      Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
-      HorizontalAlignment="Left" Margin="336,0,0,0"  VerticalAlignment="Center" Padding="5" 
-      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308" Background="{StaticResource myLinearGradientBrush}">
+        <Button Grid.Row="14"       Click="btnAddUpdate_Click"
+      Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="338,24,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />
 
-        </Button>
 
 
     </Grid>

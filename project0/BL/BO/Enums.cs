@@ -14,7 +14,8 @@ public enum EngineerExperience
 /// </summary>
 public enum Status
 {
-   Unscheduled,
+    None,
+    Unscheduled,
     Scheduled,
     OnTrack, 
     InJeopardy
