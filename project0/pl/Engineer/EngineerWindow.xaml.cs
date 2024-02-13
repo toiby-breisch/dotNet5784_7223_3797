@@ -42,6 +42,8 @@ public partial class EngineerWindow : Window
         set { SetValue(CurrentEngineerProperty, value); }
     }
 
+    public string Alias { get; }
+
     // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentEngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
@@ -56,7 +58,7 @@ public partial class EngineerWindow : Window
        
         if (Id == 0)
         {
-            CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None };
+            CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None, CurrentTask = new BO.TaskInEngineer { Id = 0, Alias = "" } };
         }
         else
         {

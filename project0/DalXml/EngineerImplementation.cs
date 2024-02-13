@@ -64,7 +64,7 @@ internal class EngineerImplementation : IEngineer
     //<summary>
     //read all the engineers
     //<summary>
-    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool> filter)
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool> ?filter)
     {
         string fileName = "engineers";
         List<Engineer>? Engineers = new List<Engineer>();

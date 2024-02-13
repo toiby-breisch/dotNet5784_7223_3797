@@ -22,8 +22,20 @@ internal class TaskIplementation : BlApi.ITask
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int create(BO.Task boTask)
     {
+        if (boTask.StartDate > boTask.ScheduledDate || boTask.ScheduledDate > boTask.ForecastDate ||
+           boTask.ForecastDate < boTask.CompleteDate || boTask.DeadlineDate < boTask.CompleteDate ||
+           boTask.Id <= 0 || boTask.Alias == "")
+            throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
         if (boTask.Id < 0 || boTask.Alias == "")
             throw new BO.BlNullOrNotIllegalPropertyException(nameof(boTask));
+        try
+        {
+            _dal.Task.Read(boTask!.Engineer!.Id);
+        }
+        catch (DO.DalDoesNotExistException)
+        {
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boTask!.Engineer!.Id} does not exixt ");
+        }
         try
         {
             DO.EngineerExperience copmlexityLevel = (DO.EngineerExperience)boTask.CopmlexityLevel!;
@@ -36,7 +48,7 @@ internal class TaskIplementation : BlApi.ITask
                 return boTask.Id;
             }
             var dependencies = from BO.TaskInList task in boTask.DependenciesList
-                               select new DO.Dependency(0, boTask.Id, task.Id);
+                               select new DO.Dependency(0, boTask.Id, boTask.Id);
            
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -170,7 +182,15 @@ internal class TaskIplementation : BlApi.ITask
         if (task.StartDate > task.ScheduledDate || task.ScheduledDate>task.ForecastDate||
             task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate ||
             task.Id <= 0 || task.Alias == "")
-            throw new BO.BlNullOrNotIllegalPropertyException($"Milistone with ID={task.Id}lacks values");
+            throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
+        try
+        {
+            _dal.Task.Read(task!.Engineer!.Id);
+        }
+        catch (DO.DalDoesNotExistException)
+        {
+            throw new BO.BlDoesNotExistException($"Engineer with ID={task!.Engineer!.Id} does not exixt ");
+        }
         try
         {
             _dal.Task.Update(new DO.Task(task.Id, task.Description, task.Alias, false,
