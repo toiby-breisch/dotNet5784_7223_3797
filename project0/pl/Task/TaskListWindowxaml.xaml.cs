@@ -25,30 +25,30 @@ public partial class TaskListWindow : Window
     
     public BO.Status TaskFilter { get; set; } = BO.Status.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public ObservableCollection<BO.Task> TaskList
+    public ObservableCollection<BO.TaskInList> TaskList
     {
-        get { return (ObservableCollection<BO.Task>)GetValue(TaskListProperty); }
+        get { return (ObservableCollection<BO.TaskInList>)GetValue(TaskListProperty); }
         set { SetValue(TaskListProperty, value); }
     }
 
     public static readonly DependencyProperty TaskListProperty =
-        DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.Task>), typeof(TaskListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+
     /// <summary>
     /// Initialize TaskListWindow
     /// </summary>
     public TaskListWindow()
     {
         InitializeComponent();
-        var temp = s_bl?.Task.ReadAll();
+        var temp = s_bl?.TaskInList.ReadAll();
         TaskList = temp == null ? new() : new(temp);
     }
-
+  
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var temp = TaskFilter == BO.Status.None ?
-        s_bl?.Task.ReadAll() :
-        
-            s_bl?.Task.ReadAll(item => item!.status == TaskFilter);
+        s_bl?.TaskInList.ReadAll() :
+            s_bl?.TaskInList.ReadAll(item => item!.Status ==TaskFilter);
         TaskList = temp == null ? new() : new(temp);
 
     }
@@ -61,8 +61,8 @@ public partial class TaskListWindow : Window
     {
         TaskWindow win = new TaskWindow();
         win.ShowDialog();
-        var temp = s_bl?.Task.ReadAll();
-        TaskList = new(temp!);
+        var temp = s_bl?.TaskInList.ReadAll();
+        TaskList = new(temp);
 
     }
     /// <summary>
@@ -72,9 +72,9 @@ public partial class TaskListWindow : Window
     /// <param name="e"></param>
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
-        BO.Task? TaskInList = (sender as ListView)?.SelectedItem as BO.Task;
+        BO.TaskInList? TaskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
         new TaskWindow(TaskInList!.Id).ShowDialog();
-        var temp = s_bl?.Task.ReadAll();
+         var temp = s_bl?.TaskInList.ReadAll();
         TaskList = new(temp!);
 
     }

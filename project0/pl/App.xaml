@@ -8,7 +8,7 @@
         <local:EngineersCollection x:Key="EngineersCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:TasksCollection x:Key="TasksCollectionKey"/>
-        <local:StatusCollection x:Key="StatusCollectionKey"/>
+        <!--<local:StatusCollection x:Key="StatusCollectionKey"/>-->
     </Application.Resources>
 </Application>
  

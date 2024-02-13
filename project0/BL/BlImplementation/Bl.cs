@@ -5,8 +5,10 @@ internal class Bl : IBl
 {
     public IEngineer Engineer => new EngineerImplementation();
 
+    public ITaskInList TaskInList => new TaskInListImplementation();
+
     public ITask Task => new TaskIplementation();
-    public IMilestone Milestone => new MilestoneImplementation();
-    public IMilestone EngineerInListImplementation => new MilestoneImplementation();
-    public IMilestone TaskInListImplementation => new MilestoneImplementation();
+    //public IMilestone Milestone => new MilestoneImplementation();
+    //public IMilestone EngineerInListImplementation => new MilestoneImplementation();
+    //public IMilestone TaskInListImplementation => new MilestoneImplementation();
 }
