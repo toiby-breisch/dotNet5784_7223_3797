@@ -27,7 +27,7 @@ public partial class EngineerWindow : Window
 
     public static bool inputIntegrityCheck(BO.Engineer? engineer)
     {
-        if (engineer?.Id <= 0 || engineer!.Name == "" || engineer.Cost <= 0 || !IsValidEmailAddress(engineer.Email))
+        if (engineer?.Id < 0 || engineer!.Name == "" || engineer.Cost <= 0 || !IsValidEmailAddress(engineer.Email))
         {
             MessageBox.Show("ERROR: '\n'The data you entered is incorrect.");
             return false;
@@ -55,7 +55,7 @@ public partial class EngineerWindow : Window
     public EngineerWindow(int Id = 0)
     {
         InitializeComponent();
-       
+
         if (Id == 0)
         {
             CurrentEngineer = new BO.Engineer { Id = 0, Name = "", Email = "", Cost = 0, Level = BO.EngineerExperience.None, CurrentTask = new BO.TaskInEngineer { Id = 0, Alias = "" } };
@@ -64,12 +64,19 @@ public partial class EngineerWindow : Window
         {
             try
             {
-                CurrentEngineer = s_bl.Engineer.Read(Id)!;
+                CurrentEngineer = s_bl!.Engineer!.Read(Id)!;
+                if (CurrentEngineer!.CurrentTask is null)
+                {
+                    CurrentEngineer.CurrentTask = new BO.TaskInEngineer { Id = 0, Alias = " " };
+                }
             }
+
+
             catch (BO.BlDoesNotExistException message)
             { MessageBox.Show(message.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
     }
+
     /// <summary>
     /// The function is for btn Add or Update_Click
     /// </summary>

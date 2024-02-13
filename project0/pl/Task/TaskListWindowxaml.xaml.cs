@@ -1,4 +1,5 @@
 ﻿using BO;
+using PL.Engineer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace PL.Task;
+//private void UpdateThisObject(object sender, MouseButtonEventArgs e)
+//{
+//    BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
+//    new EngineerWindow(engineerInList!.Id).ShowDialog();
+//    var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter);
+//    EngineerList = new(temp!);
 
+//}
 /// <summary>
 /// Interaction logic for TaskListWindow.xaml
 /// </summary>
@@ -73,7 +81,7 @@ public partial class TaskListWindow : Window
     {
         BO.TaskInList? TaskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
         new TaskWindow(TaskInList!.Id).ShowDialog();
-         var temp = s_bl?.TaskInList.ReadAll();
+         var temp = s_bl?.TaskInList.ReadAll(item => item!.Status == TaskFilter);
         TaskList = new(temp!);
 
     }

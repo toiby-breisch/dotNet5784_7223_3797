@@ -28,6 +28,16 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty CurrentTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
+
+    public static bool inputIntegrityCheck(BO.Task? task)
+    {
+        if (task!.Description =="" || task.Alias == "" )
+        {
+            MessageBox.Show("ERROR: '\n'The data you entered is incorrect.");
+            return false;
+        }
+        return true;
+    }
     /// <summary>
     ///  Initialize Engineer window
     /// </summary>
@@ -79,11 +89,22 @@ public partial class TaskWindow : Window
         {
             if (content == "Add")
             {
-                var t = s_bl.Task.create(CurrentTask);
+                if (inputIntegrityCheck(CurrentTask))
+                {
+                    s_bl.Task.create(CurrentTask);
+                    MessageBox.Show("Object with id " + CurrentTask.Id + "had added successfully!");
+                    this.Close();
+                }
             }
             else
             {
-                s_bl.Task.Update(CurrentTask);
+                if (inputIntegrityCheck(CurrentTask))
+                {
+                    s_bl.Task.Update(CurrentTask);
+                    MessageBox.Show("Object with id " + CurrentTask.Id + "had updated successfully!");
+                    this.Close();
+                }
+
             }
         }
         catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }

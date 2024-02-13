@@ -26,16 +26,12 @@ internal class TaskIplementation : BlApi.ITask
            boTask.ForecastDate < boTask.CompleteDate || boTask.DeadlineDate < boTask.CompleteDate ||
            boTask.Id <= 0 || boTask.Alias == "")
             throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
-        if (boTask.Id < 0 || boTask.Alias == "")
-            throw new BO.BlNullOrNotIllegalPropertyException(nameof(boTask));
-        try
-        {
-            _dal.Task.Read(boTask!.Engineer!.Id);
-        }
-        catch (DO.DalDoesNotExistException)
-        {
+        if (boTask.Id < 0 || boTask.Alias == ""|| boTask.Description=="")
+            throw new BO.BlNullOrNotIllegalPropertyException("ERROR: '\n'The data you entered is incorrect.");
+
+        if (_dal.Engineer.Read(boTask!.Engineer!.Id) == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={boTask!.Engineer!.Id} does not exixt ");
-        }
+
         try
         {
             DO.EngineerExperience copmlexityLevel = (DO.EngineerExperience)boTask.CopmlexityLevel!;
@@ -167,18 +163,15 @@ internal class TaskIplementation : BlApi.ITask
     public void Update(BO.Task task)
     {
         //איזה בדיקות על התאריכם?
-        if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
-            task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate ||
-            task.Id <= 0 || task.Alias == "")
-            throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
-        try
-        {
-            _dal.Task.Read(task!.Engineer!.Id);
-        }
-        catch (DO.DalDoesNotExistException)
-        {
+        //if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
+          //  task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate ||
+            //task.Id < 0 || task.Alias == "")
+           // throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
+       
+           if( _dal.Engineer.Read(task!.Engineer!.Id)==null)
+   
             throw new BO.BlDoesNotExistException($"Engineer with ID={task!.Engineer!.Id} does not exixt ");
-        }
+        
         try
         {
             _dal.Task.Update(new DO.Task(task.Id, task.Description, task.Alias, false,
