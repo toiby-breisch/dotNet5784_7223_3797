@@ -22,7 +22,7 @@ internal class TaskIplementation : BlApi.ITask
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int create(BO.Task boTask)
     {
-        if (boTask.Id <= 0 || boTask.Alias == "")
+        if (boTask.Id < 0 || boTask.Alias == "")
             throw new BO.BlNullOrNotIllegalPropertyException(nameof(boTask));
         try
         {
@@ -30,13 +30,14 @@ internal class TaskIplementation : BlApi.ITask
             DO.Task doTask = new DO.Task(boTask.Id, boTask.Description, boTask.Alias, false,
                 DateTime.Now, boTask.StartDate, boTask.ForecastDate, boTask.DeadlineDate, boTask.CompleteDate, boTask.Deliverables, boTask.Remarks,
                 boTask.Engineer!.Id, copmlexityLevel, true);
+            _dal.Task.Create(doTask);
             if (boTask.DependenciesList == null)
             {
                 return boTask.Id;
             }
             var dependencies = from BO.TaskInList task in boTask.DependenciesList
                                select new DO.Dependency(0, boTask.Id, task.Id);
-            _dal.Task.Create(doTask);
+           
         }
         catch (DO.DalAlreadyExistsException ex)
         {

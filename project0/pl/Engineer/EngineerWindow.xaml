@@ -13,7 +13,7 @@
             <GradientStop Color="Red" Offset="1"/>
             <GradientStop Color="LightPink" Offset="0.3"/>
         </LinearGradientBrush>
-            <Style TargetType="Label">
+        <Style TargetType="Label">
             <Setter Property="FontSize"
                     Value="32" />
             <Setter Property="FontFamily"
@@ -21,23 +21,33 @@
             <Setter Property="FontWeight"
                     Value="Bold" />
             <Setter  Property="Width"
-                     Value="112"/>
+                     Value="320"/>
             <Setter Property="VerticalAlignment"
                        Value="Center"/>
             <Setter Property="HorizontalAlignment"
                     Value="Center"/>
+            <Setter Property="Margin"
+                    Value="80,0,0,0"/>
         </Style>
         <Style TargetType="TextBox">
+            <Setter Property="Width"
+                    Value="120"/>
             <Setter Property="FontSize"
                     Value="20" />
             <Setter Property="FontFamily"
                     Value="Consolas" />
             <Setter Property="FontWeight"
                     Value="Bold" />
+            <Setter Property="TextWrapping"
+                    Value="NoWrap"/>
             <Setter Property="HorizontalAlignment"
-                    Value="Center"/>
+                    Value="left"/>
+            <Setter Property="Grid.Column"
+                    Value="1"/>
+            <Setter Property="Margin"
+                    Value="185,10,10,0"/>
             <Setter Property="Background"
-                    Value="LightPink"/>
+                    Value="{StaticResource myLinearGradientBrush}"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="FontSize"
@@ -49,11 +59,11 @@
             <Setter Property="HorizontalAlignment"
                     Value="Center"/>
             <Setter Property="Background"
-                    Value="LightPink"/>
+                    Value="{StaticResource myLinearGradientBrush}"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Background"
-                    Value="LightPink"/>
+                    Value="{StaticResource myLinearGradientBrush}"/>
             <Setter Property="Padding"
                     Value="6"/>
             <Setter Property="FontFamily"
@@ -80,12 +90,16 @@
         <Label Content="Email"  Grid.Row="2" />
         <Label Content="Cost"  Grid.Row="3" />
         <Label Content="Level"  Grid.Row="4" />
-        <TextBox IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <Label Content="CurrentTaskId"  Grid.Row="5" />
+        <Label Content="CurrentTaskAlias"  Grid.Row="6" />
+        <TextBox  Grid.Column="1" HorizontalAlignment="Left" IsEnabled="{Binding Id, Mode=OneWay,Converter={StaticResource ConvertIdToIsEnabledKey}}"   Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Row="2"  />
+        <TextBox  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
-                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
+                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox  Grid.Row="5"  Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label  FontSize="20" Grid.Column="2" Margin="100,10,10,0" Width="120" Grid.Row="6" Content="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <Button Grid.Row="7" 
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
       HorizontalAlignment="Left" Margin="336,0,0,0"  VerticalAlignment="Center" Padding="5" 

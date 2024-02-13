@@ -42,7 +42,7 @@ public partial class TaskWindow : Window
                 Id = 0,
                 Description = "",
                 Alias = "",
-                CreatedAtDate = null,
+                CreatedAtDate = DateTime.Now,
                 status= BO.Status.Unscheduled,
                 DependenciesList=null,
                 Milestone=null,
@@ -53,7 +53,7 @@ public partial class TaskWindow : Window
                 CompleteDate=null,
                 Remarks=null,
                 Deliverables=null,
-                Engineer=null,
+                Engineer=new EngineerInTask(Id=0,Name=null!),
                 CopmlexityLevel = BO.EngineerExperience.None
             };
         }

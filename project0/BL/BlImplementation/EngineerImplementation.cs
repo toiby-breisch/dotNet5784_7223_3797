@@ -106,6 +106,17 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="Exception"></exception>
     public void Update(BO.Engineer boEngineer)
     {
+        try
+        {
+          _dal.Task.Read(boEngineer.CurrentTask!.Id);
+        }
+        catch(DO.DalDoesNotExistException) {
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.Id} does not exixt ");
+        }
+       
+        
+
+        
         if (boEngineer?.Id <= 0|| !isValidEmail(boEngineer?.Email)|| boEngineer?.Name == ""|| boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");

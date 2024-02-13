@@ -23,8 +23,6 @@ public class Task
     public EngineerExperience? CopmlexityLevel { get; set; }
 
     public override string ToString() => Tools.ToStringProperty(this);
-    public Task()
-    {
-    }
+  
     // public override string ToString() => this.ToStringProperty();
 }

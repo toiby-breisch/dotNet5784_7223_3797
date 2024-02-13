@@ -154,13 +154,12 @@
         <Label Content="Engineer :Id"  Grid.Row="12" Grid.RowSpan="2" Width="159"  />
         <Label Content="Engineer : Name"  Grid.Row="13" Grid.RowSpan="2" Width="184"   />
         <Label Content="CopmlexityLevel"  Grid.Row="14" Grid.RowSpan="2" Width="184"  />
-        <TextBox Grid.Row="0" IsEnabled="False" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label Grid.Row="0" IsEnabled="False" Content="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox Grid.Row="1"  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox  Grid.Row="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  />
-        <DatePicker Grid.Row="3"  Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label Grid.Row="3"  IsEnabled="False"  Content="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <ComboBox    IsEnabled="False"  ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
                 SelectedValue="{Binding status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,27" Grid.Row="4"   Background="{StaticResource myLinearGradientBrush}" Grid.RowSpan="2"/>
-
 
 
         <DatePicker  Grid.Row="5" SelectedDate="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}">
