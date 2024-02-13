@@ -1,9 +1,7 @@
 ﻿namespace DalTest;
-using DO;
 using DalApi;
+using DO;
 using System;
-using System.Threading;
-using System.Security.Cryptography;
 
 //<summary>
 //initiation the lists
@@ -122,7 +120,7 @@ public static class Initialization
     private static void createTask()
 
     {
-        List<Engineer> engineers = s_dal!.Engineer.ReadAll(ele => ele.Id > 0).ToList();
+        List<Engineer> engineers = s_dal!.Engineer.ReadAll(ele => ele.Id > 0).ToList()!;
         string[] Aliases = { "a", "b", "c", "d", "e" };
         string[] Remarks = { "a", "b", "c", "d", "e" };
         string[] Deliverables = { "r", "a", "c", "e", "l" };
@@ -143,8 +141,8 @@ public static class Initialization
             int _engineerId = engineers.ElementAt(s_rand.Next(40)).Id;
             int _complexityLevel = s_rand.Next(1, 6);
 
-            Task newTask = new(0, _description, _alias, false,  _createdAt, _start,
-                _forecastEndDate, _deadline, null, null, null, _engineerId, (DO.EngineerExperience)_complexityLevel,true);
+            Task newTask = new(0, _description, _alias, false, _createdAt, _start,
+                _forecastEndDate, _deadline, null, null, null, _engineerId, (DO.EngineerExperience)_complexityLevel, true);
             s_dal.Task!.Create(newTask);
 
 

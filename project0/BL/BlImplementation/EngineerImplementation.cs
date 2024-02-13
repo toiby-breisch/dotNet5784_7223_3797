@@ -32,19 +32,19 @@ internal class EngineerImplementation : BlApi.IEngineer
         }
         catch (DO.DalDoesNotExistException)
         {
-            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask.Id} does not exixt ");
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer!.CurrentTask!.Id} does not exixt ");
         }
-        
-      
-            DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+
+
+        DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
             int idEngineer = _dal.Engineer.Create(doEngineer);
             return idEngineer;
         }
-        catch (DO.DalAlreadyExistsException ex)
+        catch (DO.DalDoesNotExistException)
         {
-             throw new BO.BlAlreadyExistsException($"Engineer with ID={boEngineer.Id} already exists", ex);
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask!.Id} does not exixt ");
         }
     }
     /// <summary>

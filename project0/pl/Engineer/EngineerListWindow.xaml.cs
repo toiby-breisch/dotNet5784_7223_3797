@@ -73,7 +73,7 @@ public partial class EngineerListWindow : Window
     {
         BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
         new EngineerWindow(engineerInList!.Id).ShowDialog();
-        var temp = s_bl?.EngineerInList.ReadAll();
+        var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter); 
         EngineerList= new(temp!);
 
     }

@@ -154,10 +154,10 @@
         <Label Content="Engineer :Id"  Grid.Row="12" Grid.RowSpan="2" Width="159"  />
         <Label Content="Engineer : Name"  Grid.Row="13" Grid.RowSpan="2" Width="184"   />
         <Label Content="CopmlexityLevel"  Grid.Row="14" Grid.RowSpan="2" Width="184"  />
-        <Label Grid.Row="0" IsEnabled="False" Content="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label Grid.Column="1"  Background="{StaticResource myLinearGradientBrush}" Grid.Row="0" IsEnabled="False" Content="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.RowSpan="2" Width="120" />
         <TextBox Grid.Row="1"  Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox  Grid.Row="2" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  />
-        <Label Grid.Row="3"  IsEnabled="False"  Content="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label Grid.Row="3"   Grid.Column="1"  Background="{StaticResource myLinearGradientBrush}" IsEnabled="False"  Content="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.RowSpan="2" Width="120" />
         <ComboBox    IsEnabled="False"  ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
                 SelectedValue="{Binding status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,27" Grid.Row="4"   Background="{StaticResource myLinearGradientBrush}" Grid.RowSpan="2"/>
 
@@ -200,9 +200,9 @@
         <TextBox Grid.Row="10" Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox Grid.Row="11" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox Grid.Row="12" Text="{Binding Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-        
-        <TextBox Grid.Row="13"  IsEnabled="False" Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
-        <ComboBox Grid.Row="14" IsEnabled="False" Grid.Column="1" ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
+
+        <Label Grid.Row="13" Background="{StaticResource myLinearGradientBrush}" FontSize="20" Grid.Column="2" Margin="80,0,0,0" Width="120" Content="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <ComboBox Grid.Row="14"  Grid.Column="1" ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" 
                 SelectedValue="{Binding status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="80,0,0,0"  VerticalAlignment="Center" />
         <Button Grid.Row="14"     Click="btnAddUpdate_Click"
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="338,24,0,0" Grid.RowSpan="2" VerticalAlignment="Top" />
