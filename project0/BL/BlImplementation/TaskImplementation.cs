@@ -57,6 +57,7 @@ internal class TaskIplementation : BlApi.ITask
         };
         return boTask.Id;
     }
+
     /// <summary>
     /// The function deletes a Task.
     /// </summary>
@@ -154,20 +155,7 @@ internal class TaskIplementation : BlApi.ITask
         return filter == null ? allTasks : allTasks.Where(filter);
 
     }
-    //public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter = null)
-    //{
 
-    //    IEnumerable<BO.Engineer> allTasks = from doEngineer in _dal.Engineer.ReadAll()
-    //                                        select new BO.Engineer
-    //                                        {
-    //                                            Id = doEngineer.Id,
-    //                                            Name = doEngineer.Name,
-    //                                            Email = doEngineer.Email,
-    //                                            Level = (BO.EngineerExperience)doEngineer.Level,
-    //                                            Cost = doEngineer.Cost,
-    //                                            CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
-    //                                        };
-    //    return filter == null ? allTasks : allTasks.Where(filter);
 
     //}
     /// <summary>
@@ -179,7 +167,7 @@ internal class TaskIplementation : BlApi.ITask
     public void Update(BO.Task task)
     {
         //איזה בדיקות על התאריכם?
-        if (task.StartDate > task.ScheduledDate || task.ScheduledDate>task.ForecastDate||
+        if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
             task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate ||
             task.Id <= 0 || task.Alias == "")
             throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
@@ -198,13 +186,14 @@ internal class TaskIplementation : BlApi.ITask
               task.DeadlineDate, task.CompleteDate, task.Deliverables, task.Remarks,
               task.Engineer!.Id, (DO.EngineerExperience)task.CopmlexityLevel!, true));
         }
- 
 
-        catch(DO.DalDoesNotExistException ex)
+
+        catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BlDoesNotExistException($"Task with ID={task.Id} does not existes ", ex);
         }
     }
+
     /// <summary>
     /// The function gets the status of task.
     /// </summary>
