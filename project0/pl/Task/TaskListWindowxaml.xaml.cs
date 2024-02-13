@@ -22,7 +22,6 @@ namespace PL.Task;
 /// 
 public partial class TaskListWindow : Window
 {
-    
     public BO.Status TaskFilter { get; set; } = BO.Status.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public ObservableCollection<BO.TaskInList> TaskList
@@ -62,7 +61,7 @@ public partial class TaskListWindow : Window
         TaskWindow win = new TaskWindow();
         win.ShowDialog();
         var temp = s_bl?.TaskInList.ReadAll();
-        TaskList = new(temp);
+        TaskList = new(temp!);
 
     }
     /// <summary>

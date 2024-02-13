@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Task;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -23,21 +24,21 @@ public partial class EngineerListWindow : Window
 {
     public BO.EngineerExperience EngineerFilter { get; set; } = BO.EngineerExperience.None;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    public ObservableCollection<BO.Engineer> EngineerList
+    public ObservableCollection<BO.EngineerInList> EngineerList
     {
-        get { return (ObservableCollection<BO.Engineer>)GetValue(EngineerListProperty); }
-        set { SetValue(EngineerListProperty, value); }
+        get { return (ObservableCollection<BO.EngineerInList>)GetValue(EngineerInListProperty); }
+        set { SetValue(EngineerInListProperty, value); }
     }
 
-    public static readonly DependencyProperty EngineerListProperty =
-        DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
-/// <summary>
-/// Initialize EngineerListWindow
-/// </summary>
+    public static readonly DependencyProperty TaskListProperty =
+        DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.EngineerInList>), typeof(EngineerListWindow), new PropertyMetadata(null));
+    /// <summary>
+    /// Initialize EngineerListWindow
+    /// </summary>
     public EngineerListWindow()
     {
         InitializeComponent();
-        var temp = s_bl?.Engineer.ReadAll();
+        var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList = temp == null ? new() : new(temp);
     }
 
