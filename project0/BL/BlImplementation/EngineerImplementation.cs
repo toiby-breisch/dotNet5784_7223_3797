@@ -19,12 +19,23 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int create(BO.Engineer boEngineer)
     {
-        
-        if (boEngineer?.Id <=0|| boEngineer!.Name ==""||!isValidEmail(boEngineer?.Email)|| boEngineer?.Cost <= 0)
+        if (boEngineer?.Id <= 0 || boEngineer!.Name == "" || !isValidEmail(boEngineer?.Email) || boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
-           
+
         }
+        try
+        {
+            DO.Task currentTask = _dal.Task.Read(boEngineer!.CurrentTask!.Id)!;
+            DO.Task copyCurrentTask = currentTask with { Engineerid = boEngineer.Id } as DO.Task;
+            _dal.Task.Update(copyCurrentTask);
+        }
+        catch (DO.DalDoesNotExistException)
+        {
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask.Id} does not exixt ");
+        }
+        
+      
             DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
         try
         {
@@ -108,15 +119,15 @@ internal class EngineerImplementation : BlApi.IEngineer
     {
         try
         {
-          _dal.Task.Read(boEngineer.CurrentTask!.Id);
+            DO.Task currentTask = _dal.Task.Read(boEngineer.CurrentTask!.Id)!;
+            DO.Task copyCurrentTask = currentTask with { Engineerid = boEngineer.Id } as DO.Task;
+            _dal.Task.Update(copyCurrentTask);
         }
         catch(DO.DalDoesNotExistException) {
-            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.Id} does not exixt ");
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask!.Id} does not exixt ");
         }
        
-        
-
-        
+   
         if (boEngineer?.Id <= 0|| !isValidEmail(boEngineer?.Email)|| boEngineer?.Name == ""|| boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
