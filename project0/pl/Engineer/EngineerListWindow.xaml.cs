@@ -30,7 +30,7 @@ public partial class EngineerListWindow : Window
         set { SetValue(EngineerInListProperty, value); }
     }
 
-    public static readonly DependencyProperty TaskListProperty =
+    public static readonly DependencyProperty EngineerInListProperty =
         DependencyProperty.Register("EngineerList", typeof(ObservableCollection<BO.EngineerInList>), typeof(EngineerListWindow), new PropertyMetadata(null));
     /// <summary>
     /// Initialize EngineerListWindow
@@ -45,9 +45,10 @@ public partial class EngineerListWindow : Window
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var temp = EngineerFilter == BO.EngineerExperience.None?
-        s_bl?.Engineer.ReadAll():
-            s_bl?.Engineer.ReadAll(item => item!.Level == EngineerFilter);
+        s_bl?.EngineerInList.ReadAll():
+            s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter);
             EngineerList = temp == null ? new() : new(temp);
+      
 
     }
     /// <summary>
@@ -59,7 +60,7 @@ public partial class EngineerListWindow : Window
     {
         EngineerWindow win = new EngineerWindow();
         win.ShowDialog();
-        var temp = s_bl?.Engineer.ReadAll();
+        var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList = new(temp!);
 
     }
@@ -70,9 +71,9 @@ public partial class EngineerListWindow : Window
     /// <param name="e"></param>
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
-        BO.Engineer? engineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+        BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
         new EngineerWindow(engineerInList!.Id).ShowDialog();
-        var temp = s_bl?.Engineer.ReadAll();
+        var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList= new(temp!);
 
     }

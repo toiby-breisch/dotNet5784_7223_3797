@@ -79,7 +79,7 @@
         <Label Content="Name"  Grid.Row="1"  />
         <Label Content="Email"  Grid.Row="2" />
         <Label Content="Cost"  Grid.Row="3" />
-        <Label Content="Level" HorizontalAlignment="Left"  Margin="150,10,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <Label Content="Level"  Grid.Row="4" />
         <TextBox IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
         <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" HorizontalAlignment="Left" Margin="185,0,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>

@@ -132,23 +132,22 @@ public static class Initialization
             int indexA = s_rand.Next(0, 4);
             int indexD = s_rand.Next(0, 4);
             string _description = ((TaskLevel)indexD).ToString();
-            string _Alias = Aliases[indexA];
-            bool _Milestone = s_rand.Next(0, 1) == 0 ? true : false;
-            DateTime _CreatedAt = RandomDate(new DateTime(2020, 1, 1), DateTime.Today);
-            DateTime _Start = RandomDate(_CreatedAt, DateTime.Today);
-            DateTime _ForecasDate = _Start.AddDays(((indexD + 1) * 365));
-            DateTime _Deadline = _ForecasDate.AddDays((365 / 2));
-            DateTime _Complete = RandomDate(_ForecasDate, _Deadline);
-            int indexId = s_rand.Next(0, 40);
-            int _Engineerid = engineers[indexId].Id;
-            int indexEI = s_rand.Next(0, 40);
-            int _level = indexA % 5;
-            int indexR = s_rand.Next(0, 4);
-            int indexDe = s_rand.Next(0, 4);
-            string _Remarks = Remarks[indexR];
-            string _Deliverables = Deliverables[indexDe];
-            Task newTask = new(3, _description, _Alias, _Milestone, _CreatedAt, _Start, _ForecasDate, _Deadline, _Complete, _Deliverables, _Remarks, _Engineerid, (DO.EngineerExperience)_level,true);
-            s_dal!.Task.Create(newTask);
+            string _alias = Aliases[indexA];
+            TimeSpan span = new(s_rand.Next(300), s_rand.Next(24), s_rand.Next(60), s_rand.Next(60));
+            TimeSpan _requiredEffortTime = span / 2;
+            DateTime _createdAt = DateTime.Today;
+            DateTime? _start = s_rand.Next(3) > 1 ? DateTime.Today + span / 10 : null;
+            DateTime? _forecastEndDate = _start == null ? null : _start + _requiredEffortTime;
+            DateTime _deadline = _createdAt + span;
+            DateTime _baselineStart = _createdAt + span / 20;
+            int _engineerId = engineers.ElementAt(s_rand.Next(40)).Id;
+            int _complexityLevel = s_rand.Next(1, 6);
+
+            Task newTask = new(0, _description, _alias, false,  _createdAt, _start,
+                _forecastEndDate, _deadline, null, null, null, _engineerId, (DO.EngineerExperience)_complexityLevel,true);
+            s_dal.Task!.Create(newTask);
+
+
         }
     }
 
