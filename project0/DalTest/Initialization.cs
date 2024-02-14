@@ -9,7 +9,6 @@ using System;
 
 public static class Initialization
 {
-
     enum TaskLevel
     {
         VERY_EASY,
@@ -163,7 +162,7 @@ public static class Initialization
                 _dependentTask = s_rand.Next(100);
                 _dependsOnTask = s_rand.Next(_dependentTask);
             }
-            while (s_dal!.Dependency.isDepend(_dependentTask, _dependsOnTask));
+            while (s_dal!.Dependency.IsDepend(_dependentTask, _dependsOnTask));
             Dependency newDependency = new(0, _dependentTask, _dependsOnTask);
             s_dal!.Dependency.Create(newDependency);
         }

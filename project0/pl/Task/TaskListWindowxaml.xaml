@@ -32,6 +32,6 @@
                  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Source={StaticResource TasksCollectionKey}}" />
         </Grid>
         <ListView MouseDoubleClick="UpdateThisObject" Margin="5,10,10,10" Grid.Row="1" ItemsSource="{Binding TaskList}"/>
-        <Button Padding="6" Background="LightPink" FontFamily="French Script MT"  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddOrUpdate_Click" />
+        <Button Padding="6" Background="LightPink" FontFamily="French Script MT"  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="BtnAddOrUpdate_Click" />
     </Grid>
 </Window>

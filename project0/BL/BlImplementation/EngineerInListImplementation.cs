@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace BlImplementation
 {
+    /// <summary>
+    /// Engineer In List Implementation
+    /// </summary>
     internal class EngineerInListImplementation : BlApi.IEngineerInList
     {
-        private DalApi.IDal _dal = DalApi.Factory.Get;
+        private readonly DalApi.IDal _dal = DalApi.Factory.Get;
         public IEnumerable<BO.EngineerInList> ReadAll(Func<BO.EngineerInList?, bool>? filter = null)
         {
 

@@ -27,7 +27,7 @@ internal class EngineerImplementation : IEngineer
     public void Delete(int id)
     {
         string fileName = "engineers";
-        List<Engineer>? Engineers = new List<Engineer>();
+        List<Engineer>? Engineers = new();
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
         Engineer? result = Engineers.FirstOrDefault(engineer => engineer.Id == id);
         if (result is not null)
@@ -57,7 +57,7 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         string fileName = "engineers";
-        List<Engineer>? Engineers = new List<Engineer>();
+        List<Engineer>? Engineers = new();
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
         return Engineers.FirstOrDefault(d => filter(d));
     }
@@ -67,7 +67,7 @@ internal class EngineerImplementation : IEngineer
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool> ?filter)
     {
         string fileName = "engineers";
-        List<Engineer>? Engineers = new List<Engineer>();
+        List<Engineer>? Engineers = new();
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName)!;
         if (filter != null)
         {
@@ -85,7 +85,7 @@ internal class EngineerImplementation : IEngineer
     public void Update(Engineer item)
     {
         string fileName = "engineers";
-        List<Engineer>? Engineers = new List<Engineer>();
+        List<Engineer>? Engineers = new();
         Engineers = XMLTools.LoadListFromXMLSerializer<Engineer>(fileName);
         Engineer? engineerToUpdate = Read(item.Id);
         if (engineerToUpdate is not null)

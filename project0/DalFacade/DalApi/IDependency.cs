@@ -5,6 +5,6 @@ using System.Collections.Generic;
 
 public interface IDependency : ICrud<Dependency>
 {
-    public bool isDepend(int dependentTask, int dependsOnTask);//check if the task is depend
+    public bool IsDepend(int dependentTask, int dependsOnTask);//check if the task is depend
    
 }

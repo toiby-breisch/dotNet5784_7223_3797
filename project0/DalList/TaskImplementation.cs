@@ -40,13 +40,7 @@ internal class TaskImplementation : ITask
            return result;
         throw new DalDoesNotExistException($"Task with ID={id} is not exists");
     }
-    /// <summary>
-    /// read all Task
-    /// </summary>
-    //public List<Task> ReadAll(Func<Task, bool> filter)
-    //{
-    //    return new List<Task>(DataSource.Tasks);
-    //}
+  
     /// <summary>
     /// update a Task
     /// </summary>
@@ -79,8 +73,4 @@ internal class TaskImplementation : ITask
             return DataSource.Tasks.Where(filter);
     }
 
-    //public void Update(object value)
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

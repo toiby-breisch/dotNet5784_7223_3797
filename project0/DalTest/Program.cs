@@ -9,7 +9,6 @@ internal class Program
     //<summary>
     // main menu
     //<summary>
-
     static public void Main_Menu(int num)
     {
         do
@@ -19,13 +18,13 @@ internal class Program
                 case 0:
                     return;
                 case 1:
-                    engineer_Menu();
+                    Engineer_Menu();
                     break;
                 case 2:
                     dependency_Menu();
                     break;
                 case 3:
-                    task_Menu();
+                    Task_Menu();
                     break;
                 default:
                     Console.WriteLine("enter another valua");
@@ -53,7 +52,7 @@ internal class Program
     //<summary>
     //  Managing the list of engineers
     //</summary>
-    static public void engineer_Menu()
+    static public void Engineer_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
         Console.WriteLine("Enter your choise");
@@ -64,19 +63,19 @@ internal class Program
                 Main_Menu(0);
                 break;
             case 1:
-                creatEngineer();
+                CreatEngineer();
                 break;
             case 2:
-                readEngineer();
+                ReadEngineer();
                 break;
             case 3:
-                readAllEngineer();
+                ReadAllEngineer();
                 break;
             case 4:
                 updateEngineer();
                 break;
             case 5:
-                deleteEngineer();
+                DeleteEngineer();
                 break;
             default:
                 Console.WriteLine("enter another valua");
@@ -89,7 +88,7 @@ internal class Program
     //  create an engineer
     //</summary>
 
-    static public void creatEngineer()
+    static public void CreatEngineer()
     {
         try
         {
@@ -120,7 +119,7 @@ internal class Program
     //<summary>
     //  read an engineer
     //</summary>
-    static public void readEngineer()
+    static public void ReadEngineer()
     {
         int _id;
         Console.WriteLine("Enter engineer's ID");
@@ -131,7 +130,7 @@ internal class Program
     //<summary>
     //  read all the list of engineers
     //</summary>
-    static public void readAllEngineer()
+    static public void ReadAllEngineer()
     {
         s_dal!.Engineer.ReadAll(ele=>ele.Id>0).ToList().ForEach(
          engineer => Console.WriteLine(engineer)
@@ -179,9 +178,8 @@ internal class Program
     //<summary>
     //  delete an engineer
     //</summary>
-    static public void deleteEngineer()
+    static public void DeleteEngineer()
     {
-
         try
         {
             int _id;
@@ -202,7 +200,7 @@ internal class Program
     //  Managing the list of tasks
     //</summary>
 
-    static public void task_Menu()
+    static public void Task_Menu()
     {
         Console.WriteLine("exit,creat,read,read all,Update,delete");
         Console.WriteLine("Enter your choise");
@@ -222,7 +220,7 @@ internal class Program
                 readAllTask();
                 break;
             case 4:
-                updateTask();
+                UpdateTask();
                 break;
             case 5:
                 deleteTask();
@@ -231,7 +229,7 @@ internal class Program
         }
     }
     ///<summary> update a task</summary>
-    static public void updateTask()
+    static public void UpdateTask()
     {
         try
         {
@@ -375,7 +373,7 @@ internal class Program
                 Main_Menu(0);
                 break;
             case 1:
-                creatDependency();
+                CreatDependency();
                 break;
             case 2:
                 readDependency();
@@ -421,7 +419,7 @@ internal class Program
             if (DependentTask == 0) { DependentTask = temp!.DependentTask; }
             if (DependsOnTask == 0) { DependsOnTask = temp!.DependsOnTask; }
             
-            if (s_dal!.Dependency.isDepend(DependentTask, DependsOnTask))
+            if (s_dal!.Dependency.IsDepend(DependentTask, DependsOnTask))
                 Console.WriteLine("Enter another dependency");
             
            
@@ -444,7 +442,7 @@ internal class Program
     // create a new dependency
     //<summary>
 
-    static public void creatDependency()
+    static public void CreatDependency()
     {
         Console.WriteLine("enter DependentTask,DependsOnTask");
         int DependentTask;

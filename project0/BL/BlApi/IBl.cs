@@ -5,5 +5,4 @@ public interface IBl
     public ITask Task { get; }
     public ITaskInList TaskInList { get; }
     public IEngineerInList EngineerInList { get; }
-    //public IMilestone Milestone { get; }
 }

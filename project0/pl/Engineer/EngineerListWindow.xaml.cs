@@ -41,7 +41,11 @@ public partial class EngineerListWindow : Window
         var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList = temp == null ? new() : new(temp);
     }
-
+    /// <summary>
+    /// combox selection change
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var temp = EngineerFilter == BO.EngineerExperience.None?
@@ -56,9 +60,9 @@ public partial class EngineerListWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
-        EngineerWindow win = new EngineerWindow();
+        EngineerWindow win = new();
         win.ShowDialog();
         var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList = new(temp!);

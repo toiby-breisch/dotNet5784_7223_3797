@@ -61,14 +61,6 @@
             <Setter Property="Background"
                     Value="{StaticResource myLinearGradientBrush}"/>
         </Style>
-        <Style TargetType="Button">
-            <Setter Property="Background"
-                    Value="{StaticResource myLinearGradientBrush}"/>
-            <Setter Property="Padding"
-                    Value="6"/>
-            <Setter Property="FontFamily"
-                    Value="French Script MT"/>
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -92,21 +84,18 @@
         <Label Content="Level"  Grid.Row="4" />
         <Label Content="CurrentTaskId"  Grid.Row="5" />
         <Label Content="CurrentTaskAlias"  Grid.Row="6" />
-        <TextBox  Grid.Column="1" HorizontalAlignment="Left" IsEnabled="{Binding Id, Mode=OneWay,Converter={StaticResource ConvertIdToIsEnabledKey}}"   Margin="185,0,0,0" TextWrapping="Wrap" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120" Background="{StaticResource myLinearGradientBrush}"/>
+        <TextBox  Grid.Column="1"  IsEnabled="{Binding Id, Mode=OneWay,Converter={StaticResource ConvertIdToIsEnabledKey}}"   Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox Grid.Row="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <TextBox   Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Row="2"  />
-        <TextBox  Grid.Row="3" TextWrapping="Wrap" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <TextBox  Grid.Row="3" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <ComboBox ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" 
                 SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" HorizontalAlignment="Left" Margin="185,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"  Background="{StaticResource myLinearGradientBrush}"/>
         <TextBox  Grid.Row="5"  Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
-        <Label  FontSize="20" Grid.Column="2" Margin="100,10,10,0" Width="120" Grid.Row="6" Content="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
+        <Label  FontSize="10" Grid.Column="2" Margin="100,10,10,0" Width="120" Grid.Row="6" Content="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" />
         <Button Grid.Row="7" 
       Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
       HorizontalAlignment="Left" Margin="336,0,0,0"  VerticalAlignment="Center" Padding="5" 
-      Click="btnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308" Background="{StaticResource myLinearGradientBrush}">
-           
+      Click="BtnAddUpdate_Click" Height="31" Width="124" Grid.ColumnSpan="2" RenderTransformOrigin="0.629,0.308" Background="{StaticResource myLinearGradientBrush}">
         </Button>
-        
-        
     </Grid>
 </Window>

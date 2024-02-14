@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-internal class DependencyImplementation:IDependency
+internal class DependencyImplementation : IDependency
 {
     /// <summary>
     /// crate a new dependency
@@ -19,12 +19,12 @@ internal class DependencyImplementation:IDependency
     /// <summary>
     /// check if 2 task are dependency
     /// </summary>
-    
-    public bool isDepend(int dependentTask, int dependsOnTask)
+
+    public bool IsDepend(int dependentTask, int dependsOnTask)
     {
-        Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask&& d.DependsOnTask == dependsOnTask);
+        Dependency? result = DataSource.Dependencies.FirstOrDefault(d => d.DependentTask == dependentTask && d.DependsOnTask == dependsOnTask);
         if (result is not null)
-            return true ;
+            return true;
         return false;
     }
 
@@ -36,15 +36,15 @@ internal class DependencyImplementation:IDependency
         Dependency? result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (result is not null)
             DataSource.Dependencies.Remove(result);
-       else throw new DalDoesNotExistException($"Dependency with ID={id} is not exists");
+        else throw new DalDoesNotExistException($"Dependency with ID={id} is not exists");
     }
     /// <summary>
     /// read a dependency
     /// </summary>
     public Dependency? Read(int id)
     {
-        Dependency?result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
-            if (result is not null)
+        Dependency? result = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
+        if (result is not null)
             return result;
         return null;
     }
@@ -52,12 +52,12 @@ internal class DependencyImplementation:IDependency
     /// read all dependencies
     /// </summary>
 
-    public IEnumerable<Dependency>ReadAll(Func<Dependency, bool> ?filter)
-    {      
-            if (filter == null)
-                return DataSource.Dependencies.Select(dependency => dependency);
-            else
-                return DataSource.Dependencies.Where(filter);
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter)
+    {
+        if (filter == null)
+            return DataSource.Dependencies.Select(dependency => dependency);
+        else
+            return DataSource.Dependencies.Where(filter);
 
     }
 
@@ -74,7 +74,7 @@ internal class DependencyImplementation:IDependency
             Dependency dependency = new(item.Id, item.DependentTask, item.DependsOnTask);
             DataSource.Dependencies.Add(dependency);
         }
-        else throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exists ") ;
+        else throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exists ");
     }
 
     /// <summary>
@@ -85,5 +85,4 @@ internal class DependencyImplementation:IDependency
     {
         return DataSource.Dependencies.FirstOrDefault(d => filter(d));
     }
-
 }

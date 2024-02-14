@@ -8,7 +8,7 @@ using System.Xml.Linq;
 /// </summary>
 internal class EngineerImplementation : BlApi.IEngineer
 {
-    private DalApi.IDal _dal = DalApi.Factory.Get;
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
     /// <summary>
     /// The function create a new engineer
@@ -17,9 +17,9 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <returns></returns>
     /// <exception cref="BO.BlNullOrNotIllegalPropertyException"></exception>
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
-    public int create(BO.Engineer boEngineer)
+    public int Create(BO.Engineer boEngineer)
     {
-        if (boEngineer?.Id <= 0 || boEngineer!.Name == "" || !isValidEmail(boEngineer?.Email) || boEngineer?.Cost <= 0)
+        if (boEngineer?.Id <= 0 || boEngineer!.Name == "" || !IsValidEmail(boEngineer?.Email) || boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
 
@@ -28,9 +28,21 @@ internal class EngineerImplementation : BlApi.IEngineer
         if (_dal.Task.Read(boEngineer!.CurrentTask!.Id) == null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer!.CurrentTask!.Id} does not exixt ");
         DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+
+        try
+        {
+            DO.Task currentTask = _dal.Task.Read(boEngineer.CurrentTask!.Id)!;
+            DO.Task copyCurrentTask = currentTask with { Engineerid = boEngineer.Id } as DO.Task;
+            _dal.Task.Update(copyCurrentTask);
+        }
+        catch (DO.DalDoesNotExistException)
+        {
+            throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask!.Id} does not exixt ");
+        }
         try
         {
             int idEngineer = _dal.Engineer.Create(doEngineer);
+
             return idEngineer;
         }
         catch (DO.DalDoesNotExistException)
@@ -46,7 +58,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Delete(int id)
     {
-        if (GetCurrentTaskOfEngineer(id) != null||_dal.Engineer.Read(id)==null)
+        if (GetCurrentTaskOfEngineer(id) != null || _dal.Engineer.Read(id) == null)
         {
             throw new BO.BlDeletionImpossible($"Engineer with id={id} is impossible to delete");
         }
@@ -54,9 +66,10 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             _dal.Engineer.Delete(id);
         }
-        catch (DO.DalDoesNotExistException ex) {
+        catch (DO.DalDoesNotExistException ex)
+        {
             throw new BO.BlDoesNotExistException($"Engineer with ID={id} is not exists", ex);
-        }    
+        }
     }
     /// <summary>
     /// The function read an Engineer.
@@ -76,7 +89,7 @@ internal class EngineerImplementation : BlApi.IEngineer
             Email = doEngineer.Email,
             Level = (BO.EngineerExperience)doEngineer.Level,
             Cost = doEngineer.Cost,
-            CurrentTask=GetCurrentTaskOfEngineerActive(id)
+            CurrentTask = GetCurrentTaskOfEngineerActive(id)
 
         };
     }
@@ -85,8 +98,9 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns>IEnumerable<BO.Engineer></returns>
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?,bool> ?filter=null){
-                                    
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer?, bool>? filter = null)
+    {
+
         IEnumerable<BO.Engineer> allTasks = from doEngineer in _dal.Engineer.ReadAll()
                                             select new BO.Engineer
                                             {
@@ -98,7 +112,7 @@ internal class EngineerImplementation : BlApi.IEngineer
                                                 CurrentTask = GetCurrentTaskOfEngineerActive(doEngineer.Id)
                                             };
         return filter == null ? allTasks : allTasks.Where(filter);
- 
+
     }
     /// <summary>
     /// The function updates an engineer.
@@ -114,7 +128,8 @@ internal class EngineerImplementation : BlApi.IEngineer
             DO.Task copyCurrentTask = currentTask with { Engineerid = boEngineer.Id } as DO.Task;
             _dal.Task.Update(copyCurrentTask);
         }
-        catch(DO.DalDoesNotExistException) {
+        catch (DO.DalDoesNotExistException)
+        {
             throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask!.Id} does not exixt ");
         }
 
@@ -123,12 +138,12 @@ internal class EngineerImplementation : BlApi.IEngineer
             throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer!.CurrentTask!.Id} does not exixt ");
 
 
-        if (boEngineer?.Id <= 0|| !isValidEmail(boEngineer?.Email)|| boEngineer?.Name == ""|| boEngineer?.Cost <= 0)
+        if (boEngineer?.Id <= 0 || !IsValidEmail(boEngineer?.Email) || boEngineer?.Name == "" || boEngineer?.Cost <= 0)
         {
             throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
         }
 
-        if (_dal.Engineer.Read(boEngineer!.Id) is  null)
+        if (_dal.Engineer.Read(boEngineer!.Id) is null)
             throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer.Id} does not exixt exists");
         DO.Engineer doEngineer = new DO.Engineer
         {
@@ -149,7 +164,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     private BO.TaskInEngineer? GetCurrentTaskOfEngineerActive(int idOfEngineer)
     {
         var tasks = _dal.Task.ReadAll();
-        var taskInEngineer=
+        var taskInEngineer =
           (from task in tasks
            where task.Engineerid == idOfEngineer && task.IsActive == true
            select new BO.TaskInEngineer
@@ -183,7 +198,7 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <param name="email"></param>
     /// <returns></returns>
     /// <exception cref="BO.BlNullOrNotIllegalPropertyException"></exception>
-    private bool isValidEmail(string? email)
+    private static bool IsValidEmail(string? email)
     {
         bool valid = true;
         try

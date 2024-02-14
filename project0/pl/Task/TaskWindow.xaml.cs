@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 namespace PL.Task;
 
 /// <summary>
-/// Interaction logic for EngineerWindow.xaml
+/// Interaction logic for TaskWindow.xaml
 /// </summary>
 public partial class TaskWindow : Window
 {
@@ -27,9 +27,13 @@ public partial class TaskWindow : Window
     // Using a DependencyProperty as the backing store for TasksValue.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+    /// <summary>
+    /// checks inputs
+    /// </summary>
+    /// <param name="task"></param>
+    /// <returns></returns>
 
-
-    public static bool inputIntegrityCheck(BO.Task? task)
+    public static bool InputIntegrityCheck(BO.Task? task)
     {
         if (task!.Description =="" || task.Alias == "" )
         {
@@ -39,7 +43,7 @@ public partial class TaskWindow : Window
         return true;
     }
     /// <summary>
-    ///  Initialize Engineer window
+    ///  Initialize task window
     /// </summary>
     /// <param name="Id"></param>
     public TaskWindow(int Id = 0)
@@ -82,23 +86,23 @@ public partial class TaskWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         string content = (sender as Button)!.Content.ToString()!;
         try
         {
             if (content == "Add")
             {
-                if (inputIntegrityCheck(CurrentTask))
+                if (InputIntegrityCheck(CurrentTask))
                 {
-                    s_bl.Task.create(CurrentTask);
+                    s_bl.Task.Create(CurrentTask);
                     MessageBox.Show("Object with id " + CurrentTask.Id + "had added successfully!");
                     this.Close();
                 }
             }
             else
             {
-                if (inputIntegrityCheck(CurrentTask))
+                if (InputIntegrityCheck(CurrentTask))
                 {
                     s_bl.Task.Update(CurrentTask);
                     MessageBox.Show("Object with id " + CurrentTask.Id + "had updated successfully!");
@@ -112,9 +116,8 @@ public partial class TaskWindow : Window
         catch (BO.BlNullOrNotIllegalPropertyException
         ex)
         { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
-        MessageBox.Show("the transaction completed successfully");
         Close();
-
+        
     }
 
    

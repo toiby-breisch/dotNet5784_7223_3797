@@ -35,13 +35,7 @@ internal class EngineerIementation : IEngineer
             return result;
         return null;
     }
-    /// <summary>
-    /// read all engeneers
-    /// </summary>
-    //public List<Engineer> ReadAll(Func<Engineer, bool> filter)
-    //{
-    //    return new List<Engineer>(DataSource.Engineers);
-    //}
+   
     /// <summary>
     /// update an engineer
     /// </summary>

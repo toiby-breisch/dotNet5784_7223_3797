@@ -22,6 +22,6 @@ public record Engineer
  )  
 {
     public Engineer() : this(0,"","") { }
-    public DateTime RegistrationDate => DateTime.Now; //get only
+    public static DateTime RegistrationDate => DateTime.Now; //get only
 }
 

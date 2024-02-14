@@ -18,7 +18,7 @@ internal class TaskImplementation : ITask
     /// get task from xelement to task
     /// </summary>
 
-    static Task? getTask(XElement t) =>
+    static Task? GetTask(XElement t) =>
       t.ToIntNullable("Id") is null ? null : new Task()
       {
           Id = (int)t.Element("Id")!,
@@ -38,7 +38,7 @@ internal class TaskImplementation : ITask
     /// <summary>
     /// create a task from task to xelement
     /// </summary>
-    static IEnumerable<XElement> createTaskElement(Task task)
+    static IEnumerable<XElement> CreateTaskElement(Task task)
     {
         yield return new XElement("Id", task.Id);
         if (task.Description is not null)
@@ -74,7 +74,7 @@ internal class TaskImplementation : ITask
         Task copyItem = item with { Id = newId };
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        var el = createTaskElement(copyItem);
+        var el = CreateTaskElement(copyItem);
         tasks.Add(new XElement("Task", el));
         XMLTools.SaveListToXMLElement(tasks, fileName);
         return copyItem.Id;
@@ -90,8 +90,6 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
-            //לא למחוק-אולי נצטרך בהמשך!
-            //one!.Element("Complete")!.Value = DateTime.Now.ToString("yyyy - MM - ddThh: mm:ss", CultureInfo.InvariantCulture);
             one.Remove();
             XMLTools.SaveListToXMLElement(tasks, fileName);
 
@@ -110,7 +108,7 @@ internal class TaskImplementation : ITask
                   Where(p => p.Element("Id")?.Value == id.ToString()).FirstOrDefault();
         if (one is not null)
         {
-            return getTask(one);
+            return GetTask(one);
 
         }
         return null;
@@ -122,7 +120,7 @@ internal class TaskImplementation : ITask
     {
         string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
-        return getTask(tasks.Elements().FirstOrDefault(d => filter(getTask(d)!))!);
+        return GetTask(tasks.Elements().FirstOrDefault(d => filter(GetTask(d)!))!);
 
     }
 
@@ -131,9 +129,9 @@ internal class TaskImplementation : ITask
         const string fileName = "tasks";
         XElement tasks = XMLTools.LoadListFromXMLElement(fileName)!;
         if (filter is not null)
-            return tasks.Elements().Where(d => filter(getTask(d)!)).Select(getTask)!;
+            return tasks.Elements().Where(d => filter(GetTask(d)!)).Select(GetTask)!;
         return (tasks.Elements()
-            .Select(getTask)!);
+            .Select(GetTask)!);
 
 
     }
@@ -153,7 +151,7 @@ internal class TaskImplementation : ITask
 
             Task task = new(item.Id, item.Description, item.Alias, item.Milestone, item.CreatedAt, item.StartDate,
                 item.scheduledDate, item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks, item.Engineerid, item.CopmlexityLevel, true);
-            var x = createTaskElement(task);
+            var x = CreateTaskElement(task);
             tasks.Add(new XElement("Task", x));
 
             XMLTools.SaveListToXMLElement(tasks, fileName);

@@ -17,15 +17,23 @@ namespace PL.Engineer;
 /// Interaction logic for EngineerWindow.xaml
 /// </summary>
 public partial class EngineerWindow : Window
-
 {
+    /// <summary>
+    /// checks if the email is valid
+    /// </summary>
+    /// <param name="s"></param>
+    /// <returns></returns>
     public static bool IsValidEmailAddress(string? s)
     {
-        Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+        Regex regex = MyRegex();
         return regex.IsMatch(s!);
     }
-
-    public static bool inputIntegrityCheck(BO.Engineer? engineer)
+    /// <summary>
+    /// checks the inputs
+    /// </summary>
+    /// <param name="engineer"></param>
+    /// <returns></returns>
+    public static bool InputIntegrityCheck(BO.Engineer? engineer)
     {
         if (engineer?.Id < 0 || engineer!.Name == "" || engineer.Cost <= 0 || !IsValidEmailAddress(engineer.Email))
         {
@@ -82,7 +90,7 @@ public partial class EngineerWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         string content = (sender as Button)!.Content.ToString()!;
         try
@@ -90,16 +98,16 @@ public partial class EngineerWindow : Window
            
                 if (content == "Add")
                 {
-                    if (inputIntegrityCheck(CurrentEngineer))
+                    if (InputIntegrityCheck(CurrentEngineer))
                     {
-                        s_bl.Engineer.create(CurrentEngineer!);
+                        s_bl.Engineer.Create(CurrentEngineer!);
                         MessageBox.Show("Object with id " + CurrentEngineer.Id + "had added successfully!");
                         this.Close();
                     }
                 }
                 else
                 {
-                        if (inputIntegrityCheck(CurrentEngineer))
+                        if (InputIntegrityCheck(CurrentEngineer))
                         {
                             s_bl.Engineer.Update(CurrentEngineer!);
                             MessageBox.Show("Object with id " + CurrentEngineer.Id + "had updated successfully!");
@@ -119,4 +127,6 @@ public partial class EngineerWindow : Window
 
     }
 
+    [GeneratedRegex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")]
+    private static partial Regex MyRegex();
 }

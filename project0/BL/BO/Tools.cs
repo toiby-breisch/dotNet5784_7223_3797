@@ -9,7 +9,9 @@ using static System.Formats.Asn1.AsnWriter;
 using System.Reflection.Metadata.Ecma335;
 
 namespace BO;
-
+/// <summary>
+/// tools
+/// </summary>
 static class Tools
  {
     [AttributeUsage(AttributeTargets.Property)]

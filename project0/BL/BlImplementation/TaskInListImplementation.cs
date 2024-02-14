@@ -11,12 +11,13 @@ namespace BlImplementation
 {
     internal class TaskInListImplementation:BlApi.ITaskInList
     {
-        
-            private DalApi.IDal _dal = DalApi.Factory.Get;
-
-
-
-        private BO.Status getStatuesOfTask(DO.Task task)
+            private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+        /// <summary>
+        /// Get Statues Of Task
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        private static BO.Status GetStatuesOfTask(DO.Task task)
         {
             DateTime now = DateTime.Now;
             if (task.scheduledDate == null)
@@ -28,7 +29,11 @@ namespace BlImplementation
             else return BO.Status.OnTrack;
 
         }
-
+        /// <summary>
+        /// ReadAll TaskInLis
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList?, bool>? filter = null)
         {
 
@@ -38,13 +43,12 @@ namespace BlImplementation
                                                 Id = task.Id,
                                                 Description = task.Description!,
                                                 Alias = task!.Alias,
-                                               Status = getStatuesOfTask(task),
+                                               Status = GetStatuesOfTask(task),
                                                
                                             };
             return filter == null ? allTasks : allTasks.Where(filter);
 
         }
-
 
     }
 }

@@ -16,14 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace PL.Task;
-//private void UpdateThisObject(object sender, MouseButtonEventArgs e)
-//{
-//    BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
-//    new EngineerWindow(engineerInList!.Id).ShowDialog();
-//    var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter);
-//    EngineerList = new(temp!);
 
-//}
 /// <summary>
 /// Interaction logic for TaskListWindow.xaml
 /// </summary>
@@ -64,7 +57,7 @@ public partial class TaskListWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnAddOrUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
         TaskWindow win = new TaskWindow();
         win.ShowDialog();

@@ -5,6 +5,6 @@ public interface ITask
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool>? filter=null);
     public void Update(BO.Task item);
     public void Delete(int id);
-    public int create(BO.Task item);
+    public int Create(BO.Task item);
 
 }

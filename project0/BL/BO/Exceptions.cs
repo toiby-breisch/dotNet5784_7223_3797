@@ -31,7 +31,3 @@ public class BlDeletionImpossible : Exception
     public BlDeletionImpossible(string message, Exception innerException)
     : base(message, innerException) { }
 }
-//public class DalXMLFileLoadCreateException : Exception
-//{
-//    public DalXMLFileLoadCreateException(string? message) : base(message) { }
-//}

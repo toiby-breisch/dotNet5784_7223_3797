@@ -24,5 +24,4 @@ public class Task
 
     public override string ToString() => Tools.ToStringProperty(this);
   
-    // public override string ToString() => this.ToStringProperty();
 }

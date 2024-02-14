@@ -10,7 +10,7 @@ internal class DependencyImplementation : IDependency
     //<summary>
     // check if 2 tasks are dependency
     //</summary>
-    public bool isDepend(int dependentTask, int dependsOnTask) 
+    public bool IsDepend(int dependentTask, int dependsOnTask) 
     {
         const string fileName = "dependencies";
         List<Dependency>? dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(fileName)!;

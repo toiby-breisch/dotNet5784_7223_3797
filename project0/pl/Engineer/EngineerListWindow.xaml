@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
@@ -34,6 +33,6 @@
                  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding Source={StaticResource EngineersCollectionKey}}" />
         </Grid>
         <ListView MouseDoubleClick="UpdateThisObject" Margin="5,10,10,10" Grid.Row="1" ItemsSource="{Binding EngineerList}"/>
-        <Button Padding="6" Background="LightPink" FontFamily="French Script MT"  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddOrUpdate_Click" />
+        <Button Padding="6" Background="LightPink" FontFamily="French Script MT"  Content="Add" Grid.Row="1" HorizontalAlignment="Center" Height="50" Width="100" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="BtnAddOrUpdate_Click" />
     </Grid>
 </Window>
