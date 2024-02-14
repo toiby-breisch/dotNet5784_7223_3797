@@ -35,7 +35,7 @@ public partial class TaskWindow : Window
 
     public static bool InputIntegrityCheck(BO.Task? task)
     {
-        if (task!.Description =="" || task.Alias == "" )
+        if (task!.Description =="" || task.Alias == ""||task.CopmlexityLevel==BO.EngineerExperience.None )
         {
             MessageBox.Show("ERROR: '\n'The data you entered is incorrect.");
             return false;

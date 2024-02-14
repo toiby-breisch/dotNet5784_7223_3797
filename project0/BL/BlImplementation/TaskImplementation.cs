@@ -30,14 +30,13 @@ internal class TaskIplementation : BlApi.ITask
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int Create(BO.Task boTask)
     {
+        if (Dal.Engineer.Read(boTask!.Engineer!.Id) == null)
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boTask!.Engineer!.Id} does not exixt ");
         if (boTask.StartDate > boTask.ScheduledDate || boTask.ScheduledDate > boTask.ForecastDate ||
            boTask.ForecastDate < boTask.CompleteDate || boTask.DeadlineDate < boTask.CompleteDate )
             throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
         if (boTask.Id < 0 || boTask.Alias == "" || boTask.Description == "")
             throw new BO.BlNullOrNotIllegalPropertyException("ERROR: '\n'The data you entered is incorrect.");
-
-        if (Dal.Engineer.Read(boTask!.Engineer!.Id) == null)
-            throw new BO.BlDoesNotExistException($"Engineer with ID={boTask!.Engineer!.Id} does not exixt ");
 
         try
         {
@@ -136,7 +135,6 @@ internal class TaskIplementation : BlApi.ITask
     /// 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task?, bool>? filter = null)
     {
-
         IEnumerable<BO.Task> allTasks = from task in Dal.Task.ReadAll()
                                         select new BO.Task
                                         {
@@ -147,7 +145,7 @@ internal class TaskIplementation : BlApi.ITask
                                             Milestone = GetMilistoneInLis(task),
                                             DependenciesList = GetDependenciesList(task),
                                             CreatedAtDate = task.CreatedAt,
-                                            ScheduledDate = task.scheduledDate,
+                                            ScheduledDate = task.ScheduledDate,
                                             StartDate = task.StartDate,
                                             ForecastDate = DateTime.Now,
                                             DeadlineDate = task.DeadlineDate,
@@ -168,14 +166,11 @@ internal class TaskIplementation : BlApi.ITask
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(BO.Task task)
     {
-
+        if (Dal.Engineer.Read(task!.Engineer!.Id) == null)
+            throw new BO.BlDoesNotExistException($"Engineer with ID={task!.Engineer!.Id} does not exixt ");
         if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
           task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate )
             throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
-
-        if (Dal.Engineer.Read(task!.Engineer!.Id) == null)
-            throw new BO.BlDoesNotExistException($"Engineer with ID={task!.Engineer!.Id} does not exixt ");
-
         try
         {
             Dal.Task.Update(new DO.Task(task.Id, task.Description, task.Alias, false,
@@ -183,8 +178,6 @@ internal class TaskIplementation : BlApi.ITask
               task.DeadlineDate, task.CompleteDate, task.Deliverables, task.Remarks,
               task.Engineer!.Id, (DO.EngineerExperience)task.CopmlexityLevel!, true));
         }
-
-
         catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BlDoesNotExistException($"Task with ID={task.Id} does not existes ", ex);
@@ -199,7 +192,7 @@ internal class TaskIplementation : BlApi.ITask
     private static BO.Status GetStatuesOfTask(DO.Task task)
     {
         DateTime now = DateTime.Now;
-        if (task.scheduledDate == null)
+        if (task.ScheduledDate == null)
             return BO.Status.Unscheduled;
         else if (task.StartDate == null)
             return BO.Status.Scheduled;

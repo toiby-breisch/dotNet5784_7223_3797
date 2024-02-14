@@ -27,7 +27,7 @@ internal class TaskImplementation : ITask
           Milestone = (bool)t.Element("Milestone")!,
           CreatedAt = (DateTime)t.Element("CreatedAt")!,
           StartDate = (DateTime)t.Element("StartDate")!,
-          scheduledDate = (DateTime)t.Element("scheduledDate")!,
+          ScheduledDate = (DateTime)t.Element("scheduledDate")!,
           DeadlineDate = (DateTime)t.Element("DeadlineDate")!,
           CompleteDate = (DateTime)t.Element("CompleteDate")!,
           Deliverables = (string)t.Element("Deliverables")!,
@@ -51,8 +51,8 @@ internal class TaskImplementation : ITask
             yield return new XElement("CreatedAt", task.CreatedAt);
         if (task.StartDate != DateTime.MinValue)
             yield return new XElement("Start", task.StartDate);
-        if (task.scheduledDate != DateTime.MinValue)
-            yield return new XElement("ForecasDate", task.scheduledDate);
+        if (task.ScheduledDate != DateTime.MinValue)
+            yield return new XElement("ForecasDate", task.ScheduledDate);
         if (task.DeadlineDate != DateTime.MinValue)
             yield return new XElement("Deadline", task.DeadlineDate);
         if (task.CompleteDate != DateTime.MinValue)
@@ -150,7 +150,7 @@ internal class TaskImplementation : ITask
             one.Remove();
 
             Task task = new(item.Id, item.Description, item.Alias, item.Milestone, item.CreatedAt, item.StartDate,
-                item.scheduledDate, item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks, item.Engineerid, item.CopmlexityLevel, true);
+                item.ScheduledDate, item.DeadlineDate, item.CompleteDate, item.Deliverables, item.Remarks, item.Engineerid, item.CopmlexityLevel, true);
             var x = CreateTaskElement(task);
             tasks.Add(new XElement("Task", x));
 

@@ -50,7 +50,6 @@ public partial class TaskListWindow : Window
         s_bl?.TaskInList.ReadAll() :
             s_bl?.TaskInList.ReadAll(item => item!.Status ==TaskFilter);
         TaskList = temp == null ? new() : new(temp);
-
     }
     /// <summary>
     /// The function is for btn Add or Update_Click
@@ -59,7 +58,7 @@ public partial class TaskListWindow : Window
     /// <param name="e"></param>
     private void BtnAddOrUpdate_Click(object sender, RoutedEventArgs e)
     {
-        TaskWindow win = new TaskWindow();
+        TaskWindow win = new();
         win.ShowDialog();
         var temp = s_bl?.TaskInList.ReadAll();
         TaskList = new(temp!);
@@ -72,9 +71,12 @@ public partial class TaskListWindow : Window
     /// <param name="e"></param>
     private void UpdateThisObject(object sender, MouseButtonEventArgs e)
     {
-        BO.TaskInList? TaskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
-        new TaskWindow(TaskInList!.Id).ShowDialog();
-         var temp = s_bl?.TaskInList.ReadAll(item => item!.Status == TaskFilter);
+        
+        BO.TaskInList? taskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
+        new TaskWindow(taskInList!.Id).ShowDialog();
+        var temp = TaskFilter == BO.Status.None ?
+        s_bl?.TaskInList.ReadAll().OrderBy(task=>task.Id):
+            s_bl?.TaskInList.ReadAll(item => item!.Status == TaskFilter).OrderBy(task=>task.Id);
         TaskList = new(temp!);
 
     }

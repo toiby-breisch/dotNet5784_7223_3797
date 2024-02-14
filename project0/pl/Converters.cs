@@ -3,7 +3,9 @@ using System.Windows.Data;
 using System;
 
 namespace PL;
-
+/// <summary>
+/// convert id to content
+/// </summary>
 class ConvertIdToContent : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -24,7 +26,7 @@ class ConvertIdToIsEnabled : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0 ? true : false;
+        return (int)value == 0;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -49,8 +49,8 @@ public partial class EngineerListWindow : Window
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var temp = EngineerFilter == BO.EngineerExperience.None?
-        s_bl?.EngineerInList.ReadAll():
-            s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter);
+        s_bl?.EngineerInList.ReadAll().OrderBy(engineer => engineer.Id) :
+            s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter).OrderBy(engineer => engineer.Id);
             EngineerList = temp == null ? new() : new(temp);
       
 
@@ -77,7 +77,7 @@ public partial class EngineerListWindow : Window
     {
         BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
         new EngineerWindow(engineerInList!.Id).ShowDialog();
-        var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter); 
+        var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter).OrderBy(engineer=>engineer.Id); 
         EngineerList= new(temp!);
 
     }

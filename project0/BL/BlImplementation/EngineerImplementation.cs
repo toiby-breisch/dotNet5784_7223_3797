@@ -19,16 +19,6 @@ internal class EngineerImplementation : BlApi.IEngineer
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int Create(BO.Engineer boEngineer)
     {
-        if (boEngineer?.Id <= 0 || boEngineer!.Name == "" || !IsValidEmail(boEngineer?.Email) || boEngineer?.Cost <= 0)
-        {
-            throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
-
-        }
-
-        if (_dal.Task.Read(boEngineer!.CurrentTask!.Id) == null)
-            throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer!.CurrentTask!.Id} does not exixt ");
-        DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
-
         try
         {
             DO.Task currentTask = _dal.Task.Read(boEngineer.CurrentTask!.Id)!;
@@ -39,6 +29,17 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             throw new BO.BlDoesNotExistException($"CurrentTask with ID={boEngineer.CurrentTask!.Id} does not exixt ");
         }
+        if (boEngineer?.Id <= 0 || boEngineer!.Name == "" || !IsValidEmail(boEngineer?.Email) || boEngineer?.Cost <= 0)
+        {
+            throw new BO.BlNullOrNotIllegalPropertyException("There are valuse null or not illegal");
+
+        }
+
+        if (_dal.Task.Read(boEngineer!.CurrentTask!.Id) == null)
+            throw new BO.BlDoesNotExistException($"Engineer with ID={boEngineer!.CurrentTask!.Id} does not exixt ");
+        DO.Engineer doEngineer = new DO.Engineer(boEngineer!.Id, boEngineer.Name, boEngineer.Email, (DO.EngineerExperience)boEngineer.Level, boEngineer.Cost);
+
+   
         try
         {
             int idEngineer = _dal.Engineer.Create(doEngineer);

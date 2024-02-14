@@ -26,7 +26,7 @@ public static class Initialization
 
         s_dal = dal ?? throw new DalDeletionImpossible("DAL object can not be null!"); //stage 2
         createEngineer();
-        createTask();
+        CreateTask();
         createDependency();
     }
     /// <summary>
@@ -102,21 +102,12 @@ public static class Initialization
             s_dal.Engineer!.Create(newEngineer);
         }
     }
-    /// <summary>
-    /// Initializes the datetime
-    /// </summary>
-    private static DateTime RandomDate(DateTime startDate, DateTime endDate)
-    {
-        Random gen = new Random();
-        int range = (endDate - startDate).Days;
-        return startDate.AddDays(gen.Next(range));
-    }
 
     /// <summary>
     /// Initializes the tasks
     /// </summary>
 
-    private static void createTask()
+    private static void CreateTask()
 
     {
         List<Engineer> engineers = s_dal!.Engineer.ReadAll(ele => ele.Id > 0).ToList()!;

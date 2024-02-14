@@ -35,7 +35,7 @@ public partial class EngineerWindow : Window
     /// <returns></returns>
     public static bool InputIntegrityCheck(BO.Engineer? engineer)
     {
-        if (engineer?.Id < 0 || engineer!.Name == "" || engineer.Cost <= 0 || !IsValidEmailAddress(engineer.Email))
+        if (engineer?.Id < 0 || engineer!.Name == "" || engineer.Cost <= 0 || !IsValidEmailAddress(engineer.Email)||engineer.Level==BO.EngineerExperience.None)
         {
             MessageBox.Show("ERROR: '\n'The data you entered is incorrect.");
             return false;
@@ -49,8 +49,6 @@ public partial class EngineerWindow : Window
         get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
         set { SetValue(CurrentEngineerProperty, value); }
     }
-
-    public string Alias { get; }
 
     // Using a DependencyProperty as the backing store for EngineersValue.  This enables animation, styling, binding, etc...
     public static readonly DependencyProperty CurrentEngineerProperty =

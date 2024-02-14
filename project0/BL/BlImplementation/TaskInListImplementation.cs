@@ -20,7 +20,7 @@ namespace BlImplementation
         private static BO.Status GetStatuesOfTask(DO.Task task)
         {
             DateTime now = DateTime.Now;
-            if (task.scheduledDate == null)
+            if (task.ScheduledDate == null)
                 return BO.Status.Unscheduled;
             else if (task.StartDate == null)
                 return BO.Status.Scheduled;

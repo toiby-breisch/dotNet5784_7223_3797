@@ -23,7 +23,7 @@ public record Task
     bool Milestone,
     DateTime? CreatedAt,
     DateTime? StartDate,
-    DateTime? scheduledDate,
+    DateTime? ScheduledDate,
     DateTime? DeadlineDate,
     DateTime? CompleteDate,
     string ?Deliverables,
