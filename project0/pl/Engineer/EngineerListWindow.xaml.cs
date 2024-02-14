@@ -38,7 +38,7 @@ public partial class EngineerListWindow : Window
     public EngineerListWindow()
     {
         InitializeComponent();
-        var temp = s_bl?.EngineerInList.ReadAll();
+        var temp = s_bl?.EngineerInList.ReadAll().OrderBy(engineer => engineer.Id);
         EngineerList = temp == null ? new() : new(temp);
     }
     /// <summary>
@@ -52,8 +52,6 @@ public partial class EngineerListWindow : Window
         s_bl?.EngineerInList.ReadAll().OrderBy(engineer => engineer.Id) :
             s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter).OrderBy(engineer => engineer.Id);
             EngineerList = temp == null ? new() : new(temp);
-      
-
     }
     /// <summary>
     /// The function is for btn Add or Update_Click
@@ -66,7 +64,6 @@ public partial class EngineerListWindow : Window
         win.ShowDialog();
         var temp = s_bl?.EngineerInList.ReadAll();
         EngineerList = new(temp!);
-
     }
     /// <summary>
     /// The function updates the engineer by clicking the button.
@@ -77,8 +74,10 @@ public partial class EngineerListWindow : Window
     {
         BO.EngineerInList? engineerInList = (sender as ListView)?.SelectedItem as BO.EngineerInList;
         new EngineerWindow(engineerInList!.Id).ShowDialog();
-        var temp = s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter).OrderBy(engineer=>engineer.Id); 
-        EngineerList= new(temp!);
+        var temp =EngineerFilter == BO.EngineerExperience.None ?
+        s_bl?.EngineerInList.ReadAll().OrderBy(engineer=>engineer.Id) :
+            s_bl?.EngineerInList.ReadAll(item => item!.Level == EngineerFilter).OrderBy(engineer => engineer.Id);
+        EngineerList = new(temp!);
 
     }
 

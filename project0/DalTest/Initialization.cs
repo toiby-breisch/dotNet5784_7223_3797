@@ -25,14 +25,14 @@ public static class Initialization
     {
 
         s_dal = dal ?? throw new DalDeletionImpossible("DAL object can not be null!"); //stage 2
-        createEngineer();
+        CreateEngineer();
         CreateTask();
         createDependency();
     }
     /// <summary>
     /// Initializes the list of engineers
     /// </summary>
-    private static void createEngineer()
+    private static void CreateEngineer()
     {
         const int MIN_ID = 200000000;
         const int MAX_ID = 400000000;
@@ -82,9 +82,6 @@ public static class Initialization
         "Racheli Bekerman",
         "Miri Kaner",
         "Suly Eler"
-
-
-
     };
 
         foreach (var _name in engineerNames)
@@ -95,9 +92,8 @@ public static class Initialization
             while (s_dal!.Engineer.Read(_id) != null);
             string _tEmail = _name.Replace(" ", "");
             string _email = _tEmail + "@gmail.com";
-            int _level = _id % 5;
+            int _level = _id % 5+1;
             int _cost = s_rand.Next(MIN_C, MAX_C);
-
             Engineer newEngineer = new(_id, _name, _email, (DO.EngineerExperience)_level, _cost);
             s_dal.Engineer!.Create(newEngineer);
         }
@@ -130,7 +126,6 @@ public static class Initialization
             DateTime _baselineStart = _createdAt + span / 20;
             int _engineerId = engineers.ElementAt(s_rand.Next(40)).Id;
             int _complexityLevel = s_rand.Next(1, 6);
-
             Task newTask = new(0, _description, _alias, false, _createdAt, _start,
                 _forecastEndDate, _deadline, null, null, null, _engineerId, (DO.EngineerExperience)_complexityLevel, true);
             s_dal.Task!.Create(newTask);

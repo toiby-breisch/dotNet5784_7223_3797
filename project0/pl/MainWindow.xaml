@@ -22,7 +22,7 @@
         <Button Width="144" Height="70" HorizontalAlignment="Left" Click="BtnTask_Click" Content="Handle Tasks" Margin="344,204,0,160"/>
         <Button Width="144" Height="70" HorizontalAlignment="Left" Click="BtnEngineers_Click" Content="Handle Engineers" Margin="112,203,0,161"/>
         <!-- …  A button that, when clicked, will lead to initializing the  … -->
-        <Button Width="144"  Height="70" HorizontalAlignment="Left" Click="BtnDalTestInitialization_click" Content="Initialization Engineers" Margin="568,204,0,160"/>
+        <Button Width="144"  Height="70" HorizontalAlignment="Left" Click="BtnDalTestInitialization_click" Content="Initialization" Margin="568,204,0,160"/>
     </Grid>
 </Window>
     

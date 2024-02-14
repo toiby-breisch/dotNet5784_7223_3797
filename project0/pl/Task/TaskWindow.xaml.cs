@@ -96,7 +96,7 @@ public partial class TaskWindow : Window
                 if (InputIntegrityCheck(CurrentTask))
                 {
                     s_bl.Task.Create(CurrentTask);
-                    MessageBox.Show("Object with id " + CurrentTask.Id + "had added successfully!");
+                    MessageBox.Show("The task had added successfully!");
                     this.Close();
                 }
             }

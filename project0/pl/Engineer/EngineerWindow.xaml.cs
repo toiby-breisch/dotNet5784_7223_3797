@@ -93,7 +93,6 @@ public partial class EngineerWindow : Window
         string content = (sender as Button)!.Content.ToString()!;
         try
         {
-           
                 if (content == "Add")
                 {
                     if (InputIntegrityCheck(CurrentEngineer))
@@ -110,21 +109,15 @@ public partial class EngineerWindow : Window
                             s_bl.Engineer.Update(CurrentEngineer!);
                             MessageBox.Show("Object with id " + CurrentEngineer.Id + "had updated successfully!");
                             this.Close();
-                        }
-                       
+                        } 
                 }
-            
-         
-         
         }
         catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
         catch (BO.BlDoesNotExistException ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
         catch (BO.BlNullOrNotIllegalPropertyException
         ex) { MessageBox.Show(ex.Message, "error Window", MessageBoxButton.OK, MessageBoxImage.Error); Close(); return; }
         Close();
-
     }
-
     [GeneratedRegex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")]
     private static partial Regex MyRegex();
 }
