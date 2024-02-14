@@ -17,6 +17,10 @@ internal class TaskIplementation : BlApi.ITask
         Dal = dal;
     }
 
+    public TaskIplementation()
+    {
+    }
+
     /// <summary>
     /// The function create a new task.
     /// </summary>
@@ -27,8 +31,7 @@ internal class TaskIplementation : BlApi.ITask
     public int Create(BO.Task boTask)
     {
         if (boTask.StartDate > boTask.ScheduledDate || boTask.ScheduledDate > boTask.ForecastDate ||
-           boTask.ForecastDate < boTask.CompleteDate || boTask.DeadlineDate < boTask.CompleteDate ||
-           boTask.Id <= 0 || boTask.Alias == "")
+           boTask.ForecastDate < boTask.CompleteDate || boTask.DeadlineDate < boTask.CompleteDate )
             throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
         if (boTask.Id < 0 || boTask.Alias == "" || boTask.Description == "")
             throw new BO.BlNullOrNotIllegalPropertyException("ERROR: '\n'The data you entered is incorrect.");
@@ -166,13 +169,11 @@ internal class TaskIplementation : BlApi.ITask
     public void Update(BO.Task task)
     {
 
-        //if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
-        //  task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate ||
-        //task.Id < 0 || task.Alias == "")
-        // throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
+        if (task.StartDate > task.ScheduledDate || task.ScheduledDate > task.ForecastDate ||
+          task.ForecastDate < task.CompleteDate || task.DeadlineDate < task.CompleteDate )
+            throw new BO.BlNullOrNotIllegalPropertyException($"The dates you enterd are not legal");
 
         if (Dal.Engineer.Read(task!.Engineer!.Id) == null)
-
             throw new BO.BlDoesNotExistException($"Engineer with ID={task!.Engineer!.Id} does not exixt ");
 
         try
